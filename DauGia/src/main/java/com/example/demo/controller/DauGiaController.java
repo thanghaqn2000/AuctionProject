@@ -57,6 +57,7 @@ public class DauGiaController {
             model.addAttribute("admin", "là admin");
         }
 //        model.addAttribute("listSP", sanPhamService.findByDaDuyet());
+        model.addAttribute("danhmucs", danhMucService.findAll());
         model.addAttribute("thoiTrang", sanPhamService.findByDanhMuc(true, 1));
         model.addAttribute("sach", sanPhamService.findByDanhMuc(true, 2));
         model.addAttribute("giay", sanPhamService.findByDanhMuc(true, 3));
