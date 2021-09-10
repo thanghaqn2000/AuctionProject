@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900"
+          rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+          rel="stylesheet"/>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css"/>
+    <link rel="stylesheet" href="/css/styles_khoa/css/ionicons.min.css">
+    <link rel="stylesheet" href="/css/styles_khoa/css/header.css">
+    <link rel="stylesheet" href="/css/styles_khoa/css/ionicons.min.css">
+    <link rel="stylesheet" href="/css/styles_khoa/css/style.css">
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+            crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/nha/ThanhToan.css">
+    <style>
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<header th:replace="~{/header_footer/header_client::header}"></header>
+<div class="container">
+    <div class="content">
+        <div class="content_left">
+            <div class="btn-group"
+                    role="group"
+                    aria-label="Basic outlined example">
+                <button
+                        type="button"
+                        class="btn btn-outline-primary"
+                        style="width: 415px; height: 60px" >
+                    <img src="https://img.icons8.com/material-outlined/24/4a90e2/fast-cart.png"/>
+                    My Card
+                </button>
+                <button
+                        type="button"
+                        class="btn btn-outline-primary"
+                        style="width: 415px" >
+                    <img src="https://img.icons8.com/material-outlined/24/4a90e2/set-as-resume.png"/>
+                    Saved for Later
+                </button>
+            </div>
+            <div class="product">
+                <div class="head_product">
+                    <div class="left_head" style="float: left ; width: 400px;">
+                        <p style="padding: 12px; margin: 0;">Sản Phẩm</p>
+                    </div>
+                    <div class="right_head" style="float: left; width: 400px ;text-align: right">
+                        <p style="padding: 12px; margin: 0;">Giá Từng Phần
+                            <img src="https://img.icons8.com/ios-glyphs/30/000000/break.png" height="20px"/>
+                        </p>
+                    </div>
+                </div>
+                <div class="middle_product" style="padding: 10px; font-size: 17px; color: white; font-weight: bold;">
+                    <p>Shipment 1: Receive 05-Apr to 12-Apr</p>
+                </div>
+                <div class="show_product" th:if="${carts!=null}" th:each="item : ${carts}">
+                    <div class="show_left" style="float: left">
+                        <img th:src="@{${'/img/' + item.value.getSanPham().hinh}}"
+                                alt=""
+                                height="130px"
+                                width="100px"
+                                style="margin: 10px" />
+                    </div>
+                    <div class="show_middle" style="float: left;width: 347px">
+                        <h5 th:text="${item.value.getSanPham().tenSanPham}"></h5>
+                        <div class="buttons_added" style="float: left">
+                            <input class="minus is-form" type="button" value="-"/>
+                            <input
+                                    aria-label="quantity"
+                                    class="input-qty"
+                                    max="10"
+                                    min="1"
+                                    name=""
+                                    type="number"
+                                    th:value="${item.value.getQuantity()}"
+                            />
+                            <input class="plus is-form" type="button" value="+"/>
+                            <button type="button" class="btn btn-outline-primary">
+                                Xanh da trời
+                            </button>
+                        </div>
+                    </div>
+                    <div class="show_right" style="float: left; width: 250px; text-align: right;">
+                        <p>Giá: <th:block th:text="${#numbers.formatDecimal(item.value.getSanPham().giaKhoiDiem*item.value.getQuantity(), 0, 'POINT', 0, 'COMMA')}"></th:block></p>
+                        <img
+                                src="https://img.icons8.com/material-outlined/24/4a90e2/set-as-resume.png"
+                        />
+                        <a href="">Saved for late</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content_right">
+            <div class="content_right_up">
+                <h4 style="text-align: center;">Tóm tắt đơn hàng</h4>
+                <table>
+                    <tr>
+                        <td>Item Total</td>
+                        <td>89.100,00</td>
+                    </tr>
+                    <tr>
+                        <td>Giao hàng</td>
+                        <td>49.000,00</td>
+                    </tr>
+                    <tr>
+                        <td>Tổng</td>
+                        <td>
+                            <img
+                                    src="https://image.flaticon.com/icons/png/512/32/32730.png"
+                                    alt=""
+                                    height="15px"
+                                    width="15px"
+                            />138.100
+                        </td>
+                    </tr>
+                </table>
+                <center>
+                    <button
+                            type="button"
+                            class="btn btn-success"
+                            style="width: 350px"
+                    >
+                        <img
+                                src="https://img.icons8.com/material-outlined/24/ffffff/shopping-cart.png"
+                        />
+                        Hoàn tất ngay
+                    </button>
+                </center>
+
+                <p style="margin: 8px">
+                    <img
+                            src="https://img.icons8.com/ios/50/000000/free-shipping.png"
+                    />
+                    Giao dịch toàn quốc | từ 49.000 đ
+                </p>
+                <div>
+                    <img
+                            style="height: 40px; width: 40px"
+                            src="https://media.ninhthuantourism.vn/resources/portal//Images/NTN/nguyenhaan/Ti%E1%BB%87n%20%C3%ADch/246x0w_636892088212276736.jpg"
+                            alt=""
+                    />
+                    <img
+                            style="height: 40px; width: 40px"
+                            src="https://www.ngoisaoso.vn/uploads/news/2013_07/01/130513-logo-vietcombank.png"
+                            alt=""
+                    />
+                    <img
+                            style="height: 40px; width: 40px"
+                            src="https://nganhangviet.org/wp-content/uploads/2020/12/logo-acb-4.jpg"
+                            alt=""
+                    />
+                </div>
+            </div>
+            <div class="content_right_down">
+                <iframe
+                        width="390px"
+                        height="266px"
+                        style="margin-top: 30px"
+                        src="https://www.youtube.com/embed/pEwN83HCzD4"
+                        title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                ></iframe>
+            </div>
+        </div>
+    </div>
+    <div class="content_down">
+        <div class="content1">
+            <h5>KHI NÀO TÔI NHẬN ĐƯỢC HÀNG?</h5>
+            <p>Trong vòng 1-3 ngày</p>
+        </div>
+        <div class="content1">
+            <h5>ĐIỀU KHOẢN TRẢ LẠI CỦA CHILIDO LÀ GÌ?</h5>
+            <p>
+                Nếu bạn không hài lòng với kiện hàng , bạn có thể hoàn trả trong
+                vòng 30 ngày.
+            </p>
+        </div>
+        <div class="content1">
+            <h5>THAY ĐỔI ĐƠN HÀNG</h5>
+            <p>Gọi cho chúng tôi theo số (028)-36222111</p>
+        </div>
+    </div>
+</div>
+<footer style="height: 0" th:replace="~{/header_footer/footer::footer}"></footer>
+
+</body>
+</html>

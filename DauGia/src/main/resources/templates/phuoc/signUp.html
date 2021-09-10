@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="ThemeBucket">
+    <title>Login</title>
+    <link href="/phuoc/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/phuoc/css/bootstrap-reset.css" rel="stylesheet">
+    <link href="/phuoc/css/font-awesome.css" rel="stylesheet" />
+    <link href="/phuoc/css/style.css" rel="stylesheet">
+    <link href="/phuoc/css/style-responsive.css" rel="stylesheet" />
+    <script src="/phuoc/js/ie8-responsive-file-warning.js"></script>
+</head>
+<body class="login-body">
+<div class="container">
+
+    <form class="form-signin" action="/singup" method="post">
+        <h2 class="form-signin-heading">ĐĂNG KÝ</h2>
+        <div class="login-wrap">
+            <p>Nhập thông tin cá nhân của bạn</p>
+            <input type="text" class="form-control" placeholder="Họ và tên" name="hovaten" autofocus>
+            <input type="text" class="form-control" placeholder="Tên đăng nhập" name="tendangnhap" autofocus>
+            <input type="text" class="form-control" placeholder="Email"  name="email" autofocus>
+            <input type="text" class="form-control" placeholder="Ngày sinh" name="ngaysinh" autofocus>
+            <input type="text" class="form-control" placeholder="giới Tính" name="gioitinh" autofocus>
+            <input type="text" class="form-control" placeholder="Số điện thoại" name="sodt" autofocus>
+            <input type="text" class="form-control" placeholder="Số CMND/CCCD" name="socmnd" autofocus>
+            <input type="text" class="form-control" placeholder="Địa chỉ" name="diachi" autofocus>
+            <input type="password" class="form-control" placeholder="Mật khẩu" name="matkhau">
+            <label class="checkbox">
+                <input type="checkbox" value="agree this condition">
+                Tôi đồng ý với <a href="#">Điều khoản dịch vụ và Chính sách quyền riêng tư</a>
+            </label>
+            <button class="btn btn-lg btn-login btn-block" type="submit">Đăng ký</button>
+            <label class="checkbox" style="margin-top: 20px;margin-left: 20px">
+                Đã đăng ký tài khoản.
+                <a class="" href="/phuoc/signIn">
+                    Đăng nhập
+                </a>
+            </label>
+        </div>
+
+    </form>
+
+</div>
+<script src="/phuoc/js/jquery.js"></script>
+<script src="/phuoc/js/bootstrap.min.js"></script>
+</body>
+</html>

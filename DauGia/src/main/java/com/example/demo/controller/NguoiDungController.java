@@ -1,0 +1,97 @@
+package com.example.demo.controller;
+
+import com.example.demo.model.NguoiDung;
+import com.example.demo.repository.nguoi_dung.NguoiDungRepo;
+import com.example.demo.service.nguoi_dung.NguoiDungServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.security.Principal;
+
+@Controller
+@RequestMapping("/luan")
+public class NguoiDungController {
+    @Autowired
+    private NguoiDungServiceImpl nguoiDungService;
+
+    @Autowired
+    NguoiDungRepo nguoiDungRepo;
+
+    @GetMapping("/admin-member-list")
+    public ModelAndView listAll(@RequestParam(defaultValue = "0") int page, Principal principal, Model model1) {
+        NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
+        model1.addAttribute("nguoiDung", nguoiDung);
+        ModelAndView model = new ModelAndView("luan/admin-member-list");
+        Page<NguoiDung> nguoiDungs;
+        Pageable pageable = PageRequest.of(page, 5);
+        nguoiDungs = nguoiDungService.findAll(pageable);
+        model.addObject("nguoidungs", nguoiDungs);
+        return model;
+    }
+
+    @PostMapping("/filter")
+    public ModelAndView getList(@RequestParam(defaultValue = "0") int page, @RequestParam String tenNguoiDung,
+                                @RequestParam String diaChi) {
+        ModelAndView modelAndView = new ModelAndView("/luan/admin-member-list");
+        Page<NguoiDung> nguoiDungs;
+        Pageable pageableSort = PageRequest.of(page, 5);
+        if (tenNguoiDung.equals("")) {
+            if (!diaChi.equals("")) {
+                nguoiDungs = nguoiDungService.findByDiaChi(diaChi, pageableSort);
+            } else {
+                nguoiDungs = nguoiDungService.findAll(pageableSort);
+            }
+        } else {
+            if (!diaChi.equals("")) {
+                nguoiDungs = nguoiDungService.findByTenNguoiDungAndDiaChi(tenNguoiDung, diaChi, pageableSort);
+            } else {
+                nguoiDungs = nguoiDungService.findByTenNguoiDung(tenNguoiDung, pageableSort);
+            }
+        }
+        modelAndView.addObject("tenNguoiDung", tenNguoiDung);
+        modelAndView.addObject("nguoidungs", nguoiDungs);
+        modelAndView.addObject("diaChi", diaChi);
+        return modelAndView;
+    }
+
+
+    @GetMapping("/add_member")
+    public ModelAndView create() {
+        ModelAndView model = new ModelAndView("/khoa/add_member");
+        model.addObject("nguoiDung", new NguoiDung());
+        return model;
+    }
+
+    @PostMapping("/save")
+    public String save(@ModelAttribute NguoiDung nguoiDung) {
+        System.out.println(nguoiDung.getMaNguoiDung());
+        nguoiDungService.save(nguoiDung);
+        return "redirect:/luan/admin-member-list";
+    }
+
+    @GetMapping("/{id}/delete")
+    public String delete(@PathVariable int id) {
+        nguoiDungService.remove(id);
+        return "redirect:/luan/admin-member-list";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable int id, Model model) {
+        model.addAttribute("nguoiDung", nguoiDungService.findById(id));
+        return "/khoa/edit_member";
+    }
+
+    @PostMapping("/edit_member")
+    public String edit(@ModelAttribute NguoiDung nguoiDung) {
+        nguoiDungService.save(nguoiDung);
+        return "redirect:/luan/admin-member-list";
+    }
+
+
+}

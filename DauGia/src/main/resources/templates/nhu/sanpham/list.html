@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="bootstrap413/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="datatables/css/dataTables.bootstrap4.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/styles_khoa/css/ionicons.min.css">
+    <link rel="stylesheet" href="/css/styles_khoa/css/header.css">
+    <link rel="stylesheet" href="/css/styles_khoa/css/style.css">
+    <link rel="stylesheet" href="/css/luan/chat.css">
+    <link href="/thang/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/thang/css/bootstrap4.css" rel="stylesheet" type="text/css" media="all">
+    <script src="/thang/js/jquery-1.11.0.min.js"></script>
+    <!-- Custom Theme files -->
+    <link href="/thang/css/style.css" rel="stylesheet" type="text/css" media="all"/>
+    <link rel="stylesheet" href="/thang/css/flexslider.css" type="text/css" media="screen"/>
+    <!-- Custom Theme files -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+</head>
+<body>
+<!-- //end-smoth-scrolling -->
+<!--header start here-->
+<header th:insert="~{/header_footer/header_client::header}"></header>
+<!--header end here-->
+<!--banner strip start here-->
+<script src="js/responsiveslides.min.js"></script>
+<script>
+    $(function () {
+        $("#slider").responsiveSlides({
+            auto: true,
+            speed: 500,
+            namespace: "callbacks",
+            pager: false,
+            nav: true,
+        });
+    });
+</script>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-bottom: 60px">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarScroll"
+                aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarScroll">
+            <form class="d-flex" style="margin-top: 20px">
+                <label class="btn btn-success" style="width: 120px;">Tên sản phẩm</label>
+                <input class="form-control mr-2" type="search" placeholder="Tìm kiếm" aria-label="Search"
+                       style="width: 400px;margin-left: 20px">
+            </form>
+            <ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll"
+                style="max-height: 100px;margin-left: 155px">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
+                       data-toggle="dropdown" aria-expanded="false">
+                        Danh mục
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                        <li><a class="dropdown-item" href="#">Đồ điện tử</a></li>
+                        <li><a class="dropdown-item" href="#">Đồ gia dụng</a></li>
+                        <li><a class="dropdown-item" href="#">Nhà cửa</a></li>
+                        <li><a class="dropdown-item" href="#">Xe cộ</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown1" role="button"
+                       data-toggle="dropdown" aria-expanded="false">
+                        Mức giá
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown1">
+                        <li><a class="dropdown-item" href="#">10.000 - 100.000</a></li>
+                        <li><a class="dropdown-item" href="#">100.000 - 500.000</a></li>
+                        <li><a class="dropdown-item" href="#">500.000 - 1.000.000</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <button class="btn btn-secondary" style="margin-left: 20px;margin-top: 14px">Tìm kiếm</button>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll"
+                style="max-height: 200px;margin-left: 40px">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button"
+                       data-toggle="dropdown" aria-expanded="false">
+                        Tài Khoản
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown1">
+                        <li><a class="dropdown-item" href="http://localhost:8080/sanpham/list">Sản phẩm</a></li>
+                        <li><a class="dropdown-item" href="http://localhost:8080/sanpham/create">Thêm mới Sản phẩm</a>
+                        <li><a class="dropdown-item" href="http://localhost:8080/sanpham/listduyet">Sản phẩm đang chờ
+                            duyệt</a>
+                        </li>
+                        <li>
+                            <span>
+                        <a class="dropdown-item" th:if="${admin != null}" href="http://localhost:8080/admin/"> Truy Cập Trang Quản Trị
+                        </a>
+                                </span>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<div class="services">
+    <div class="container">
+        <div class="services-main">
+            <div class="services-top">
+                <h3 class="btn btn-secondary">Sản phẩm Của Bạn</h3>
+            </div>
+            <div>
+                <span style="color:#005cbf" th:if="${mgsedit}">Sửa sản phẩm thành công</span>
+            </div>
+            <div>
+                <span style="color:#005cbf" th:if="${mgsdelete}">Xóa sản phẩm thành công</span>
+            </div>
+            <div>
+                <span style="color: #005cbf" th:if="${mgs}">Thêm mới sản phẩm thành công. Sản phẩm sẽ được đấu giá khi admin duyệt !</span>
+            </div>
+            <div class="services-bottom">
+                <div class="row">
+                    <div class="col-sm-6 col-md-2 ser item-dau-gia" th:each="sanPham:${listSP}">
+                        <div class="thumbnail itemProduct">
+                            <div class="img-dau-gia">
+                                <a th:href="@{/product-detail/{id}(id=${sanPham.maSanPham})}"><img
+                                        th:src="@{${'/img/' + sanPham.hinh}}"
+                                        alt=""></a>
+                            </div>
+                            <div class="caption">
+                                <a th:href="@{/product-detail/{id}(id=${sanPham.maSanPham})}"><h3
+                                        th:text="${sanPham.tenSanPham}" class="nameProduct"></h3>
+                                    <p th:text="${sanPham.danhMuc.tenDanhMuc}"></p></a>
+                                <div class="row rowProduct" style=" padding: 0em 0em 0.5em 0em;border-bottom: 0px">
+                                    <span class="col-md-6 time"></span>
+                                    <p class="col-md-6 price" th:text="${sanPham.giaKhoiDiem}">30.000đ</p>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <a th:href="@{/sanpham/edit(id = ${sanPham.maSanPham})}"
+                                           class="btn btn-dau-gia btn-secondary">Sửa</a>
+                                    </div>
+                                    <div class="col-6">
+                                        <!--                                        <a th:href="@{/sanpham/delete(id = ${sanPham.maSanPham})}"-->
+                                        <!--                                           class="btn btn-dau-gia btn-secondary">Xóa</a>-->
+                                        <button class="btn btn-dau-gia btn-secondary" data-toggle="modal"
+                                                data-target="#exampleModal"
+                                                th:onclick="preparedelete([[${sanPham.maSanPham}]],[[${sanPham.tenSanPham}]])">
+                                            Xóa
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="exampleModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    &times;
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Mã sản Phẩm :
+                    <span id="maSanPham"></span></p>
+                <p>Bạn có chắc chắn muốn xóa
+                    <span id="tenSanPham"></span>
+                    Không ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy
+                </button>
+                <button onclick="deleteService($('#maSanPham').html())" type="button"
+                        class="btn btn-default" data-dismiss="modal">
+                    Xóa
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function preparedelete(maSanPham, tenSanPham) {
+        $('#maSanPham').html(maSanPham)
+        $('#tenSanPham').html(tenSanPham)
+    }
+
+    function deleteService(maSanPham) {
+        console.log(maSanPham);
+        $.ajax(
+            {
+                type: 'get',
+                url: "/sanpham/delete/" + maSanPham,
+                success: function () {
+                    window.location.href = "http://localhost:8080/sanpham/list";
+                }
+            }
+        )
+    }
+</script>
+
+<div th:replace="~{/luan/product-detail::chat}">
+
+</div>
+<!--effec end here-->
+<!--project star here-->
+<link rel="stylesheet" type="text/css" href="css/magnific-popup.css">
+<script type="text/javascript" src="js/nivo-lightbox.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#nivo-lightbox-demo a').nivoLightbox({effect: 'fade'});
+    });
+</script>
+
+<!--clients start here-->
+
+
+<footer style="height: 0" th:insert="~{/header_footer/footer::footer}"></footer>
+
+</body>
+</html>
+
+
+
+
+
+
+
+

@@ -1,0 +1,320 @@
+<!DOCTYPE HTML>
+<html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Trang chủ</title>
+    <link rel="stylesheet" href="/css/styles_khoa/css/ionicons.min.css">
+    <link rel="stylesheet" href="/css/styles_khoa/css/header.css">
+    <link rel="stylesheet" href="/css/styles_khoa/css/style.css">
+    <link rel="stylesheet" href="/css/luan/chat.css">
+
+    <link href="/thang/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/thang/css/bootstrap4.css" rel="stylesheet" type="text/css" media="all">
+    <script src="/thang/js/jquery-1.11.0.min.js"></script>
+    <!-- Custom Theme files -->
+    <link href="/thang/css/style.css" rel="stylesheet" type="text/css" media="all"/>
+    <link rel="stylesheet" href="/thang/css/flexslider.css" type="text/css" media="screen"/>
+    <!-- Custom Theme files -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css"/>
+    <script type="application/x-javascript"> addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    }
+
+    </script>
+    <meta name="keywords"
+          content="Auction Responsive web template, Bootstrap Web Templates, Flat Web Templates, AndriodCompatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design"/>
+    <!--Google Fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet'
+          type='text/css'>
+    <!-- start-smoth-scrolling -->
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({scrollTop: $(this.hash).offset().top}, 1000);
+            });
+        });
+    </script>
+    <style>
+        label {
+            color: #027ca5;
+        }
+    </style>
+</head>
+<body>
+<!-- //end-smoth-scrolling -->
+<!--header start here-->
+<header th:insert="~{/header_footer/header_client::header}"></header>
+<!--header end here-->
+<!--banner strip start here-->
+<script src="js/responsiveslides.min.js"></script>
+<script>
+    $(function () {
+        $("#slider").responsiveSlides({
+            auto: true,
+            speed: 500,
+            namespace: "callbacks",
+            pager: false,
+            nav: true,
+        });
+    });
+</script>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-bottom: 60px">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarScroll"
+                aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarScroll">
+            <form class="d-flex" style="margin-top: 20px">
+                <label class="btn btn-success" style="width: 120px;">Tên sản phẩm</label>
+                <input class="form-control mr-2" type="search" placeholder="Tìm kiếm" aria-label="Search"
+                       style="width: 400px;margin-left: 20px">
+            </form>
+            <ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll"
+                style="max-height: 100px;margin-left: 155px">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
+                       data-toggle="dropdown" aria-expanded="false">
+                        Danh mục
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                        <li><a class="dropdown-item" href="#">Đồ điện tử</a></li>
+                        <li><a class="dropdown-item" href="#">Đồ gia dụng</a></li>
+                        <li><a class="dropdown-item" href="#">Nhà cửa</a></li>
+                        <li><a class="dropdown-item" href="#">Xe cộ</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown1" role="button"
+                       data-toggle="dropdown" aria-expanded="false">
+                        Mức giá
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown1">
+                        <li><a class="dropdown-item" href="#">10.000 - 100.000</a></li>
+                        <li><a class="dropdown-item" href="#">100.000 - 500.000</a></li>
+                        <li><a class="dropdown-item" href="#">500.000 - 1.000.000</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <button class="btn btn-secondary" style="margin-left: 20px;margin-top: 14px">Tìm kiếm</button>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll"
+                style="max-height: 200px;margin-left: 40px">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button"
+                       data-toggle="dropdown" aria-expanded="false">
+                        Tài Khoản
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown1">
+                        <li><a class="dropdown-item" href="http://localhost:8080/sanpham/list">Sản phẩm</a></li>
+                        <li><a class="dropdown-item" href="http://localhost:8080/sanpham/create">Thêm mới Sản phẩm</a>
+                        <li><a class="dropdown-item" href="http://localhost:8080/sanpham/listduyet">Sản phẩm đang
+                            duyệt</a>
+                        <li>
+                            <span>
+                        <a class="dropdown-item" th:if="${admin != null}" href="http://localhost:8080/admin/"> Truy Cập Trang Quản Trị
+                        </a>
+                                </span>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container">
+    <form method="post" action="/sanpham/edit" th:object="${sanphams}">
+        <fieldset>
+            <div class="services-top">
+                <h3 class="btn btn-secondary"> Sửa Sản Phẩm </h3>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Mã Sản Phẩm *</label>
+                <div class="col-sm-8">
+                    <input type="text" th:field="*{maSanPham}" class="form-control is-invalid" readonly>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Tên sản phẩm *</label>
+                <div class="col-sm-8">
+                    <p style="color: red" th:if="${#fields.hasErrors('tenSanPham')}" th:errors="*{tenSanPham}">Error</p>
+                    <input type="text" th:field="*{tenSanPham}" class="form-control is-invalid">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Người đăng *</label>
+                <div class="col-sm-8">
+                    <!--                <input type="text" th:field="*{appUser}" th:each="appuser: ${sanphams.appUser}"-->
+                    <!--                       th:text="${sanphams.appUser.nguoiDung.tenNguoiDung}" th:value="${sanphams.appUser.userId}" class="form-control is-invalid">-->
+                    <select readonly th:field="*{taiKhoan}">
+                        <option th:each="appuser: ${sanphams.taiKhoan}"
+                                th:text="${sanphams.taiKhoan.nguoiDung.tenNguoiDung}"
+                                th:value="${sanphams.taiKhoan.taiKhoan}"></option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Số Lượng *</label>
+                <div class="col-sm-8">
+                    <!--                    <p style="color: red" th:if="${#fields.hasErrors('soLuong')}" th:errors="*{soLuong}">Error</p>-->
+                    <input type="number" th:min="1" th:field="*{soLuong}" class="form-control is-invalid">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Danh Mục *</label>
+                <div class="col-sm-8">
+                    <select class="form-control custom-select is-invalid" th:field="*{danhMuc}">
+                        <option th:text="${sanphams.danhMuc.tenDanhMuc}"
+                                th:value="${sanphams.danhMuc.maDanhMuc}"></option>
+                        <option th:each="danhmuc: ${danhmucs}" th:text="${danhmuc.tenDanhMuc}"
+                                th:value="${danhmuc.maDanhMuc}"></option>
+                    </select>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Hình ảnh sản phẩm *</label>
+                <div class="col-sm-8">
+                    <img th:src="@{${'/img/' + sanphams.hinh}}" alt="">
+                    <br/>
+                    <input type="text" th:field="*{hinh}" class="form-control is-invalid">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Giá ban đầu *</label>
+                <div class="col-sm-8">
+                    <input type="number" th:min="0" th:field="*{giaKhoiDiem}" class="form-control is-invalid">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Bước giá *</label>
+                <div class="col-sm-8">
+                    <input th:field="*{mucGia}" type="number" th:min="1000" th:step="1000"
+                           class="form-control is-invalid"
+                           placeholder="Là giá thấp nhất trong mỗi lần tăng giá">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Giờ bắt đầu *</label>
+                <div class="col-sm-5">
+                    <!--                    <p style="color: red" th:if="${#fields.hasErrors('gioBatDau')}" th:errors="*{gioBatDau}">Error</p>-->
+                    <input type="time" th:field="*{gioBatDau}" class="form-control is-invalid">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Ngày Bắt đầu *</label>
+                <div class="col-sm-5">
+                    <!--                    <p style="color: red" th:if="${#fields.hasErrors('gioKetThuc')}" th:errors="*{gioKetThuc}">Error</p>-->
+                    <input type="date" th:field="*{ngayBatDau}" class="form-control is-invalid">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Giờ Kết thúc *</label>
+                <div class="col-sm-5">
+                    <!--                    <p style="color: red" th:if="${#fields.hasErrors('gioKetThuc')}" th:errors="*{gioKetThuc}">Error</p>-->
+                    <input type="time" th:field="*{gioKetThuc}" class="form-control is-invalid">
+                </div>
+            </div>
+            <div class="form-group row">
+                <!--                <p style="color: red" th:if="${#fields.hasErrors('ngayKetThuc')}" th:errors="*{ngayKetThuc}">Error</p>-->
+                <label class="col-sm-2 col-form-label">Ngày kết thúc *</label>
+                <div class="col-sm-5">
+                    <input type="date" th:field="*{ngayKetThuc}" class="form-control is-invalid">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Thông tin chi tiết</label>
+                <div class="col-sm-10">
+                    <textarea type="textarea" th:field="*{moTa}" class="form-control is-valid" rows="6"> </textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Ngày đăng ký*</label>
+                <div class="col-sm-8">
+                    <input readonly type="date" th:field="*{ngayDangKi}" th:value="*{ngayDangKi}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Tình Trạng</label>
+                <div class="col-sm-8">
+                    <input readonly type="text" th:field="*{tinhTrang}" class="form-control is-invalid">
+                </div>
+                <!--                <div class="col-sm-8">-->
+                <!--                    <select th:field="*{tinhTrang}" class="form-control is-invalid">-->
+                <!--                        <option th:value="0">Chưa Duyệt</option>-->
+                <!--                        <option th:value="1">Đã Duyệt</option>-->
+                <!--                    </select>-->
+                <!--                </div>-->
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                </div>
+                <div class="col-sm-1">
+                    <input type="submit" style="background:#1ab7ea;color: white" class="form-control"
+                           value="Sửa">
+                </div>
+            </div>
+        </fieldset>
+    </form>
+
+</div>
+
+<div th:replace="~{/luan/product-detail::chat}">
+
+</div>
+<!--effec end here-->
+<!--project star here-->
+<link rel="stylesheet" type="text/css" href="css/magnific-popup.css">
+<script type="text/javascript" src="js/nivo-lightbox.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#nivo-lightbox-demo a').nivoLightbox({effect: 'fade'});
+    });
+</script>
+
+<!--clients start here-->
+
+
+<footer style="height: 0" th:insert="~{/header_footer/footer::footer}"></footer>
+
+<!-- FlexSlider -->
+
+
+<script src="/thang/js/countTime.js"></script>
+<script src="/js/chat-responses.js"></script>
+<script src="/js/chat.js"></script>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<!--footer end here-->
+</body>
+</html>
+
+
+
+

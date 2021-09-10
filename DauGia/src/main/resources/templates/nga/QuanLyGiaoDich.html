@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="bootstrap413/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="datatables/css/dataTables.bootstrap4.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/styles_khoa/css/ionicons.min.css">
+    <link rel="stylesheet" href="/css/styles_khoa/css/header.css">
+    <link rel="stylesheet" href="/css/styles_khoa/css/style.css">
+    <link rel="stylesheet" href="/css/luan/chat.css">
+    <link href="/thang/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/thang/css/bootstrap4.css" rel="stylesheet" type="text/css" media="all">
+    <script src="/thang/js/jquery-1.11.0.min.js"></script>
+    <link href="/thang/css/style.css" rel="stylesheet" type="text/css" media="all"/>
+    <link rel="stylesheet" href="/thang/css/flexslider.css" type="text/css" media="screen"/>
+
+    <link rel="stylesheet" type="text/css" href="/css/fooder.css">
+    <link rel="stylesheet" href="/bootstrap-4/css/bootstrap.min.css">
+    <script src="/bootstrap-4/js/bootstrap.min.js"></script>
+    <script src="/bootstrap-4/js/bootstrap.bundle.min.js"></script>
+    <script src="/jquery/jquery-3.5.1.min.js"></script>
+    <script src="/jquery/popper.min.js"></script>
+    <link href="/thang/css/style.css" rel="stylesheet" type="text/css" media="all"/>
+</head>
+<body>
+<header th:insert="~{/header_footer/header_client::header}"></header>
+<nav th:insert="~{/nhu/admin/duyet::headerAdmin}"></nav>
+<div class="container">
+    <center>
+        <h1 style="color: #027ca5;font-family: Nunito,sans-serif;margin: 0 0 24px;padding: 11px 0 0;">
+            Quản Lý Giao Dịch
+        </h1>
+    </center>
+    <br><br>
+    <div class="filter-side">
+        <form action="/admin/pagaList" method="post">
+            <label>Tên Người Dùng</label>
+            <input type="text" name="tenNguoiDung" id="mem-name"/>
+            <label>Tên Sản Phẩm</label>
+            <input type="text" name="tenSanPham" id="mem-add"/>
+            <button class="filter-btn" type="submit">Lọc kết quả</button>
+        </form>
+    </div>
+    <br><br><br>
+    <table class="table table-hover text-center">
+        <thead>
+        <tr style=" color: #027ca5;">
+            <th>STT</th>
+            <th>Mã giao dịch</th>
+            <th>Thời gian đấu giá thành công</th>
+            <th>Người mua</th>
+            <th>Tên sản phẩm</th>
+            <th>Số lượng</th>
+            <th>Thành tiền</th>
+            <th>Tình trạng giao dịch</th>
+            <th>Xóa</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="chitietDonHang,iterStat:${nguoidungs}">
+            <td th:text="${iterStat.count}"></td>
+            <td th:text="${chitietDonHang.donHang.maDonHang}"></td>
+            <td th:text="${chitietDonHang.donHang.ngayMua}"></td>
+            <td th:text="${chitietDonHang.donHang.nguoiDung.tenNguoiDung}"></td>
+            <td th:text="${chitietDonHang.sanPham.tenSanPham}"></td>
+            <td th:text="${chitietDonHang.soLuong}"></td>
+            <td th:text="${chitietDonHang.donHang.tongTien}"></td>
+            <td th:text="${chitietDonHang.donHang.trangThai}"></td>
+            <!--            <td><form action="" method="post"><a th:href="@{'/delete/'+${donHang.maDonHang}}"><button class="glyphicon glyphicon-pencil">Delete</button></a></form></td>-->
+            <td>
+                <button><a  th:href="@{/admin/{id}/delete(id=${chitietDonHang.donHang.maDonHang})}">Delete</a>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <div style="margin-top: 15px;text-align: center;">
+        <div style="margin-bottom: 15px;"><span th:text="${nguoidungs.number + 1}"></span>/<span
+                th:text="${nguoidungs.totalPages}"></span></div>
+        <div style="display: inline-block;">
+            <a th:href="@{'/admin/admin-quanlygiaodich'(page=${nguoidungs.number - 1})}"
+               th:if="${nguoidungs.hasPrevious()}">Previous</a>
+            <a th:href="@{'/admin/admin-quanlygiaodich'(page=${nguoidungs.number + 1})}"
+               th:if="${nguoidungs.hasNext()}">Next</a>
+        </div>
+
+    </div>
+</div>
+<section th:insert="~{/nga/fooder::footer}">
+</section>
+<script src="/bootstrap-4/js/bootstrap.min.js"></script>
+<script src="/jquery/jquery-3.5.1.min.js"></script>
+<script src="/jquery/popper.min.js"></script>
+</body>
+</html>
