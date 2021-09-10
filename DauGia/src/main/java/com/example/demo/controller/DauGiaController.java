@@ -4,6 +4,7 @@ import com.example.demo.model.*;
 import com.example.demo.repository.dau_gia.ChiTietDauGiaRepo;
 import com.example.demo.repository.dau_gia.DauGiaRepo;
 import com.example.demo.repository.nguoi_dung.NguoiDungRepo;
+import com.example.demo.service.danh_muc.DanhMucService;
 import com.example.demo.service.dau_gia.ChiTietDauGiaService;
 import com.example.demo.service.san_pham.SanPhamService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -29,6 +30,8 @@ import java.util.List;
 public class DauGiaController {
     @Autowired
     SanPhamService sanPhamService;
+    @Autowired
+    DanhMucService danhMucService;
     @Autowired
     DauGiaRepo dauGiaRepo;
     @Autowired
@@ -162,8 +165,27 @@ public class DauGiaController {
     }
 
     @GetMapping("/timKiem")
-    public ModelAndView search(@RequestParam String tenSp) {
-        return new ModelAndView("/thang/index", "listSP", sanPhamService.findByName(tenSp));
+    public ModelAndView search(@RequestParam("maDanhMuc") Integer maDanhMuc,
+                               @RequestParam("tenSp") String tenSp) {
+        ModelAndView modelAndView = new ModelAndView("/thang/index");
+        List<DanhMuc> danhmucs = danhMucService.findAll();
+        List<SanPham> sanPhams;
+        if (maDanhMuc != 0) {
+            if (!tenSp.equals("")){
+                sanPhams = sanPhamService.findByDanhMucTenSanPham(true, maDanhMuc, tenSp);
+            }else {
+                sanPhams = sanPhamService.findByDanhMuc(true, maDanhMuc);
+            }
+        } else {
+            if (!tenSp.equals("")){
+                sanPhams = sanPhamService.findByName(tenSp);
+            }else {
+                sanPhams = sanPhamService.findByDaDuyet();
+            }
+        }
+        modelAndView.addObject("danhmucs", danhmucs);
+        modelAndView.addObject("listSP", sanPhams);
+        return modelAndView;
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)

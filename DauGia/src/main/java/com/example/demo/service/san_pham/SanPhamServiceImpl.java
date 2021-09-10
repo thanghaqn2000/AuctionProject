@@ -47,6 +47,11 @@ public class SanPhamServiceImpl implements SanPhamService {
     }
 
     @Override
+    public List<SanPham> findByDanhMucTenSanPham(boolean tinhTrang, int maDanhMuc, String tenSanPham) {
+        return sanPhamRepo.findByTinhTrangAndDanhMuc_MaDanhMucOrTenSanPhamContainsOrderByGiaKhoiDiem(tinhTrang, maDanhMuc, tenSanPham);
+    }
+
+    @Override
     public List<SanPham> findCuaBan(String isUser) {
         return sanPhamRepo.findCuaBan(isUser);
     }
@@ -65,7 +70,6 @@ public class SanPhamServiceImpl implements SanPhamService {
     public void create(SanPham sanPham) {
         sanPhamRepo.save(sanPham);
     }
-
 
 
     @Override

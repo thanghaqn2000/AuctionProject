@@ -64,45 +64,25 @@
 </script>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-bottom: 60px">
-    <div class="container" style="margin-right: 230px">
+    <div class="container" style="margin: auto">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarScroll"
                 aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarScroll">
             <form method="get" action="/timKiem" class="d-flex" style="margin-top: 20px">
-                <label class="btn btn-secondary" style="width: 140px;">Tên sản phẩm</label>
-                <input class="form-control mr-2" type="search" name="tenSp" placeholder="Tìm kiếm" aria-label="Search"
+                <input class="form-control mr-2" type="search" name="tenSp" placeholder="Tìm kiếm theo tên sản phẩm"
+                       aria-label="Search"
                        style="width: 300px;margin-left: 20px">
-                <button type="submit" class="btn btn-secondary" style="margin-left: 20px;margin-top: 14px">Tìm kiếm</button>
-
+                <select name="maDanhMuc" class="form-control mr-2 custom-select">
+                    <option th:value="0">Tất cả danh mục</option>
+                    <option th:each="danhmuc: ${danhmucs}" th:text="${danhmuc.tenDanhMuc}"
+                            th:value="${danhmuc.maDanhMuc}"></option>
+                </select>
+                <button type="submit" class="btn btn-secondary" style="margin-left: 20px">Tìm
+                    kiếm
+                </button>
             </form>
-            <ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll"
-                style="max-height: 100px;margin-left: 155px">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
-                       data-toggle="dropdown" aria-expanded="false">
-                        Tất cả danh mục
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                        <li><a class="dropdown-item" href="#">Đồ điện tử</a></li>
-                        <li><a class="dropdown-item" href="#">Đồ gia dụng</a></li>
-                        <li><a class="dropdown-item" href="#">Nhà cửa</a></li>
-                        <li><a class="dropdown-item" href="#">Xe cộ</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown1" role="button"
-                       data-toggle="dropdown" aria-expanded="false">
-                        Mức giá
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown1">
-                        <li><a class="dropdown-item" href="#">10.000 - 100.000</a></li>
-                        <li><a class="dropdown-item" href="#">100.000 - 500.000</a></li>
-                        <li><a class="dropdown-item" href="#">500.000 - 1.000.000</a></li>
-                    </ul>
-                </li>
-            </ul>
         </div>
         <div class="collapse navbar-collapse" sec:authorize="isAuthenticated()" >
             <ul sec:authorize="hasRole('ADMIN') or hasRole('SHOP')" class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll"
