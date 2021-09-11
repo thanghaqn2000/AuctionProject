@@ -43,6 +43,7 @@ public class HoaDonController {
             System.out.println( "id sp "+value.getSanPham().getMaSanPham());
 
         }
+
         return "nha/HoaDon";
     }
 
