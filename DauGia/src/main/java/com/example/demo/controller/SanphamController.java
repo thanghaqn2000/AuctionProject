@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.DanhMuc;
 import com.example.demo.model.NguoiDung;
 import com.example.demo.model.SanPham;
 import com.example.demo.repository.nguoi_dung.NguoiDungRepo;
@@ -8,17 +9,20 @@ import com.example.demo.service.nguoi_dung.NguoiDungService;
 import com.example.demo.service.san_pham.SanPhamService;
 import com.example.demo.service.tai_khoan.TaiKhoanQuyenService;
 import com.example.demo.service.tai_khoan.TaiKhoanService;
+import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.List;
 
 @Controller
 public class SanphamController {
@@ -78,8 +82,8 @@ public class SanphamController {
         }
         NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
         model.addAttribute("nguoiDung", nguoiDung);
-        model.addAttribute("usernams",principal.getName());
-        model.addAttribute("taiKhoans",taiKhoanService.findAll());
+        model.addAttribute("usernams", principal.getName());
+        model.addAttribute("taiKhoans", taiKhoanService.findAll());
         model.addAttribute("danhmucs", danhMucService.findAll());
         return "/nhu/sanpham/create_nguoidung";
     }
@@ -155,6 +159,32 @@ public class SanphamController {
         model.addAttribute("listSP", sanPhamService.findCuaBan(userName));
         model.addAttribute("mgsdelete", "Xóa sản phẩm thành công");
         return "/nhu/sanpham/list";
+    }
+
+    @GetMapping(value = "/admin/search")
+    public ModelAndView search(@RequestParam("tensanpham") String tenSanPham) {
+        return new ModelAndView("/nhu/admin/list", "sanphams1", sanPhamService.findByName(tenSanPham));
+    }
+
+    @GetMapping(value = "/admin/search_duyet")
+    public ModelAndView search_duyet(@RequestParam("tensanpham") String tenSanPham) {
+        return new ModelAndView("/nhu/admin/duyet", "sanphams1", sanPhamService.findByNameDaDuyet(false, tenSanPham));
+    }
+
+    @GetMapping("/timKiemcuatoi")
+    public ModelAndView search(@RequestParam("tenSp") String tenSp,
+                               Model model, Principal principal) {
+        ModelAndView modelAndView = new ModelAndView("/nhu/sanpham/list");
+        String userName = principal.getName();
+        if (SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
+                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"))) {
+            model.addAttribute("admin", "là admin");
+        }
+        NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
+        List<SanPham> sanPhams = sanPhamService.findByNameCuaCoi(userName, tenSp);
+        modelAndView.addObject("nguoiDung", nguoiDung);
+        modelAndView.addObject("listSP", sanPhams);
+        return modelAndView;
     }
 
 }
