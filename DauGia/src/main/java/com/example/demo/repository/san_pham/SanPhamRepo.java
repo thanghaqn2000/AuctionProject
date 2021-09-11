@@ -24,4 +24,6 @@ public interface SanPhamRepo extends JpaRepository<SanPham, Integer> {
     List<SanPham> findByTinhTrangAndDanhMuc_MaDanhMucOrTenSanPhamContainsOrderByGiaKhoiDiem(boolean tinhTrang, int maDanhMuc, String tenSanPham);
 
     List<SanPham> findByTenSanPhamContains(String tenSp);
+
+    List<SanPham> findByTinhTrangAndTenSanPhamContains(boolean tinhTrang, String tenSp);
 }

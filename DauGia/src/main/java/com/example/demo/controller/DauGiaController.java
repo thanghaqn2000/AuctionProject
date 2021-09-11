@@ -179,7 +179,7 @@ public class DauGiaController {
             }
         } else {
             if (!tenSp.equals("")){
-                sanPhams = sanPhamService.findByName(tenSp);
+                sanPhams = sanPhamService.findByNameDaDuyet(true, tenSp);
             }else {
                 sanPhams = sanPhamService.findByDaDuyet();
             }

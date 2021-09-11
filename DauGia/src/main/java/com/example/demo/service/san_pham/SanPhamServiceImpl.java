@@ -62,6 +62,11 @@ public class SanPhamServiceImpl implements SanPhamService {
     }
 
     @Override
+    public List<SanPham> findByNameDaDuyet(boolean tinhTrang, String tenSp) {
+        return sanPhamRepo.findByTinhTrangAndTenSanPhamContains(tinhTrang, tenSp);
+    }
+
+    @Override
     public void delete(int id) {
         sanPhamRepo.deleteById(id);
     }
