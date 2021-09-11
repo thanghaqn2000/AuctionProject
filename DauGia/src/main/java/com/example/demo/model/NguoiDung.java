@@ -25,7 +25,7 @@ public class NguoiDung {
     private String diaChi;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String ngaySinh;
-    @NotEmpty(message = "Không để để trống")
+    @NotEmpty(message = "Không để trống")
     private boolean gioiTinh;
     @Size(min = 12, max = 13, message = "CMND phải có độ dài 12-13 số")
     @Pattern(regexp = "(^$|[0][0-9]*$)", message = "CMND phải theo định dạng [0][0-9]")

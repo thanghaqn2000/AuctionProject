@@ -18,6 +18,11 @@ public class NguoiDungServiceImpl implements NguoiDungService {
     }
 
     @Override
+    public NguoiDung findByTaiKhoan(String taiKhoan) {
+        return nguoiDungRepo.findByTaiKhoan_TaiKhoan(taiKhoan);
+    }
+
+    @Override
     public Page<NguoiDung> findAll(Pageable pageable) {
         return nguoiDungRepo.findAll(pageable);
     }

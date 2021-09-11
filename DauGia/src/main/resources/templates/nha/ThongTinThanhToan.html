@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -66,7 +68,7 @@
                 Địa chỉ gửi hàng
             </strong>
             <div>
-                <form>
+                <form action="/hoaDon/thanhToan" method="get" >
                     <table class="container__ship">
                         <tr>
                             <td class="main__ship">Tên </td>
@@ -111,7 +113,7 @@
                         </tr>
                     </table>
                     <div class="btn__ship">
-                        <button><img src="#" alt=""/>Tiếp theo</button>
+                        <button type="submit">Thanh toán</button>
                     </div>
                 </form>
             </div>
@@ -132,7 +134,7 @@
                 <h2>Tong Tien</h2>
                 <ul class="bill__list">
                     <li class="bill__list-item">Thành Tiền:</li>
-                    <li class="bill__list-item">550.000VNĐ</li>
+                    <li class="bill__list-item" th:value="${tongTien}"></li>
                 </ul>
                 <div class="bill__button">
                     <a href="/nha/HoaDon">

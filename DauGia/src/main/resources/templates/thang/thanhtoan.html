@@ -91,7 +91,6 @@
 </head>
 <body>
 <header th:replace="~{/header_footer/header_client::header}"></header>
-
 <div class="container">
     <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -116,7 +115,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:if="${carts!=null}" th:each="item : ${carts}">
+                    <tr th:if="${carts!=null}" th:each="item,iterStat: ${carts}">
                         <td data-th="Product">
                             <div class="row">
                                 <div class="col-sm-2 hidden-xs"><img
@@ -131,10 +130,14 @@
                                 <h4 class="nomargin" th:text="${item.value.getSanPham().tenSanPham}"></h4>
                             </div>
                         </td>
-                        <td data-th="Price" th:text="${#numbers.formatDecimal(item.value.getGiaCaoNhat(), 0, 'POINT', 0, 'COMMA')}"></td>
-                        <td data-th="Quantity"><input class="form-control text-center" th:value="${item.value.getQuantity()}" type="number">
+                        <td style="display: none" id="max" th:text="${iterStat.size}"></td>
+                        <td data-th="Price"
+                            th:text="${#numbers.formatDecimal(item.value.getGiaCaoNhat(), 0, 'POINT', 0, 'COMMA')}"></td>
+                        <td data-th="Quantity"><input class="form-control text-center"
+                                                      th:value="${item.value.getQuantity()}" type="number">
                         </td>
-                        <td data-th="Subtotal" class="text-center" th:text="${#numbers.formatDecimal(item.value.getGiaCaoNhat(), 0, 'POINT', 0, 'COMMA')}"></td>
+                        <td data-th="Subtotal" class="text-center" th:id="${'Ma'+iterStat.count}"
+                            th:text="${#numbers.formatDecimal(item.value.getGiaCaoNhat(), 0, 'POINT', 0, 'COMMA')}"></td>
                         <td class="actions" data-th="">
                             <div class="row">
                                 <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o">Xóa</i>
@@ -145,7 +148,6 @@
                             </div>
                         </td>
                     </tr>
-
                     </tbody>
                     <tfoot>
                     <tr class="visible-xs">
@@ -155,10 +157,13 @@
                             Tiếp tục mua hàng</a>
                         </td>
                         <td colspan="2" class="hidden-xs"></td>
-                        <td class="hidden-xs text-center"><strong>Tổng tiền 500.000 đ</strong>
+                        <td class="hidden-xs text-center">
+                            <strong id="submit"></strong>
+                            <form action="/hoaDon/layDuLieu" method="get">
+                                <input type="hidden" id="totalMoney" name="tongTien">
+                                <button class="btn btn-block" style="background:#1ab7ea;" type="submit">Thanh toán</button>
+                            </form>
                         </td>
-                        <td><a href="/nha/ThongTinThanhToan" style="background:#1ab7ea;color: white" class="btn btn-block">Thanh toán <i
-                              ></i></a>
                         </td>
                     </tr>
                     </tfoot>
@@ -171,5 +176,19 @@
     </div>
 </div>
 <footer style="height: 0" th:insert="~{/header_footer/footer::footer}"></footer>
+<script>
+    var submit = document.getElementById("submit");
+    var totalMoney = document.getElementById("totalMoney");
+    var max = document.getElementById("max");
+    var inputmax = parseFloat(max.innerText);
+    var total = 0;
+    for (let i = 1; i <= inputmax; i++) {
+        var number = document.getElementById("Ma" + i);
+        var input = parseFloat(number.innerText);
+        total = total + input;
+    }
+    submit.innerHTML = total + "000.VND"
+    totalMoney.value = total
+</script>
 </body>
 </html>
