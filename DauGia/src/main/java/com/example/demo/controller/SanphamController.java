@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.DanhMuc;
 import com.example.demo.model.NguoiDung;
 import com.example.demo.model.SanPham;
 import com.example.demo.repository.nguoi_dung.NguoiDungRepo;
@@ -168,6 +169,22 @@ public class SanphamController {
     @GetMapping(value = "/admin/search_duyet")
     public ModelAndView search_duyet(@RequestParam("tensanpham") String tenSanPham) {
         return new ModelAndView("/nhu/admin/duyet", "sanphams1", sanPhamService.findByNameDaDuyet(false, tenSanPham));
+    }
+
+    @GetMapping("/timKiemcuatoi")
+    public ModelAndView search(@RequestParam("tenSp") String tenSp,
+                               Model model, Principal principal) {
+        ModelAndView modelAndView = new ModelAndView("/nhu/sanpham/list");
+        String userName = principal.getName();
+        if (SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
+                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"))) {
+            model.addAttribute("admin", "là admin");
+        }
+        NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
+        List<SanPham> sanPhams = sanPhamService.findByNameCuaCoi(userName, tenSp);
+        modelAndView.addObject("nguoiDung", nguoiDung);
+        modelAndView.addObject("listSP", sanPhams);
+        return modelAndView;
     }
 
 }

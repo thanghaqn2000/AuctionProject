@@ -35,6 +35,8 @@ public interface SanPhamService {
 
     List<SanPham> findByNameDaDuyet(boolean tinhTrang, String tenSp);
 
+    List<SanPham> findByNameCuaCoi(String user, String tenSp);
+
     Page<SanPham> findAllPhanTrang(Pageable pageable);
 
 }
