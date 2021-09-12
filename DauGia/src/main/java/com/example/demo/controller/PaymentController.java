@@ -6,6 +6,7 @@ import com.example.demo.config.MyConstants;
 import com.example.demo.config.PaypalPaymentIntent;
 import com.example.demo.config.PaypalPaymentMethod;
 import com.example.demo.model.*;
+import com.example.demo.repository.nguoi_dung.NguoiDungRepo;
 import com.example.demo.service.don_hang.DonHangService;
 import com.example.demo.service.nguoi_dung.NguoiDungService;
 import com.example.demo.service.paypal.PaypalService;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
+
 
 import java.sql.Date;
 import java.sql.Time;
@@ -43,21 +45,31 @@ public class PaymentController {
     NguoiDungService nguoiDungService;
     @Autowired
     DonHangService donHangService;
+    @Autowired
+    NguoiDungRepo nguoiDungRepo;
+    @ModelAttribute("nguoiDung")
+    public NguoiDung getDauGia() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return nguoiDungRepo.findByTaiKhoan_TaiKhoan(auth.getName());
+    }
+
     public static double totalMoney = 0;
-    public static String emailCus = "";
+    public static ChiTietDonHang chiTietDonHangTemp=new ChiTietDonHang();
+    public static HashMap<Double,SanPham> listSpHoaDonTemp=new HashMap<>();
 
     @GetMapping("/hoaDon/layDuLieu")
     public String getHoaDon(@RequestParam String tongTien, Model model) {
         totalMoney = Double.parseDouble(tongTien);
-        totalMoney = totalMoney * 1000;
         model.addAttribute("tongTien", tongTien);
         model.addAttribute("donHang", new DonHang());
         return "thang/thongTinThanhToan";
     }
 
     @GetMapping("/hoaDon/thanhToan")
-    public String thanhToan(@SessionAttribute("carts") HashMap<Integer, Cart> cartMap, @ModelAttribute DonHang donHang) {
+    public String thanhToan(@SessionAttribute("carts") HashMap<Integer, Cart> cartMap, @ModelAttribute DonHang donHang,Model model
+                           ) {
         Time time = new Time(System.currentTimeMillis());
+        HashMap<Double,SanPham> listSpHoaDon=new HashMap<>();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         NguoiDung nguoiDung = nguoiDungService.findByTaiKhoan(auth.getName());
         LocalDate currentDate = java.time.LocalDate.now();
@@ -70,6 +82,7 @@ public class PaymentController {
         ChiTietDonHang chiTietDonHang = new ChiTietDonHang();
         for (Map.Entry<Integer, Cart> entry : cartMap.entrySet()) {
             Cart value = entry.getValue();
+            listSpHoaDon.put(value.getGiaCaoNhat(),value.getSanPham());
             chiTietDonHangKey.setMaDonHang(donHang.getMaDonHang());
             chiTietDonHangKey.setMaDonHang(value.getSanPham().getMaSanPham());
             chiTietDonHang.setDonHang(donHang);
@@ -79,6 +92,9 @@ public class PaymentController {
             chiTietDonHang.setThanhTien(value.getGiaCaoNhat());
             donHangService.createChiTiet(chiTietDonHang);
         }
+
+        model.addAttribute("hoaDon",chiTietDonHang);
+        model.addAttribute("listSp",listSpHoaDon);
         return "thang/hoaDon";
     }
 
@@ -88,7 +104,33 @@ public class PaymentController {
     }
 
     @GetMapping("/pay")
-    public String pay(HttpServletRequest request) {
+    public String pay(HttpServletRequest request,@SessionAttribute("carts") HashMap<Integer, Cart> cartMap, @ModelAttribute DonHang donHang,
+                      Model model) {
+        HashMap<Double,SanPham> listSpHoaDon=new HashMap<>();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        NguoiDung nguoiDung = nguoiDungService.findByTaiKhoan(auth.getName());
+        LocalDate currentDate = java.time.LocalDate.now();
+        donHang.setNgayMua(Date.valueOf(currentDate));
+        donHang.setTrangThai("Đang giao");
+        donHang.setNguoiDung(nguoiDung);
+        donHang.setTongTien(totalMoney);
+        donHangService.create(donHang);
+        ChiTietDonHangKey chiTietDonHangKey = new ChiTietDonHangKey();
+        ChiTietDonHang chiTietDonHang = new ChiTietDonHang();
+        for (Map.Entry<Integer, Cart> entry : cartMap.entrySet()) {
+            Cart value = entry.getValue();
+            listSpHoaDon.put(value.getGiaCaoNhat(),value.getSanPham());
+            chiTietDonHangKey.setMaDonHang(donHang.getMaDonHang());
+            chiTietDonHangKey.setMaDonHang(value.getSanPham().getMaSanPham());
+            chiTietDonHang.setDonHang(donHang);
+            chiTietDonHang.setId(chiTietDonHangKey);
+            chiTietDonHang.setSanPham(value.getSanPham());
+            chiTietDonHang.setSoLuong(1);
+            chiTietDonHang.setThanhTien(value.getGiaCaoNhat());
+            donHangService.createChiTiet(chiTietDonHang);
+        }
+        chiTietDonHangTemp=chiTietDonHang;
+        listSpHoaDonTemp=listSpHoaDon;
         String cancelUrl = PaypalUtils.getBaseURL(request) + "/" + URL_PAYPAL_CANCEL;
         String successUrl = PaypalUtils.getBaseURL(request) + "/" + URL_PAYPAL_SUCCESS;
         try {
@@ -117,7 +159,8 @@ public class PaymentController {
     }
 
     @GetMapping(URL_PAYPAL_SUCCESS)
-    public String successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId) {
+    public String successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId,Model model) {
+
         try {
             Payment payment = paypalService.executePayment(paymentId, payerId);
             if (payment.getState().equals("approved")) {
@@ -127,7 +170,9 @@ public class PaymentController {
                 message.setSubject("THÔNG BÁO ĐÃ THANH TOÁN HÓA ĐƠN!");
                 message.setText("Số tiền đã thanh toán: " + totalMoney);
                 this.emailSender.send(message);
-                return "thang/success";
+                model.addAttribute("hoaDon",chiTietDonHangTemp);
+                model.addAttribute("listSp",listSpHoaDonTemp);
+                return "thang/hoaDon";
             }
         } catch (PayPalRESTException e) {
             log.error(e.getMessage());

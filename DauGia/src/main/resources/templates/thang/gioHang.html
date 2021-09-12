@@ -72,7 +72,6 @@
                 background: #333;
                 color: #fff;
             }
-
             table#cart tbody td:before {
                 content: attr(data-th);
                 font-weight: bold;
@@ -96,8 +95,6 @@
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
             <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
                aria-controls="nav-home" aria-selected="true">Giỏ hàng</a>
-            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
-               aria-controls="nav-profile" aria-selected="false">Mua sau</a>
         </div>
     </nav>
     <div class="tab-content" id="nav-tabContent">
@@ -105,7 +102,7 @@
             <div class="container">
                 <table id="cart" class="table table-hover table-condensed">
                     <thead>
-                    <tr style=" color: #027ca5;">
+                    <tr style="color: #027ca5">
                         <th style="width:20%">Tên sản phẩm</th>
                         <th style="width:25%"></th>
                         <th style="width:12%">Giá</th>
@@ -122,7 +119,6 @@
                                         th:src="@{${'/img/' + item.value.getSanPham().hinh}}"
                                         alt="Sản phẩm 1" class="img-responsive" width="100">
                                 </div>
-
                             </div>
                         </td>
                         <td>
@@ -143,9 +139,6 @@
                                 <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o">Xóa</i>
                                 </button>
                             </div>
-                            <div class="row">
-                                <a href="#">Mua sau</a>
-                            </div>
                         </td>
                     </tr>
                     </tbody>
@@ -153,7 +146,7 @@
                     <tr class="visible-xs">
                     </tr>
                     <tr>
-                        <td><a href="http://hocwebgiare.com/" class="btn btn-warning"><i class="fa fa-angle-left"></i>
+                        <td><a href="http://localhost:8080" class="btn btn-warning"><i class="fa fa-angle-left"></i>
                             Tiếp tục mua hàng</a>
                         </td>
                         <td colspan="2" class="hidden-xs"></td>
@@ -171,7 +164,6 @@
             </div>
         </div>
         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-
         </div>
     </div>
 </div>
@@ -187,7 +179,12 @@
         var input = parseFloat(number.innerText);
         total = total + input;
     }
-    submit.innerHTML = total + "000.VND"
+    if(total<10){
+        total = total *1000000;
+    }else{
+        total = total *1000;
+    }
+    submit.innerHTML = total/1000 + ".000 VND"
     totalMoney.value = total
 </script>
 </body>
