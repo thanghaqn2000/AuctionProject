@@ -14,6 +14,11 @@ public class ChiTietDonHangKey implements Serializable {
     public ChiTietDonHangKey() {
     }
 
+    public ChiTietDonHangKey(int maSanPham, int maDonHang) {
+        this.maSanPham = maSanPham;
+        this.maDonHang = maDonHang;
+    }
+
     public int getMaSanPham() {
         return maSanPham;
     }

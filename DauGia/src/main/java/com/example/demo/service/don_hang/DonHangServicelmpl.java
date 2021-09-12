@@ -2,7 +2,9 @@ package com.example.demo.service.don_hang;
 
 
 import com.example.demo.model.ChiTietDonHang;
+import com.example.demo.model.DonHang;
 import com.example.demo.repository.don_hang.DeleteDonHangRepo;
+import com.example.demo.repository.don_hang.ChiTietDonHangRepo;
 import com.example.demo.repository.don_hang.DonHangRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,7 +15,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class DonHangServicelmpl implements DonHangService {
     @Autowired
-    private DonHangRepo donHangRepo;
+    private ChiTietDonHangRepo chiTietDonHangRepo;
+    @Autowired
+    DonHangRepo donHangRepo;
     @Autowired
     private DeleteDonHangRepo deleteDonHangRepo;
 
@@ -23,25 +27,39 @@ public class DonHangServicelmpl implements DonHangService {
 //    }
 
     @Override
-    public Page<ChiTietDonHang> findAll(Pageable pageable){
-        return donHangRepo.findAll(pageable);
+    public void create(DonHang donHang) {
+        donHangRepo.save(donHang);
     }
+
     @Override
-    public Page<ChiTietDonHang> findByDonHang_NguoiDung_TenNguoiDungAndSanPham_TenSanPhamContains(String tenNguoiDung, String tenSanPham , Pageable pageable) {
-        return donHangRepo.findByDonHang_NguoiDung_TenNguoiDungAndSanPham_TenSanPhamContains(tenNguoiDung,tenSanPham, pageable);
+    public void createChiTiet(ChiTietDonHang chiTietDonHang) {
+        chiTietDonHangRepo.save(chiTietDonHang);
     }
+
+
     @Override
-    public Page<ChiTietDonHang> findByDonHang_NguoiDung_TenNguoiDungContains(String tenNguoiDung, Pageable pageable)
-    {
-        return donHangRepo.findByDonHang_NguoiDung_TenNguoiDungContains(tenNguoiDung,pageable);
+    public Page<ChiTietDonHang> findAll(Pageable pageable) {
+        return chiTietDonHangRepo.findAll(pageable);
     }
+
     @Override
-    public Page<ChiTietDonHang> findBySanPham_TenSanPhamContains(String tenSanPham, Pageable pageable){
-        return donHangRepo.findBySanPham_TenSanPhamContains(tenSanPham,pageable);
+    public Page<ChiTietDonHang> findByDonHang_NguoiDung_TenNguoiDungAndSanPham_TenSanPhamContains(String tenNguoiDung, String tenSanPham, Pageable pageable) {
+        return chiTietDonHangRepo.findByDonHang_NguoiDung_TenNguoiDungAndSanPham_TenSanPhamContains(tenNguoiDung, tenSanPham, pageable);
     }
+
     @Override
-    public void remove(int id){
-         deleteDonHangRepo.deleteById(id);
+    public Page<ChiTietDonHang> findByDonHang_NguoiDung_TenNguoiDungContains(String tenNguoiDung, Pageable pageable) {
+        return chiTietDonHangRepo.findByDonHang_NguoiDung_TenNguoiDungContains(tenNguoiDung, pageable);
+    }
+
+    @Override
+    public Page<ChiTietDonHang> findBySanPham_TenSanPhamContains(String tenSanPham, Pageable pageable) {
+        return chiTietDonHangRepo.findBySanPham_TenSanPhamContains(tenSanPham, pageable);
+    }
+
+    @Override
+    public void remove(int id) {
+        deleteDonHangRepo.deleteById(id);
     }
 //    @Override
 //    public Page<DonHang> numberAll(int pageNumber){

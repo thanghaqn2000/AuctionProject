@@ -16,6 +16,16 @@ public class ChiTietDonHang {
     @JoinColumn(name = "ma_don_hang")
     private DonHang donHang;
 
+    public ChiTietDonHang() {
+    }
+
+    public ChiTietDonHang(ChiTietDonHangKey id, SanPham sanPham, DonHang donHang, int soLuong) {
+        this.id = id;
+        this.sanPham = sanPham;
+        this.donHang = donHang;
+        this.soLuong = soLuong;
+    }
+
     private int soLuong;
     private double thanhTien;
 

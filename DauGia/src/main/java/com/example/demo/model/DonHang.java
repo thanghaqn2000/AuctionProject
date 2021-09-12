@@ -7,7 +7,7 @@ import java.util.Set;
 @Entity
 public class DonHang {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int maDonHang;
     private Date ngayMua;
     private String diaChi;

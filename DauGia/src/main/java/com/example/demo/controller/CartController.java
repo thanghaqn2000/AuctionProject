@@ -38,7 +38,7 @@ public class CartController {
 
     @GetMapping("showCart")
     public ModelAndView show(@SessionAttribute("carts") HashMap<Integer, Cart> cartMap) {
-        ModelAndView modelAndView = new ModelAndView("/thang/thanhtoan");
+        ModelAndView modelAndView = new ModelAndView("thang/gioHang");
         modelAndView.addObject("carts", cartMap);
         modelAndView.addObject("cartSize", cartMap.size());
         return modelAndView;
