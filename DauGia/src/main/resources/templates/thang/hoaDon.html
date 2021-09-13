@@ -39,16 +39,16 @@
 <header th:replace="~{/header_footer/header_client::header}"></header>
 <div class="container">
     <div class="container__title">
-        <h2>Để nhận sản phẩm đã thắng vui lòng chuyển khoản {Tổng Tiền} tới</h2>
-        <h2>PayPal Hoặc Nhận Hàng Tại Nhà</h2>
+        <h2>Đơn hàng của bạn đã được thanh toán thành công</h2>
+        <h2>Vui lòng kiểm tra email để xem chi tiết hóa đơn</h2>
     </div>
     <div class="container__logo">
         <div class="container__logo-left">
-            <h4> DH[[${hoaDon.donHang.maDonHang}]]</h4>
-            <h4 th:text="'Trạng thái đơn hàng: '+${hoaDon.donHang.trangThai}"></h4>
-            <h4 th:text="'Địa chỉ giao hàng: '+${hoaDon.donHang.diaChi}"></h4>
-            <h4 th:text="'Tên người nhận: '+${hoaDon.donHang.nguoiDung.tenNguoiDung}"></h4>
-            <h4 th:text="'Số điện thoại: '+${hoaDon.donHang.soDienThoai}"></h4>
+            <h5> Mã hóa đơn: DH[[${hoaDon.donHang.maDonHang}]]</h5>
+            <h5 th:text="'Trạng thái đơn hàng: '+${hoaDon.donHang.trangThai}"></h5>
+            <h5 th:text="'Địa chỉ giao hàng: '+${hoaDon.donHang.diaChi}"></h5>
+            <h5 th:text="'Tên người nhận: '+${hoaDon.donHang.nguoiDung.tenNguoiDung}"></h5>
+            <h5 th:text="'Số điện thoại: '+${hoaDon.donHang.soDienThoai}"></h5>
         </div>
         <div class="container__logo-right">
             <img src="/css/styles_khoa/img/logo.png" style="background: #1ab7ea;border-radius: 9999px" class="logo" alt="logo" height="80" width="80" />
@@ -75,14 +75,9 @@
                     <td th:text="${#numbers.formatDecimal(item.key, 0, 'POINT', 0, 'COMMA')}+' VND'"></td>
                 </tr>
                 <tr>
-                    <td>Giao hàng</td>
-                    <td></td>
-                    <td>49.000 VND</td>
-                </tr>
-                <tr>
                     <td><h5>Tổng</h5></td>
                     <td><h5></h5></td>
-                    <td><h5 th:text="${#numbers.formatDecimal(hoaDon.donHang.tongTien+49000, 0, 'POINT', 0, 'COMMA')}+' VND'"></h5></td>
+                    <td><h5 th:text="${#numbers.formatDecimal(hoaDon.donHang.tongTien, 0, 'POINT', 0, 'COMMA')}+' VND'"></h5></td>
                 </tr>
             </table>
         </div>

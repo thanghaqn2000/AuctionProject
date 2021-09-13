@@ -29,13 +29,16 @@ import com.paypal.base.rest.PayPalRESTException;
 import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
 public class PaymentController {
     public static final String URL_PAYPAL_SUCCESS = "pay/success";
     public static final String URL_PAYPAL_CANCEL = "pay/cancel";
+
     private Logger log = LoggerFactory.getLogger(getClass());
     @Autowired
     private PaypalService paypalService;
@@ -47,6 +50,7 @@ public class PaymentController {
     DonHangService donHangService;
     @Autowired
     NguoiDungRepo nguoiDungRepo;
+
     @ModelAttribute("nguoiDung")
     public NguoiDung getDauGia() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -54,8 +58,8 @@ public class PaymentController {
     }
 
     public static double totalMoney = 0;
-    public static ChiTietDonHang chiTietDonHangTemp=new ChiTietDonHang();
-    public static HashMap<Double,SanPham> listSpHoaDonTemp=new HashMap<>();
+    public static ChiTietDonHang chiTietDonHangTemp = new ChiTietDonHang();
+    public static HashMap<Double, SanPham> listSpHoaDonTemp = new HashMap<>();
 
     @GetMapping("/hoaDon/layDuLieu")
     public String getHoaDon(@RequestParam String tongTien, Model model) {
@@ -66,10 +70,14 @@ public class PaymentController {
     }
 
     @GetMapping("/hoaDon/thanhToan")
-    public String thanhToan(@SessionAttribute("carts") HashMap<Integer, Cart> cartMap, @ModelAttribute DonHang donHang,Model model
-                           ) {
-        Time time = new Time(System.currentTimeMillis());
-        HashMap<Double,SanPham> listSpHoaDon=new HashMap<>();
+    public String thanhToan(@SessionAttribute("carts") HashMap<Integer, Cart> cartMap, @ModelAttribute DonHang donHang, Model model
+    ) {
+        List<String> tenSp = new ArrayList<>();
+        for (Map.Entry<Integer, Cart> entry : cartMap.entrySet()) {
+            Cart value = entry.getValue();
+            tenSp.add(value.getSanPham().getTenSanPham());
+        }
+        HashMap<Double, SanPham> listSpHoaDon = new HashMap<>();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         NguoiDung nguoiDung = nguoiDungService.findByTaiKhoan(auth.getName());
         LocalDate currentDate = java.time.LocalDate.now();
@@ -82,7 +90,7 @@ public class PaymentController {
         ChiTietDonHang chiTietDonHang = new ChiTietDonHang();
         for (Map.Entry<Integer, Cart> entry : cartMap.entrySet()) {
             Cart value = entry.getValue();
-            listSpHoaDon.put(value.getGiaCaoNhat(),value.getSanPham());
+            listSpHoaDon.put(value.getGiaCaoNhat(), value.getSanPham());
             chiTietDonHangKey.setMaDonHang(donHang.getMaDonHang());
             chiTietDonHangKey.setMaDonHang(value.getSanPham().getMaSanPham());
             chiTietDonHang.setDonHang(donHang);
@@ -93,8 +101,18 @@ public class PaymentController {
             donHangService.createChiTiet(chiTietDonHang);
         }
 
-        model.addAttribute("hoaDon",chiTietDonHang);
-        model.addAttribute("listSp",listSpHoaDon);
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("thangit189@gmail.com");
+        message.setTo(MyConstants.FRIEND_EMAIL);
+        message.setSubject("THÔNG BÁO ĐÃ THANH TOÁN HÓA ĐƠN!");
+        message.setText("Mã hóa đơn: HD" + chiTietDonHang.getDonHang().getMaDonHang() + "\n" +
+                "Danh sách sản phẩm: " + tenSp + "\n" +
+                "Ngày mua: " + chiTietDonHang.getDonHang().getNgayMua() + "\n" +
+                "Số tiền đã thanh toán: " + totalMoney);
+        this.emailSender.send(message);
+        model.addAttribute("hoaDon", chiTietDonHang);
+        model.addAttribute("listSp", listSpHoaDon);
         return "thang/hoaDon";
     }
 
@@ -104,9 +122,10 @@ public class PaymentController {
     }
 
     @GetMapping("/pay")
-    public String pay(HttpServletRequest request,@SessionAttribute("carts") HashMap<Integer, Cart> cartMap, @ModelAttribute DonHang donHang,
+    public String pay(HttpServletRequest request, @SessionAttribute("carts") HashMap<Integer, Cart> cartMap, @ModelAttribute DonHang donHang,
                       Model model) {
-        HashMap<Double,SanPham> listSpHoaDon=new HashMap<>();
+        HashMap<Double, SanPham> listSpHoaDon = new HashMap<>();
+        String temp = "";
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         NguoiDung nguoiDung = nguoiDungService.findByTaiKhoan(auth.getName());
         LocalDate currentDate = java.time.LocalDate.now();
@@ -119,7 +138,7 @@ public class PaymentController {
         ChiTietDonHang chiTietDonHang = new ChiTietDonHang();
         for (Map.Entry<Integer, Cart> entry : cartMap.entrySet()) {
             Cart value = entry.getValue();
-            listSpHoaDon.put(value.getGiaCaoNhat(),value.getSanPham());
+            listSpHoaDon.put(value.getGiaCaoNhat(), value.getSanPham());
             chiTietDonHangKey.setMaDonHang(donHang.getMaDonHang());
             chiTietDonHangKey.setMaDonHang(value.getSanPham().getMaSanPham());
             chiTietDonHang.setDonHang(donHang);
@@ -129,8 +148,8 @@ public class PaymentController {
             chiTietDonHang.setThanhTien(value.getGiaCaoNhat());
             donHangService.createChiTiet(chiTietDonHang);
         }
-        chiTietDonHangTemp=chiTietDonHang;
-        listSpHoaDonTemp=listSpHoaDon;
+        chiTietDonHangTemp = chiTietDonHang;
+        listSpHoaDonTemp = listSpHoaDon;
         String cancelUrl = PaypalUtils.getBaseURL(request) + "/" + URL_PAYPAL_CANCEL;
         String successUrl = PaypalUtils.getBaseURL(request) + "/" + URL_PAYPAL_SUCCESS;
         try {
@@ -159,7 +178,12 @@ public class PaymentController {
     }
 
     @GetMapping(URL_PAYPAL_SUCCESS)
-    public String successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId,Model model) {
+    public String successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId, Model model, @SessionAttribute("carts") HashMap<Integer, Cart> cartMap) {
+        List<String> tenSp = new ArrayList<>();
+        for (Map.Entry<Integer, Cart> entry : cartMap.entrySet()) {
+            Cart value = entry.getValue();
+            tenSp.add(value.getSanPham().getTenSanPham());
+        }
 
         try {
             Payment payment = paypalService.executePayment(paymentId, payerId);
@@ -168,10 +192,13 @@ public class PaymentController {
                 message.setFrom("thangit189@gmail.com");
                 message.setTo(MyConstants.FRIEND_EMAIL);
                 message.setSubject("THÔNG BÁO ĐÃ THANH TOÁN HÓA ĐƠN!");
-                message.setText("Số tiền đã thanh toán: " + totalMoney);
+                message.setText("Mã hóa đơn: HD" + chiTietDonHangTemp.getDonHang().getMaDonHang() + "\n" +
+                        "Danh sách sản phẩm: " + tenSp + "\n" +
+                        "Ngày mua: " + chiTietDonHangTemp.getDonHang().getNgayMua() + "\n" +
+                        "Số tiền đã thanh toán: " + totalMoney);
                 this.emailSender.send(message);
-                model.addAttribute("hoaDon",chiTietDonHangTemp);
-                model.addAttribute("listSp",listSpHoaDonTemp);
+                model.addAttribute("hoaDon", chiTietDonHangTemp);
+                model.addAttribute("listSp", listSpHoaDonTemp);
                 return "thang/hoaDon";
             }
         } catch (PayPalRESTException e) {

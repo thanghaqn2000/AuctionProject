@@ -57,14 +57,6 @@
             <div class="bid-option">
                 <small>Lựa chọn: (3 có sẵn)</small>
             </div>
-            <div class="bid-select-option">
-                <select>
-                    <option>Select option</option>
-                    <option value="option1">Xanh da trời</option>
-                    <option value="option2">Xanh lá</option>
-                    <option value="option3">Trắng</option>
-                </select>
-            </div>
             <div class="excute-bid">
                 <small>Đấu giá ngay</small>
             </div>
@@ -208,8 +200,9 @@
             <h4>Mô tả sản phẩm</h4>
             <div>
                 <ul class="list-descript">
-                    <li ><span th:text="${sanPham.moTa}">
-
+                    <li style="list-style-type:none" ><span id="submit" th:text="${sanPham.moTa}">
+                    </span></li>
+                    <li style="list-style-type:none;display: none" ><span id="mota" th:text="${sanPham.moTa}">
                     </span></li>
 
                 </ul>
@@ -310,7 +303,25 @@
         startTimer(time);
     };
 </script>
-
+<script>
+    let mystring = document.getElementById("mota");
+    let mota = mystring.innerHTML;
+    let sep = [".","/-"];
+    let submit = document.getElementById("submit");
+    let resut ="";
+    for (let i =0;i<mota.length;i++){
+        if(mota[i] === sep[0]){
+            resut += mota[i]+"</br>";
+        }
+            // else if(mota[i]+mota[i+1] === sep[1]){
+            //     resut += mota[i]+"</br>";
+        // }
+        else{
+            resut += mota[i];
+        }
+    }
+    submit.innerHTML = resut;
+</script>
 <footer th:replace="~{/header_footer/footer::footer}"></footer>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
