@@ -157,6 +157,7 @@ public class AdminController {
         modelAndView.addObject("tenSanPham", tenSanPham);
         return modelAndView;
     }
+
     @GetMapping("/{id}/delete")
     public String delete(@PathVariable("id") int id) {
         donHangService.remove(id);

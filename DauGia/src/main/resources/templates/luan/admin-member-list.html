@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -51,9 +51,9 @@
                     class="fa fa-plus"></i>
             </button>
         </form>
-
     </div>
     <hr>
+    <div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
     <div class="data-table">
         <table id="mem-data">
             <tr>
@@ -92,7 +92,6 @@
         </div>
     </div>
 </section>
-
 <div th:replace="~{/luan/product-detail::chat}"></div>
 
 </div>

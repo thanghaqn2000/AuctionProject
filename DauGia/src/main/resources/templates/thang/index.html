@@ -43,6 +43,14 @@
             });
         });
     </script>
+    <style>
+        .fa-arrow-right{
+            margin-top: 14px;
+        }
+        .fa-arrow-left{
+            margin-top: 14px;
+        }
+    </style>
 </head>
 <body style="font-family: 'Segoe UI'">
 <!-- //end-smoth-scrolling -->
@@ -71,7 +79,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarScroll">
             <form method="get" action="/timKiem" class="d-flex" style="margin-top: 20px">
-                <input class="form-control mr-2" type="search" name="tenSp" placeholder="Tìm kiếm theo tên sản phẩm"
+                <input class="form-control mr-2" type="search" name="tenSp" placeholder="Tìm  theo tên sản phẩm"
                        aria-label="Search"
                        style="width: 300px;margin-left: 20px">
                 <select name="maDanhMuc" class="form-control mr-2 custom-select">
@@ -135,7 +143,7 @@
                                     <p th:text="${sanPham.danhMuc.tenDanhMuc}"></p></a>
                                 <div class="row rowProduct" style=" padding: 0em 0em 0.5em 0em;border-bottom: 0px">
                                     <span class="col-md-6 time"></span>
-                                    <p class="col-md-6 price" th:text="${#numbers.formatDecimal(sanPham.giaKhoiDiem, 0, 'POINT', 0, 'COMMA')}">30.000đ</p>
+                                    <p class="col-md-6 price" th:text="${#numbers.formatDecimal(sanPham.giaKhoiDiem, 0, 'POINT', 0, 'COMMA')}+' VND'">30.000đ</p>
                                 </div>
                                 <a th:href="@{/product-detail/{id}(id=${sanPham.maSanPham})}"
                                    class="btn btn-dau-gia btn-secondary">Đấu giá</a>
@@ -187,7 +195,7 @@
 
                     <div class="row rowProduct" style=" padding: 0em 0em 0.5em 0em;border-bottom: 0px">
                         <span class="col-md-6 time"></span>
-                        <p class="col-md-6 price" th:text="${#numbers.formatDecimal(sanPham.giaKhoiDiem, 0, 'POINT', 0, 'COMMA')}"></p>
+                        <p class="col-md-6 price" th:text="${#numbers.formatDecimal(sanPham.giaKhoiDiem, 0, 'POINT', 0, 'COMMA')}+' VND'"></p>
                     </div>
                     <a th:href="@{/product-detail/{id}(id=${sanPham.maSanPham})}"
                        class="btn btn-dau-gia btn-secondary">Đấu giá</a>
@@ -236,7 +244,7 @@
 
                     <div class="row rowProduct" style=" padding: 0em 0em 0.5em 0em;border-bottom: 0px">
                         <span class="col-md-6 time"></span>
-                        <p class="col-md-6 price" th:text="${#numbers.formatDecimal(sanPham.giaKhoiDiem, 0, 'POINT', 0, 'COMMA')}"></p>
+                        <p class="col-md-6 price" th:text="${#numbers.formatDecimal(sanPham.giaKhoiDiem, 0, 'POINT', 0, 'COMMA')}+' VND'"></p>
                     </div>
                     <a th:href="@{/product-detail/{id}(id=${sanPham.maSanPham})}"
                        class="btn btn-dau-gia btn-secondary">Đấu giá</a>
@@ -284,7 +292,7 @@
 
                     <div class="row rowProduct" style=" padding: 0em 0em 0.5em 0em;border-bottom: 0px">
                         <span class="col-md-6 time"></span>
-                        <p class="col-md-6 price" th:text="${#numbers.formatDecimal(sanPham.giaKhoiDiem, 0, 'POINT', 0, 'COMMA')}"></p>
+                        <p class="col-md-6 price" th:text="${#numbers.formatDecimal(sanPham.giaKhoiDiem, 0, 'POINT', 0, 'COMMA')}+' VND'"></p>
                     </div>
                     <a th:href="@{/product-detail/{id}(id=${sanPham.maSanPham})}"
                        class="btn btn-dau-gia btn-secondary">Đấu giá</a>
@@ -332,7 +340,7 @@
 
                     <div class="row rowProduct" style=" padding: 0em 0em 0.5em 0em;border-bottom: 0px">
                         <span class="col-md-6 time"></span>
-                        <p class="col-md-6 price" th:text="${#numbers.formatDecimal(sanPham.giaKhoiDiem, 0, 'POINT', 0, 'COMMA')}"></p>
+                        <p class="col-md-6 price" th:text="${#numbers.formatDecimal(sanPham.giaKhoiDiem, 0, 'POINT', 0, 'COMMA')}+' VND'"></p>
                     </div>
                     <a th:href="@{/product-detail/{id}(id=${sanPham.maSanPham})}"
                        class="btn btn-dau-gia btn-secondary">Đấu giá</a>
@@ -380,7 +388,7 @@
 
                     <div class="row rowProduct" style=" padding: 0em 0em 0.5em 0em;border-bottom: 0px">
                         <span class="col-md-6 time"></span>
-                        <p class="col-md-6 price" th:text="${#numbers.formatDecimal(sanPham.giaKhoiDiem, 0, 'POINT', 0, 'COMMA')}"></p>
+                        <p class="col-md-6 price" th:text="${#numbers.formatDecimal(sanPham.giaKhoiDiem, 0, 'POINT', 0, 'COMMA')}+' VND'"></p>
                     </div>
                     <a th:href="@{/product-detail/{id}(id=${sanPham.maSanPham})}"
                        class="btn btn-dau-gia btn-secondary">Đấu giá</a>
@@ -480,7 +488,6 @@
                     </a>
                 </div>
                 <span style="text-align: center;font-size: 14px">Sản phẩm</span>
-
             </div>
             <div class="col-sm-2 col-md-1">
                 <div class="background-circle" style="background-color: rgba(216,216,216,0.63); border-radius: 50%;

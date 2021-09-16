@@ -80,8 +80,8 @@
             <td th:text="${chitietDonHang.donHang.trangThai}"></td>
             <!--            <td><form action="" method="post"><a th:href="@{'/delete/'+${donHang.maDonHang}}"><button class="glyphicon glyphicon-pencil">Delete</button></a></form></td>-->
             <td>
-                <button><a  th:href="@{/admin/{id}/delete(id=${chitietDonHang.donHang.maDonHang})}">Delete</a>
-                </button>
+                <a class="btn btn-success" th:href="@{/admin/{id}/delete(id=${chitietDonHang.donHang.maDonHang})}">Delete</a>
+
             </td>
         </tr>
         </tbody>

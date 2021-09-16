@@ -50,9 +50,6 @@
             <h5 th:text="'Tên người nhận: '+${hoaDon.donHang.nguoiDung.tenNguoiDung}"></h5>
             <h5 th:text="'Số điện thoại: '+${hoaDon.donHang.soDienThoai}"></h5>
         </div>
-        <div class="container__logo-right">
-            <img src="/css/styles_khoa/img/logo.png" style="background: #1ab7ea;border-radius: 9999px" class="logo" alt="logo" height="80" width="80" />
-        </div>
     </div>
     <div class="btn__delivery">
         <button><img src="/nha/img/Thunder-icon.png" height="24" width="24"/>GIAO HÀNG NHANH</button>
@@ -60,7 +57,6 @@
     <div class="form__shipment">
         <div class="form__shipment-title">
             <h4 th:text="'Ngày mua: '+${hoaDon.donHang.ngayMua}"></h4>
-            <p>1</p>
         </div>
         <div class="form__shipment-table">
             <table style="width: 100%">
@@ -83,12 +79,6 @@
         </div>
     </div>
     <div class="main__alert">
-        <div class="main__alert-form">
-            <img src="/nha/img/alert-icon.png" height="32" width="32"/>
-            <p>Nếu bạn không chuyển khoản số tiền chính xác, hoặc kết hợp nhiều đơn hàng, vui lòng gửi bản sao phiếu thanh toán
-                cùng số đơn hàng(ORD) tới
-            </p>
-        </div>
         <div style="display: flex;justify-content: center;align-content: center"><img src="/nha/img/Email-icon.png" height="24" width="24"/> Email: support.vn@doanCG.com |<img src="/nha/img/FB-icon.png" height="24" width="24"/> Facebook</div>
 
     </div>
