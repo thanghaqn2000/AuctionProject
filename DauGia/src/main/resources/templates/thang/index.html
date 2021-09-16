@@ -71,7 +71,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarScroll">
             <form method="get" action="/timKiem" class="d-flex" style="margin-top: 20px">
-                <input class="form-control mr-2" type="search" name="tenSp" placeholder="Tìm kiếm theo tên sản phẩm"
+                <input class="form-control mr-2" type="search" name="tenSp" placeholder="Tên Sản Phẩm"
                        aria-label="Search"
                        style="width: 300px;margin-left: 20px">
                 <select name="maDanhMuc" class="form-control mr-2 custom-select">
@@ -120,6 +120,12 @@
                 <h3 class="btn btn-secondary">Sản phẩm thường dùng</h3>
                 <!--                <p>Great design is about more than style,it,s about being yoursel</p>-->
             </div>
+          <center>
+              <div>
+                  <span style="color:#005cbf" th:if="${mgskt}">Không có sản phẩm bạn muốn tìm kiếm</span>
+              </div>
+          </center>
+
             <div class="services-bottom">
                 <div class="row">
                     <div class="col-sm-6 col-md-2 ser item-dau-gia" th:if="${listSP}" th:each="sanPham:${listSP}">

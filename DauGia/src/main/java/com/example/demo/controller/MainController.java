@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.NguoiDung;
+import com.example.demo.model.NguoiDungTaiKhoan;
 import com.example.demo.model.TaiKhoan;
 import com.example.demo.repository.nguoi_dung.NguoiDungRepo;
 import com.example.demo.service.nguoi_dung.NguoiDungService;
@@ -50,34 +51,28 @@ public class MainController {
         return "/dangnhap/userInfoPage";
     }
 
-    @GetMapping("/singup")
-    public String viewsingup() {
+    @GetMapping(value = "/singup")
+    public String viewsingup1(Model model) {
+        model.addAttribute("dangkys", new NguoiDungTaiKhoan());
         return "/phuoc/signUp";
     }
 
+
     @PostMapping("/singup")
-    public String singUp(@Validated @RequestParam("hovaten") String hovaten,
-                         @RequestParam("tendangnhap") String tendangnhap,
-                         @RequestParam("email") String email,
-                         @RequestParam("ngaysinh") String ngaysinh,
-                         @RequestParam("sodt") String sodt,
-                         @RequestParam("socmnd") String socmnd,
-                         @RequestParam("diachi") String diachi,
-                         @RequestParam("matkhau") String matkhau,
-                         @RequestParam("gioitinh") boolean gioitinh,
-                         BindingResult bindingResult) {
+    public String singUp(NguoiDungTaiKhoan nguoiDungTaiKhoan)
+    {
 //        if (bindingResult.hasFieldErrors()) {
 //            return "/phuoc/signUp";
 //        }
         NguoiDung nguoiDung = new NguoiDung();
-        nguoiDung.setTenNguoiDung(hovaten);
-        nguoiDung.setTaiKhoan(new TaiKhoan(tendangnhap, bCryptPasswordEncoder.encode(matkhau)));
-        nguoiDung.setEmail(email);
-        nguoiDung.setNgaySinh(ngaysinh);
-        nguoiDung.setSoDienThoai(sodt);
-        nguoiDung.setCmnd(socmnd);
-        nguoiDung.setDiaChi(diachi);
-        nguoiDung.setGioiTinh(gioitinh);
+        nguoiDung.setTenNguoiDung(nguoiDungTaiKhoan.getTenNguoiDung());
+        nguoiDung.setTaiKhoan(new TaiKhoan(nguoiDungTaiKhoan.getTaiKhoan(), bCryptPasswordEncoder.encode(nguoiDungTaiKhoan.getMatKhau())));
+        nguoiDung.setEmail(nguoiDungTaiKhoan.getEmail());
+        nguoiDung.setNgaySinh(nguoiDungTaiKhoan.getNgaySinh());
+        nguoiDung.setSoDienThoai(nguoiDungTaiKhoan.getSoDienThoai());
+        nguoiDung.setCmnd(nguoiDungTaiKhoan.getCmnd());
+        nguoiDung.setDiaChi(nguoiDungTaiKhoan.getDiaChi());
+        nguoiDung.setGioiTinh(nguoiDungTaiKhoan.isGioiTinh());
         nguoiDungService.save(nguoiDung);
         System.out.println("nguoi dun  ==========" + nguoiDung);
         return "redirect:/login";

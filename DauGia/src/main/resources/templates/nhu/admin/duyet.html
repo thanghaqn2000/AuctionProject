@@ -42,8 +42,8 @@
                         Quản Lý Sản Phẩm
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                        <li><a class="dropdown-item" href="http://localhost:8080/admin/list">Tất Cả Sản Phẩm</a></li>
-                        <li><a class="dropdown-item" href="http://localhost:8080/admin/duyet">Sản Phẩm Chờ Phê Duyệt</a>
+                        <li><a class="dropdown-item" href="/admin/list">Tất Cả Sản Phẩm</a></li>
+                        <li><a class="dropdown-item" href="/admin/duyet">Sản Phẩm Chờ Phê Duyệt</a>
                         </li>
                     </ul>
                 </li>
@@ -53,7 +53,7 @@
                         Quản Lý Giao Dịch
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                        <li><a class="dropdown-item" href="http://localhost:8080/admin/admin-quanlygiaodich">Tất Cả Giao Dịch</a></li>
+                        <li><a class="dropdown-item" href="/admin/admin-quanlygiaodich">Tất Cả Giao Dịch</a></li>
                         </li>
                     </ul>
                 </li>
@@ -63,8 +63,8 @@
                         Quản Lý Danh Mục
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown1">
-                        <li><a class="dropdown-item" href="http://localhost:8080/danhmuc/list">Tất cả danh mục</a></li>
-                        <li><a class="dropdown-item" href="http://localhost:8080/danhmuc/create">Thêm mới danh mục</a>
+                        <li><a class="dropdown-item" href="/danhmuc/list">Tất cả danh mục</a></li>
+                        <li><a class="dropdown-item" href="/danhmuc/create">Thêm mới danh mục</a>
                         </li>
                     </ul>
                 </li>
@@ -95,9 +95,14 @@
             <input type="text" name="tensanpham" id="mem-name"/>
             <button class="filter-btn" type="submit">Lọc kết quả</button>
         </form>
+        <center>
+            <div>
+                <span style="color:#005cbf" th:if="${mgs}"> Không tìm thấy sản phẩm</span>
+            </div>
+        </center>
     </div>
     <hr>
-    <div class="data-table">
+    <div class="data-table" th:unless="${mgs}">
         <table id="mem-data">
             <tr>
                 <th>Tên Sản phẩm</th>

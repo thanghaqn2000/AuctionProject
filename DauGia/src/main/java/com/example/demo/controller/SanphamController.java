@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.DanhMuc;
 import com.example.demo.model.NguoiDung;
 import com.example.demo.model.SanPham;
 import com.example.demo.repository.nguoi_dung.NguoiDungRepo;
@@ -9,14 +8,12 @@ import com.example.demo.service.nguoi_dung.NguoiDungService;
 import com.example.demo.service.san_pham.SanPhamService;
 import com.example.demo.service.tai_khoan.TaiKhoanQuyenService;
 import com.example.demo.service.tai_khoan.TaiKhoanService;
-import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -162,19 +159,66 @@ public class SanphamController {
     }
 
     @GetMapping(value = "/admin/search")
-    public ModelAndView search(@RequestParam("tensanpham") String tenSanPham) {
-        return new ModelAndView("/nhu/admin/list", "sanphams1", sanPhamService.findByName(tenSanPham));
+    public String search(@RequestParam("tensanpham") String tenSanPham, Model model) {
+        List<SanPham> sanPhams = sanPhamService.findByName(tenSanPham);
+        if (sanPhams.size() == 0) {
+            System.out.println("khíc thức okokek ====" + sanPhams.size());
+            model.addAttribute("sanphams1", sanPhams);
+            model.addAttribute("mgs", "khoomg tim thay sp");
+            return "/nhu/admin/list";
+        } else {
+            System.out.println("khíc thức okokek ====" + sanPhams.size());
+            model.addAttribute("sanphams1", sanPhams);
+            return "/nhu/admin/list";
+        }
+
+
     }
 
     @GetMapping(value = "/admin/search_duyet")
-    public ModelAndView search_duyet(@RequestParam("tensanpham") String tenSanPham) {
-        return new ModelAndView("/nhu/admin/duyet", "sanphams1", sanPhamService.findByNameDaDuyet(false, tenSanPham));
+    public String search_duyet(@RequestParam("tensanpham") String tenSanPham, Model model) {
+        List<SanPham> sanPhams = sanPhamService.findByNameDaDuyet(false, tenSanPham);
+        if (sanPhams.size() == 0) {
+            model.addAttribute("sanphams1", sanPhams);
+            model.addAttribute("mgs", "khoomg tim thay sp");
+            return "/nhu/admin/duyet";
+        } else {
+            model.addAttribute("sanphams1", sanPhams);
+            return "/nhu/admin/duyet";
+        }
+
+    }
+
+
+    @GetMapping("/timKiemchoduyet")
+    public String searchchoduyet(@RequestParam("tenSp") String tenSp,
+                                 Model model, Principal principal) {
+        String userName = principal.getName();
+        if (SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
+                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"))) {
+            model.addAttribute("admin", "là admin");
+        }
+        NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
+        List<SanPham> sanPhams = sanPhamService.Findchuaduyetcuaban1(false, userName, tenSp);
+        if (sanPhams.size() == 0) {
+            System.out.println("Đang rỗng nè coi đo dai bao nhieu nao  ====================" + sanPhams.size());
+            model.addAttribute("nguoiDung", nguoiDung);
+            model.addAttribute("listSP", sanPhams);
+            model.addAttribute("mgstk", "Không tìm thấy sản phẩm");
+            return "/nhu/sanpham/listchuaduyet";
+        } else {
+            System.out.println("Đang rỗng nè coi đo dai bao nhieu nao  ====================" + sanPhams.size());
+
+            model.addAttribute("nguoiDung", nguoiDung);
+            model.addAttribute("listSP", sanPhams);
+            model.addAttribute("mgstk1", "sản phẩm được tìm thấy");
+            return "/nhu/sanpham/listchuaduyet";
+        }
     }
 
     @GetMapping("/timKiemcuatoi")
-    public ModelAndView search(@RequestParam("tenSp") String tenSp,
-                               Model model, Principal principal) {
-        ModelAndView modelAndView = new ModelAndView("/nhu/sanpham/list");
+    public String search(@RequestParam("tenSp") String tenSp,
+                         Model model, Principal principal) {
         String userName = principal.getName();
         if (SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
                 .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"))) {
@@ -182,9 +226,19 @@ public class SanphamController {
         }
         NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
         List<SanPham> sanPhams = sanPhamService.findByNameCuaCoi(userName, tenSp);
-        modelAndView.addObject("nguoiDung", nguoiDung);
-        modelAndView.addObject("listSP", sanPhams);
-        return modelAndView;
-    }
+        if (sanPhams.size() == 0) {
+            System.out.println("Đang rỗng nè coi đo dai bao nhieu nao  ====================" + sanPhams.size());
+            model.addAttribute("nguoiDung", nguoiDung);
+            model.addAttribute("listSP", sanPhams);
+            model.addAttribute("mgstk", "Không tìm thấy sản phẩm");
+            return "/nhu/sanpham/list";
+        } else {
+            System.out.println("Đang rỗng nè coi đo dai bao nhieu nao  ====================" + sanPhams.size());
 
+            model.addAttribute("nguoiDung", nguoiDung);
+            model.addAttribute("listSP", sanPhams);
+            model.addAttribute("mgstk1", "sản phẩm được tìm thấy");
+            return "/nhu/sanpham/list";
+        }
+    }
 }

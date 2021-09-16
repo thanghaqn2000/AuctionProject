@@ -21,12 +21,17 @@ public interface SanPhamRepo extends JpaRepository<SanPham, Integer> {
 
     List<SanPham> findByTinhTrangAndDanhMuc_MaDanhMucOrderByGiaKhoiDiem(boolean tinhTrang, int maDanhMuc);
 
-    List<SanPham> findByTinhTrangAndDanhMuc_MaDanhMucOrTenSanPhamContainsOrderByGiaKhoiDiem(boolean tinhTrang, int maDanhMuc, String tenSanPham);
+
+    List<SanPham> findByTinhTrangAndDanhMuc_MaDanhMucAndTenSanPhamContainsOrderByGiaKhoiDiem(boolean tinhTrang, int maDanhMuc, String tenSanPham);
 
     List<SanPham> findByTenSanPhamContains(String tenSp);
 
     @Query("select e from  SanPham e where e.taiKhoans.taiKhoan= ?1 and e.tenSanPham like %?2%")
     List<SanPham> findBytensanphamcuaban(String user,String tenSp);
+
+    @Query("select e from  SanPham e where e.tinhTrang = ?1  and e.taiKhoans.taiKhoan = ?2 and e.tenSanPham like %?3%" )
+    List<SanPham> findBytensanphamchuaduyetcuaban(boolean tinhTrang,String user,String tenSp);
+
 
     List<SanPham> findByTinhTrangAndTenSanPhamContains(boolean tinhTrang, String tenSp);
 }
