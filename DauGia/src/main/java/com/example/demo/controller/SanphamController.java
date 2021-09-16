@@ -158,37 +158,6 @@ public class SanphamController {
         return "/nhu/sanpham/list";
     }
 
-    @GetMapping(value = "/admin/search")
-    public String search(@RequestParam("tensanpham") String tenSanPham, Model model) {
-        List<SanPham> sanPhams = sanPhamService.findByName(tenSanPham);
-        if (sanPhams.size() == 0) {
-            System.out.println("khíc thức okokek ====" + sanPhams.size());
-            model.addAttribute("sanphams1", sanPhams);
-            model.addAttribute("mgs", "khoomg tim thay sp");
-            return "/nhu/admin/list";
-        } else {
-            System.out.println("khíc thức okokek ====" + sanPhams.size());
-            model.addAttribute("sanphams1", sanPhams);
-            return "/nhu/admin/list";
-        }
-
-
-    }
-
-    @GetMapping(value = "/admin/search_duyet")
-    public String search_duyet(@RequestParam("tensanpham") String tenSanPham, Model model) {
-        List<SanPham> sanPhams = sanPhamService.findByNameDaDuyet(false, tenSanPham);
-        if (sanPhams.size() == 0) {
-            model.addAttribute("sanphams1", sanPhams);
-            model.addAttribute("mgs", "khoomg tim thay sp");
-            return "/nhu/admin/duyet";
-        } else {
-            model.addAttribute("sanphams1", sanPhams);
-            return "/nhu/admin/duyet";
-        }
-
-    }
-
 
     @GetMapping("/timKiemchoduyet")
     public String searchchoduyet(@RequestParam("tenSp") String tenSp,

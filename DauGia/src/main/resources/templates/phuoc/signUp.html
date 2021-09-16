@@ -19,30 +19,24 @@
         <h2 class="form-signin-heading">ĐĂNG KÝ</h2>
         <div class="login-wrap">
             <p>Nhập thông tin cá nhân của bạn</p>
-            <input type="text" class="form-control" placeholder="Họ và tên" th:field="*{tenNguoiDung}" autofocus>
+            <input type="text" class="form-control" th:field="*{tenNguoiDung1}" autofocus>
+                        <p style="color: red" th:if="${#fields.hasErrors('tenNguoiDung1')}" th:errors="*{tenNguoiDung1}">Error</p>
+
+            <input type="text" class="form-control" placeholder="Tên đăng nhập" th:field="*{taiKhoan1}" autofocus>
             <!--            <p style="color: red" th:if="${#fields.hasErrors('tenSanPham')}" th:errors="*{tenSanPham}">Error</p>-->
 
-            <input type="text" class="form-control" placeholder="Tên đăng nhập" th:field="*{taiKhoan}" autofocus>
-            <!--            <p style="color: red" th:if="${#fields.hasErrors('tenSanPham')}" th:errors="*{tenSanPham}">Error</p>-->
-
-
-            <input type="text" class="form-control" placeholder="Email" th:field="*{email}" autofocus>
-
-            <input type="date" class="form-control" placeholder="Ngày sinh" th:field="*{ngaySinh}" autofocus>
-
+            <input type="text" class="form-control" placeholder="Email" th:field="*{email1}" autofocus>
+            <input type="date" class="form-control" placeholder="Ngày sinh" th:field="*{ngaySinh1}" autofocus>
             <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" class="custom-control-input" value="1" id="nam" th:field="*{gioiTinh}">
+                <input type="radio" class="custom-control-input" value="1" id="nam" th:field="*{gioiTinh1}">
                 <label class="custom-control-label" for="nam" style="color:#95999c">Nam</label>
-                <input type="radio" class="custom-control-input" value="0" id="nu" th:field="*{gioiTinh}">
+                <input type="radio" class="custom-control-input" value="0" id="nu" th:field="*{gioiTinh1}">
                 <label class="custom-control-label" for="nu" style="color:#95999c">Nữ</label>
             </div>
-            <input type="text" class="form-control" placeholder="Số điện thoại" th:field="*{soDienThoai}" autofocus>
-
-            <input type="text" class="form-control" placeholder="Số CMND/CCCD" th:field="*{cmnd}" autofocus>
-
-            <input type="text" class="form-control" placeholder="Địa chỉ" th:field="*{diaChi}" autofocus>
-
-            <input type="password" class="form-control" placeholder="Mật khẩu" th:field="*{matKhau}">
+            <input type="text" class="form-control" placeholder="Số điện thoại" th:field="*{soDienThoai1}" autofocus>
+            <input type="text" class="form-control" placeholder="Số CMND/CCCD" th:field="*{cmnd1}" autofocus>
+            <input type="text" class="form-control" placeholder="Địa chỉ" th:field="*{diaChi1}" autofocus>
+            <input type="password" class="form-control" placeholder="Mật khẩu" th:field="*{matKhau1}">
 
             <label class="checkbox">
                 <input type="checkbox" value="agree this condition">

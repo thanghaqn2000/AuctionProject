@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 
@@ -51,28 +52,27 @@ public class MainController {
         return "/dangnhap/userInfoPage";
     }
 
-    @GetMapping(value = "/singup")
-    public String viewsingup1(Model model) {
-        model.addAttribute("dangkys", new NguoiDungTaiKhoan());
-        return "/phuoc/signUp";
+    @GetMapping(value = "/signUp")
+    public ModelAndView viewsingup1() {
+        ModelAndView modelAndView = new ModelAndView("/phuoc/signUp", "dangkys", new NguoiDungTaiKhoan());
+
+        return modelAndView;
     }
 
 
     @PostMapping("/singup")
-    public String singUp(NguoiDungTaiKhoan nguoiDungTaiKhoan)
+    public String singUp(@ModelAttribute NguoiDungTaiKhoan nguoiDungTaiKhoan,BindingResult bindingResult)
     {
-//        if (bindingResult.hasFieldErrors()) {
-//            return "/phuoc/signUp";
-//        }
+
         NguoiDung nguoiDung = new NguoiDung();
-        nguoiDung.setTenNguoiDung(nguoiDungTaiKhoan.getTenNguoiDung());
-        nguoiDung.setTaiKhoan(new TaiKhoan(nguoiDungTaiKhoan.getTaiKhoan(), bCryptPasswordEncoder.encode(nguoiDungTaiKhoan.getMatKhau())));
-        nguoiDung.setEmail(nguoiDungTaiKhoan.getEmail());
-        nguoiDung.setNgaySinh(nguoiDungTaiKhoan.getNgaySinh());
-        nguoiDung.setSoDienThoai(nguoiDungTaiKhoan.getSoDienThoai());
-        nguoiDung.setCmnd(nguoiDungTaiKhoan.getCmnd());
-        nguoiDung.setDiaChi(nguoiDungTaiKhoan.getDiaChi());
-        nguoiDung.setGioiTinh(nguoiDungTaiKhoan.isGioiTinh());
+        nguoiDung.setTenNguoiDung(nguoiDungTaiKhoan.getTenNguoiDung1());
+        nguoiDung.setTaiKhoan(new TaiKhoan(nguoiDungTaiKhoan.getTaiKhoan1(), bCryptPasswordEncoder.encode(nguoiDungTaiKhoan.getMatKhau1())));
+        nguoiDung.setEmail(nguoiDungTaiKhoan.getEmail1());
+        nguoiDung.setNgaySinh(nguoiDungTaiKhoan.getNgaySinh1());
+        nguoiDung.setSoDienThoai(nguoiDungTaiKhoan.getSoDienThoai1());
+        nguoiDung.setCmnd(nguoiDungTaiKhoan.getCmnd1());
+        nguoiDung.setDiaChi(nguoiDungTaiKhoan.getDiaChi1());
+        nguoiDung.setGioiTinh(nguoiDungTaiKhoan.isGioiTinh1());
         nguoiDungService.save(nguoiDung);
         System.out.println("nguoi dun  ==========" + nguoiDung);
         return "redirect:/login";

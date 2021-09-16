@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
@@ -8,116 +9,117 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.*;
 
+
 public class NguoiDungTaiKhoan  implements Validator {
 
 //    @NotEmpty(message = "Tên đăng nhập không được để trống")
-    private String tenNguoiDung;
+    private String tenNguoiDung1;
 
 //    @Id
 //    @Email(message = "Sai định dạng Email")
-    private String email;
+    private String email1;
 //    @Size(min = 9,max = 13,message = "Số điện thoai phải có độ dài 10-12 số")
-    private String soDienThoai;
-    private String diaChi;
+    private String soDienThoai1;
+    private String diaChi1;
 //    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private String ngaySinh;
+    private String ngaySinh1;
 
-    private boolean gioiTinh;
+    private boolean gioiTinh1;
 //    @Pattern(regexp = "(^$|[0-9]*$)", message = "CMND phải theo định dạng [0][0-9]")
-    private String cmnd;
+    private String cmnd1;
 
 //    @NotBlank(message = "vui lòng nhập tên đăng nhập")
-    private String taiKhoan;
+    private String taiKhoan1;
 
 //    @NotBlank(message = "vui lòng nhập mật khẩu")
-    private String matKhau;
+    private String matKhau1;
 
-    public NguoiDungTaiKhoan(String tenNguoiDung, String email, String soDienThoai, String diaChi, String ngaySinh, boolean gioiTinh, String cmnd, String taiKhoan, String matKhau) {
-
-        this.tenNguoiDung = tenNguoiDung;
-        this.email = email;
-        this.soDienThoai = soDienThoai;
-        this.diaChi = diaChi;
-        this.ngaySinh = ngaySinh;
-        this.gioiTinh = gioiTinh;
-        this.cmnd = cmnd;
-        this.taiKhoan = taiKhoan;
-        this.matKhau = matKhau;
+    public NguoiDungTaiKhoan(String tenNguoiDung1, String email1, String soDienThoai1, String diaChi1, String ngaySinh1, boolean gioiTinh1, String cmnd1, String taiKhoan1, String matKhau1) {
+        this.tenNguoiDung1 = tenNguoiDung1;
+        this.email1 = email1;
+        this.soDienThoai1 = soDienThoai1;
+        this.diaChi1 = diaChi1;
+        this.ngaySinh1 = ngaySinh1;
+        this.gioiTinh1 = gioiTinh1;
+        this.cmnd1 = cmnd1;
+        this.taiKhoan1 = taiKhoan1;
+        this.matKhau1 = matKhau1;
     }
 
     public NguoiDungTaiKhoan() {
+
     }
 
-    public String getTenNguoiDung() {
-        return tenNguoiDung;
+    public String getTenNguoiDung1() {
+        return tenNguoiDung1;
     }
 
-    public void setTenNguoiDung(String tenNguoiDung) {
-        this.tenNguoiDung = tenNguoiDung;
+    public void setTenNguoiDung1(String tenNguoiDung1) {
+        this.tenNguoiDung1 = tenNguoiDung1;
     }
 
-    public String getEmail() {
-        return email;
+    public String getEmail1() {
+        return email1;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmail1(String email1) {
+        this.email1 = email1;
     }
 
-    public String getSoDienThoai() {
-        return soDienThoai;
+    public String getSoDienThoai1() {
+        return soDienThoai1;
     }
 
-    public void setSoDienThoai(String soDienThoai) {
-        this.soDienThoai = soDienThoai;
+    public void setSoDienThoai1(String soDienThoai1) {
+        this.soDienThoai1 = soDienThoai1;
     }
 
-    public String getDiaChi() {
-        return diaChi;
+    public String getDiaChi1() {
+        return diaChi1;
     }
 
-    public void setDiaChi(String diaChi) {
-        this.diaChi = diaChi;
+    public void setDiaChi1(String diaChi1) {
+        this.diaChi1 = diaChi1;
     }
 
-    public String getNgaySinh() {
-        return ngaySinh;
+    public String getNgaySinh1() {
+        return ngaySinh1;
     }
 
-    public void setNgaySinh(String ngaySinh) {
-        this.ngaySinh = ngaySinh;
+    public void setNgaySinh1(String ngaySinh1) {
+        this.ngaySinh1 = ngaySinh1;
     }
 
-    public boolean isGioiTinh() {
-        return gioiTinh;
+    public boolean isGioiTinh1() {
+        return gioiTinh1;
     }
 
-    public void setGioiTinh(boolean gioiTinh) {
-        this.gioiTinh = gioiTinh;
+    public void setGioiTinh1(boolean gioiTinh1) {
+        this.gioiTinh1 = gioiTinh1;
     }
 
-    public String getCmnd() {
-        return cmnd;
+    public String getCmnd1() {
+        return cmnd1;
     }
 
-    public void setCmnd(String cmnd) {
-        this.cmnd = cmnd;
+    public void setCmnd1(String cmnd1) {
+        this.cmnd1 = cmnd1;
     }
 
-    public String getTaiKhoan() {
-        return taiKhoan;
+    public String getTaiKhoan1() {
+        return taiKhoan1;
     }
 
-    public void setTaiKhoan(String taiKhoan) {
-        this.taiKhoan = taiKhoan;
+    public void setTaiKhoan1(String taiKhoan1) {
+        this.taiKhoan1 = taiKhoan1;
     }
 
-    public String getMatKhau() {
-        return matKhau;
+    public String getMatKhau1() {
+        return matKhau1;
     }
 
-    public void setMatKhau(String matKhau) {
-        this.matKhau = matKhau;
+    public void setMatKhau1(String matKhau1) {
+        this.matKhau1 = matKhau1;
     }
 
     @Override
