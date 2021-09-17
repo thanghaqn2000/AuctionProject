@@ -183,6 +183,10 @@ public class DauGiaController {
                 sanPhams = sanPhamService.findByDaDuyet();
             }
         }
+        if (SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
+                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"))) {
+            model.addAttribute("admin", "là admin");
+        }
         if(danhmucs.size() == 0 || sanPhams.size()== 0)
         {
             model.addAttribute("danhmucs", danhmucs);

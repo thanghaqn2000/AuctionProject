@@ -64,26 +64,7 @@
 <!--    </div>-->
 <!--</nav>-->
 <header th:insert="~{/header_footer/header_client::header}"></header>
-<div class="navigation">
-    <ul class="navigation__list">
-        <li>
-            <img src="/nha/img/event-icon.png" height="24" width="24"/>
-            Chính Sách Đổi Trả 30 Ngày
-        </li>
-        <li>
-            <img src="/nha/img/truck-icon.png" height="24" width="24"/>
-            Phí Giao Hàng: 49.000đ
-        </li>
-        <li>
-            <img src="/nha/img/auction-hammer-icon.png" alt="hammer" width="24" height="24">
-            Tất Cả Sản Phẩm Bắt Đầu Từ 1.000đ
-        </li>
-        <li>
-            <img src="/nha/img/phone-call-icon.png" alt="hammer" width="24" height="24">
-            (028)-3622211
-        </li>
-    </ul>
-</div>
+
 <div class="container">
     <!--    <strong class="main__title">-->
     <!--        Thanh toán-->
@@ -128,7 +109,7 @@
                     </table>
                     <div class="button">
                         <button class="btn btn-danger" style="margin-left: 136px;" type="submit">Thanh toán khi nhận hàng</button>
-                        <button class="btn btn-primary" style="margin-left: 30px" formaction="/pay"><img height="30" width="30" src="https://th.bing.com/th/id/OIP.DYFhJieoB5xq4KpQtogzjQAAAA?pid=ImgDet&rs=1">
+                        <button class="btn btn-primary" style="margin-left: 30px" formaction="/pay"><img style="height: 20px" width="30" src="https://th.bing.com/th/id/OIP.DYFhJieoB5xq4KpQtogzjQAAAA?pid=ImgDet&rs=1">
                             Thanh toán Paypal</button>
                     </div>
                 </form>
@@ -143,14 +124,14 @@
                 </div>
 
                 <div class="cart__number">
-                    <p> Sdt: (028)-3622211</p>
+                    <p> Sdt: 0956326980</p>
                 </div>
             </div>
             <div class="bill">
                 <h2>Tổng Tiền</h2>
                 <ul class="bill__list">
                     <li class="bill__list-item">Thành Tiền:</li>
-                    <li class="bill__list-item">[[${tongTien}]].VND</li>
+                    <li class="bill__list-item" th:text="${#numbers.formatDecimal(tongTien, 0, 'POINT', 0, 'COMMA')}+' VND'"></li>
                 </ul>
                 <div class="bill__button">
                 </div>

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 
@@ -60,7 +61,6 @@ public class NguoiDungController {
         return modelAndView;
     }
 
-
     @GetMapping("/add_member")
     public ModelAndView create() {
         ModelAndView model = new ModelAndView("/khoa/add_member");
@@ -69,29 +69,35 @@ public class NguoiDungController {
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute NguoiDung nguoiDung) {
+    public String save(@ModelAttribute NguoiDung nguoiDung, RedirectAttributes redirAttrs) {
         System.out.println(nguoiDung.getMaNguoiDung());
         nguoiDungService.save(nguoiDung);
+        redirAttrs.addFlashAttribute("success", "Thêm thành công!");
         return "redirect:/luan/admin-member-list";
     }
 
     @GetMapping("/{id}/delete")
-    public String delete(@PathVariable int id) {
+    public String delete(@PathVariable int id, RedirectAttributes redirAttrs) {
+        NguoiDung nguoiDung = nguoiDungService.findById(id);
         nguoiDungService.remove(id);
+        redirAttrs.addFlashAttribute("success", "Xóa thành công!");
         return "redirect:/luan/admin-member-list";
     }
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable int id, Model model) {
+        NguoiDung nguoiDung = nguoiDungService.findById(id);
         model.addAttribute("nguoiDung", nguoiDungService.findById(id));
+        model.addAttribute("tenNguoiDung", nguoiDung.getTenNguoiDung());
         return "/khoa/edit_member";
     }
 
     @PostMapping("/edit_member")
-    public String edit(@ModelAttribute NguoiDung nguoiDung) {
+    public String edit(@ModelAttribute NguoiDung nguoiDung, Model model, RedirectAttributes redirAttrs) {
         nguoiDungService.save(nguoiDung);
+        redirAttrs.addFlashAttribute("success", "Cập nhật thành công!");
+        model.addAttribute("tenNguoiDung", nguoiDung.getTenNguoiDung());
         return "redirect:/luan/admin-member-list";
     }
-
 
 }

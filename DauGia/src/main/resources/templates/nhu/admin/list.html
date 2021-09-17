@@ -34,7 +34,6 @@
 <nav th:insert="~{/nhu/admin/duyet::headerAdmin}"></nav>
 
 
-
 <section class="page-container">
     <div>
         <h2>Tất Cả Sản Phẩm</h2>
@@ -43,13 +42,17 @@
 
         <form action="/admin/search" method="get">
             <label>Tên Sản Phẩm : </label>
-            <input type="text" name="tensanpham" id="mem-name"/>
-
+            <input type="text" name="tensanpham" th:value="${tensanpham}" id="mem-name"/>
             <button class="filter-btn" type="submit">Lọc kết quả</button>
         </form>
+        <center>
+            <div>
+                <span style="color:#005cbf" th:if="${mgs}"> Không tìm thấy sản phẩm</span>
+            </div>
+        </center>
     </div>
     <hr>
-    <div class="data-table">
+    <div class="data-table" th:unless="${mgs}">
         <table id="mem-data">
             <tr>
                 <th>Tên Sản phẩm</th>
@@ -84,16 +87,53 @@
             </tr>
         </table>
 
-        <div class="center">
-            <div class="page-current"><span th:text="${sanphams1.number + 1}"></span>/<span
-                    th:text="${sanphams1.totalPages}"></span></div>
-            <div class="pagination">
-                <a th:href="@{'/admin/list'(page=${sanphams1.number - 1})}"
-                   th:if="${sanphams1.hasPrevious()}">Previous</a>
-                <a th:href="@{'/admin/list'(page=${sanphams1.number + 1})}"
-                   th:if="${sanphams1.hasNext()}">Next</a>
-            </div>
+
+        <!--        &lt;!&ndash;                        trường hợp search&ndash;&gt;-->
+        <!--        <div th:if="${customerListSearch != null}">-->
+        <!--            <span>-->
+        <!--                <a th:if="${nhanviens.hasPrevious()}"-->
+        <!--                   th:href="@{nhanvien/search(page=${nhanviens.number - 1} , nameSearch=${tennhanvien})}">Trước</a>-->
+        <!--            </span>-->
+
+        <!--            <span th:each="pageNo: ${#numbers.sequence(0,nhanviens.totalPages -1)}">-->
+        <!--                    <a th:href="@{nhanvien/search(page = ${pageNo} , nameSearch=${tennhanvien})}"-->
+        <!--                       th:text="${pageNo}"></a>-->
+        <!--            </span>-->
+        <!--            <span>-->
+        <!--                <a th:if="${nhanviens.hasNext()}"-->
+        <!--                   th:href="@{nhanvien/search(page=${nhanviens.number + 1}, nameSearch=${tennhanvien})}">Sau</a>-->
+        <!--            </span>-->
+        <!--        </div>-->
+
+
+        <div class="center" th:if="${tensanpham == null}">
+            <span class="pagination">
+                <a th:if="${sanphams1.hasPrevious()}" th:href="@{/admin/list(page=${sanphams1.number - 1})}">Trước</a>
+            </span>
+            <span class="pagination" th:each="pageNo: ${#numbers.sequence(0,sanphams1.totalPages -1)}">
+                    <a th:href="@{/admin/list(page = ${pageNo})}" th:text="${pageNo}"></a>
+            </span>
+
+            <span class="pagination">
+                <a th:if="${sanphams1.hasNext()}" th:href="@{/admin/list(page=${sanphams1.number + 1})}">Sau</a>
+            </span>
         </div>
+
+        <!--        <div class="center" th:if="${tensanpham == null}">-->
+        <!--            <div class="page-current">-->
+        <!--                        <span th:text="${sanphams1.number + 1}">-->
+        <!--                        </span>-->
+        <!--                <span-->
+        <!--                        th:text="${sanphams1.totalPages}">-->
+        <!--                        </span>-->
+        <!--            </div>-->
+        <!--            <div class="pagination">-->
+        <!--                <a th:href="@{'/admin/list'(page=${sanphams1.number - 1})}"-->
+        <!--                   th:if="${sanphams1.hasPrevious()}">Previous</a>-->
+        <!--                <a th:href="@{'/admin/list'(page=${sanphams1.number + 1})}"-->
+        <!--                   th:if="${sanphams1.hasNext()}">Next</a>-->
+        <!--            </div>-->
+        <!--        </div>-->
     </div>
 </section>
 <div id="exampleModal" class="modal fade">
@@ -143,7 +183,7 @@
     }
 </script>
 
-<div th:replace="~{/luan/product-detail::chat}"></div>
+<!--<div th:replace="~{/luan/product-detail::chat}"></div>-->
 
 </div>
 <!--effec end here-->

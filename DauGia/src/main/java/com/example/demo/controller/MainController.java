@@ -14,10 +14,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.security.Principal;
 
 @Controller
@@ -52,18 +51,29 @@ public class MainController {
         return "/dangnhap/userInfoPage";
     }
 
-    @GetMapping(value = "/signUp")
-    public ModelAndView viewsingup1() {
-        ModelAndView modelAndView = new ModelAndView("/phuoc/signUp", "dangkys", new NguoiDungTaiKhoan());
+//    @GetMapping(value = "/singup")
+//    public ModelAndView viewsingup1() {
+//        ModelAndView modelAndView = new ModelAndView("/phuoc/signUp", "dangkys", new NguoiDungTaiKhoan());
+//        return modelAndView;
+//    }
 
-        return modelAndView;
+    @GetMapping(value = "/singup")
+    public String viewsingup1(Model model) {
+        model.addAttribute("dangkys", new NguoiDungTaiKhoan());
+        return "/phuoc/signUp";
     }
 
 
-    @PostMapping("/singup")
-    public String singUp(@ModelAttribute NguoiDungTaiKhoan nguoiDungTaiKhoan,BindingResult bindingResult)
-    {
+    @PostMapping(value = "/singup")
+    public String singUp(@Valid @ModelAttribute("dangkys") NguoiDungTaiKhoan nguoiDungTaiKhoan, BindingResult bindingResult, Model model) {
+        new NguoiDungTaiKhoan().validate(nguoiDungTaiKhoan, bindingResult);
 
+
+
+
+        if (bindingResult.hasErrors()) {
+            return "/phuoc/signUp";
+        }
         NguoiDung nguoiDung = new NguoiDung();
         nguoiDung.setTenNguoiDung(nguoiDungTaiKhoan.getTenNguoiDung1());
         nguoiDung.setTaiKhoan(new TaiKhoan(nguoiDungTaiKhoan.getTaiKhoan1(), bCryptPasswordEncoder.encode(nguoiDungTaiKhoan.getMatKhau1())));
@@ -77,7 +87,6 @@ public class MainController {
         System.out.println("nguoi dun  ==========" + nguoiDung);
         return "redirect:/login";
     }
-
     @GetMapping("/403")
     private String accessDenied(Model model, Principal principal) {
         NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());

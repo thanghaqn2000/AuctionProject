@@ -166,7 +166,7 @@ public class AdminController {
         return "redirect:/admin/admin-quanlygiaodich";
     }
 
-    @GetMapping(value = "/admin/search")
+    @GetMapping(value = "/search")
     public String search(@RequestParam("tensanpham") String tenSanPham, Model model) {
         List<SanPham> sanPhams = sanPhamService.findByName(tenSanPham);
         if (sanPhams.size() == 0) {
@@ -183,7 +183,7 @@ public class AdminController {
 
     }
 
-    @GetMapping(value = "/admin/search_duyet")
+    @GetMapping(value = "/search_duyet")
     public String search_duyet(@RequestParam("tensanpham") String tenSanPham, Model model) {
         List<SanPham> sanPhams = sanPhamService.findByNameDaDuyet(false, tenSanPham);
         if (sanPhams.size() == 0) {

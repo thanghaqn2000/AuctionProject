@@ -48,7 +48,7 @@
             </div>
             <div class="bid-price">
                 <small>Giá thầu hiện tại</small>
-                <strong th:if="${nguoiCaoNhat}" th:text="${#numbers.formatDecimal(nguoiCaoNhat.giaDau, 0, 'POINT', 0, 'COMMA')}"></Strong>
+                <strong th:if="${nguoiCaoNhat}" th:text="${#numbers.formatDecimal(nguoiCaoNhat.giaDau, 0, 'POINT', 0, 'COMMA')}+' VND'"></Strong>
             </div>
             <div class="bid-winner">
                 <small>Người chiến thắng</small>
@@ -93,7 +93,7 @@
                     <ion-icon th:if="${itemDauGia.giaDau==giaCaoNhat}" name="trophy"></ion-icon>
                     <span th:text="${itemDauGia.nguoiDung.taiKhoan.taiKhoan}"> </span>
                 </td>
-                <td th:text="${#numbers.formatDecimal(itemDauGia.giaDau, 0, 'POINT', 0, 'COMMA')}"></td>
+                <td th:text="${#numbers.formatDecimal(itemDauGia.giaDau, 0, 'POINT', 0, 'COMMA')}+' VND'"></td>
                 <td>1</td>
                 <td th:text="${itemDauGia.thoiGianDauGia}"></td>
             </tr>
@@ -133,7 +133,7 @@
                                                 </div>
                                                 <div class="col-lg-12">Giá đã đấu:
                                                     <span style="font-weight: bold;color: red"
-                                                          th:if="${nguoiCaoNhat}" th:text="${nguoiCaoNhat.giaDau} "></span>
+                                                          th:if="${nguoiCaoNhat}" th:text="${#numbers.formatDecimal(nguoiCaoNhat.giaDau, 0, 'POINT', 0, 'COMMA')}+' VND'"></span>
                                                 </div>
                                                 <div class="col-lg-12">
                                                     <a th:href="@{/addCart/__${sanPham.maSanPham}__}" class="btn btn-success">Hoàn tất ngay</a>
@@ -164,7 +164,7 @@
                                                 </div>
                                                 <div class="col-lg-12">Giá đã đấu cao nhất:
                                                     <span style="font-weight: bold;color: red"
-                                                          th:if="${nguoiCaoNhat}" th:text="${nguoiCaoNhat.giaDau} "></span>
+                                                          th:if="${nguoiCaoNhat}" th:text="${#numbers.formatDecimal(nguoiCaoNhat.giaDau, 0, 'POINT', 0, 'COMMA')}+' VND'"></span>
                                                 </div>
                                             </div>
                                         </div>

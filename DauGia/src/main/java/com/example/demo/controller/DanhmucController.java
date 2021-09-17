@@ -8,11 +8,10 @@ import com.example.demo.service.danh_muc.DanhMucService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.security.Principal;
 
 @Controller
@@ -40,7 +39,10 @@ public class DanhmucController {
     }
 
     @PostMapping(value = "/danhmuc/create")
-    private String Create(DanhMuc danhMuc, Model model, Principal principal) {
+    private String Create(@Valid @ModelAttribute("danhmucs") DanhMuc danhMuc, BindingResult bindingResult, Model model, Principal principal) {
+        if (bindingResult.hasFieldErrors()) {
+            return "/nhu/danhmuc/create";
+        }
         danhMucService.create(danhMuc);
         NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
         model.addAttribute("nguoiDung", nguoiDung);
@@ -58,7 +60,7 @@ public class DanhmucController {
     }
 
     @PostMapping(value = "/danhmuc/edit")
-    public String Edit(DanhMuc danhMuc, Model model,Principal principal) {
+    public String Edit(DanhMuc danhMuc, Model model, Principal principal) {
         this.danhMucService.create(danhMuc);
         NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
         model.addAttribute("nguoiDung", nguoiDung);

@@ -101,16 +101,15 @@ public class PaymentController {
             donHangService.createChiTiet(chiTietDonHang);
         }
 
-
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("thangit189@gmail.com");
-        message.setTo(MyConstants.FRIEND_EMAIL);
-        message.setSubject("THÔNG BÁO ĐÃ THANH TOÁN HÓA ĐƠN!");
-        message.setText("Mã hóa đơn: HD" + chiTietDonHang.getDonHang().getMaDonHang() + "\n" +
-                "Danh sách sản phẩm: " + tenSp + "\n" +
-                "Ngày mua: " + chiTietDonHang.getDonHang().getNgayMua() + "\n" +
-                "Số tiền đã thanh toán: " + totalMoney);
-        this.emailSender.send(message);
+//        SimpleMailMessage message = new SimpleMailMessage();
+//        message.setFrom("thangit189@gmail.com");
+//        message.setTo(MyConstants.FRIEND_EMAIL);
+//        message.setSubject("THÔNG BÁO ĐÃ THANH TOÁN HÓA ĐƠN!");
+//        message.setText("Mã hóa đơn: HD" + chiTietDonHang.getDonHang().getMaDonHang() + "\n" +
+//                "Danh sách sản phẩm: " + tenSp + "\n" +
+//                "Ngày mua: " + chiTietDonHang.getDonHang().getNgayMua() + "\n" +
+//                "Số tiền đã thanh toán: " + totalMoney);
+//        this.emailSender.send(message);
         model.addAttribute("hoaDon", chiTietDonHang);
         model.addAttribute("listSp", listSpHoaDon);
         return "thang/hoaDon";
