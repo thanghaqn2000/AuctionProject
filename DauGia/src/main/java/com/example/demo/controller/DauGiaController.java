@@ -166,9 +166,8 @@ public class DauGiaController {
     }
 
     @GetMapping("/timKiem")
-    public ModelAndView search(@RequestParam("maDanhMuc") Integer maDanhMuc,
-                               @RequestParam("tenSp") String tenSp) {
-        ModelAndView modelAndView = new ModelAndView("/thang/index");
+    public String search(@RequestParam("maDanhMuc") Integer maDanhMuc,
+                               @RequestParam("tenSp") String tenSp, Model model) {
         List<DanhMuc> danhmucs = danhMucService.findAll();
         List<SanPham> sanPhams;
         if (maDanhMuc != 0) {
@@ -184,9 +183,25 @@ public class DauGiaController {
                 sanPhams = sanPhamService.findByDaDuyet();
             }
         }
-        modelAndView.addObject("danhmucs", danhmucs);
-        modelAndView.addObject("listSP", sanPhams);
-        return modelAndView;
+        if (SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
+                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"))) {
+            model.addAttribute("admin", "là admin");
+        }
+        if(danhmucs.size() == 0 || sanPhams.size()== 0)
+        {
+            model.addAttribute("danhmucs", danhmucs);
+            model.addAttribute("listSP", sanPhams);
+            model.addAttribute("mgskt","ko tìm thay");
+            return "/thang/index";
+        }
+        else {
+            System.out.println("ziseeeeeeeeeeeeeeeeeeeeeeeeeeee ====" +danhmucs.size() +"và "+ sanPhams.size());
+            model.addAttribute("danhmucs", danhmucs);
+            model.addAttribute("listSP", sanPhams);
+            model.addAttribute("mgs","Danh sách sp tìm thấy");
+            return "/thang/index";
+        }
+
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)

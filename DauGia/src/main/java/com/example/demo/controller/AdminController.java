@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -123,6 +124,7 @@ public class AdminController {
         this.sanPhamService.create(sanPham);
         return "redirect:/admin/list";
     }
+
     @GetMapping("/admin-quanlygiaodich")
     public ModelAndView listAll(@RequestParam(defaultValue = "0") int page) {
         ModelAndView model = new ModelAndView("nga/QuanLyGiaoDich");
@@ -162,6 +164,37 @@ public class AdminController {
     public String delete(@PathVariable("id") int id) {
         donHangService.remove(id);
         return "redirect:/admin/admin-quanlygiaodich";
+    }
+
+    @GetMapping(value = "/search")
+    public String search(@RequestParam("tensanpham") String tenSanPham, Model model) {
+        List<SanPham> sanPhams = sanPhamService.findByName(tenSanPham);
+        if (sanPhams.size() == 0) {
+            System.out.println("khíc thức okokek ====" + sanPhams.size());
+            model.addAttribute("sanphams1", sanPhams);
+            model.addAttribute("mgs", "khoomg tim thay sp");
+            return "/nhu/admin/list";
+        } else {
+            System.out.println("khíc thức okokek ====" + sanPhams.size());
+            model.addAttribute("sanphams1", sanPhams);
+            return "/nhu/admin/list";
+        }
+
+
+    }
+
+    @GetMapping(value = "/search_duyet")
+    public String search_duyet(@RequestParam("tensanpham") String tenSanPham, Model model) {
+        List<SanPham> sanPhams = sanPhamService.findByNameDaDuyet(false, tenSanPham);
+        if (sanPhams.size() == 0) {
+            model.addAttribute("sanphams1", sanPhams);
+            model.addAttribute("mgs", "khoomg tim thay sp");
+            return "/nhu/admin/duyet";
+        } else {
+            model.addAttribute("sanphams1", sanPhams);
+            return "/nhu/admin/duyet";
+        }
+
     }
 
 }

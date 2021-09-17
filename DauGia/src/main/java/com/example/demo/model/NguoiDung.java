@@ -15,20 +15,20 @@ public class NguoiDung {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int maNguoiDung;
-    @NotEmpty(message = "Tên đăng nhập không được để trống")
+//    @NotEmpty(message = "Tên đăng nhập không được để trống")
     private String tenNguoiDung;
-    @Email(message = "Sai định dạng Email")
+//    @Email(message = "Sai định dạng Email")
     private String email;
-    @Size(min = 9,message = "Số điện thoai phải có độ dài 10-12 số")
+//    @Size(min = 9,max = 13,message = "Số điện thoai phải có độ dài 10-12 số")
 //    @Pattern(regexp = "(^$|[0][0-9]*$)", message = "Số điện thoại phải theo định dạng [0][0-9]")
     private String soDienThoai;
     private String diaChi;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String ngaySinh;
 
     private boolean gioiTinh;
 //    @Size(min = 12, max = 13, message = "CMND phải có độ dài 12-13 số")
-    @Pattern(regexp = "(^$|[0-9]*$)", message = "CMND phải theo định dạng [0][0-9]")
+//    @Pattern(regexp = "(^$|[0-9]*$)", message = "CMND phải theo định dạng [0][0-9]")
     private String cmnd;
     @OneToOne(cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
     @JoinColumn(name = "taiKhoan",referencedColumnName = "taiKhoan")

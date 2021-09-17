@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.Set;
 
 @Entity
@@ -8,8 +9,10 @@ public class DanhMuc {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int maDanhMuc;
+
+    @NotEmpty(message = "vui lòng nhập tên danh mục")
     private String tenDanhMuc;
-    @OneToMany(mappedBy = "danhMuc")
+    @OneToMany(mappedBy = "danhMuc",cascade = CascadeType.ALL)
     private Set<SanPham> sanPham;
     public DanhMuc() {
     }

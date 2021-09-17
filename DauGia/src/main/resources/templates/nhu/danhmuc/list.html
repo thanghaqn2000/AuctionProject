@@ -38,14 +38,6 @@
     <div>
         <h2>Tất Cả Danh Mục</h2>
     </div>
-    <div class="filter-side">
-        <form action="/admin/search" method="post">
-            <label>Tên Danh Mục : </label>
-            <input type="text" name="tendanhmuc" id="mem-name"/>
-
-            <button class="filter-btn" type="submit">Lọc kết quả</button>
-        </form>
-    </div>
     <hr>
     <div class="data-table">
         <table id="mem-data">
@@ -65,23 +57,14 @@
                     </a>
                 </td>
                 <td>
-                    <button style="background: red" data-toggle="modal" data-target="#exampleModal"
-                            th:onclick="preparedelete([[${danhmuc.maDanhMuc}]],[[${danhmuc.tenDanhMuc}]])">
+                    <a style="background: red" data-toggle="modal" data-target="#exampleModal"
+                       th:onclick="preparedelete([[${danhmuc.maDanhMuc}]],[[${danhmuc.tenDanhMuc}]])">
                         Xóa
-                    </button>
+                    </a>
                 </td>
             </tr>
+
         </table>
-        <div class="center">
-            <div class="page-current"><span th:text="${danhmucs.number + 1}"></span>/<span
-                    th:text="${danhmucs.totalPages}"></span></div>
-            <div class="pagination">
-                <a th:href="@{'/danhmuc/list'(page=${danhmucs.number - 1})}"
-                   th:if="${danhmucs.hasPrevious()}">Previous</a>
-                <a th:href="@{'/danhmuc/list'(page=${danhmucs.number + 1})}"
-                   th:if="${danhmucs.hasNext()}">Next</a>
-            </div>
-        </div>
     </div>
 </section>
 <div id="exampleModal" class="modal fade">
@@ -96,13 +79,13 @@
             <div class="modal-body">
                 <span id="maDanhMuc"></span>
                 <p>Bạn có chắc chắn muốn xóa
-                    <span id="tenSanPham"></span>
+                    <span id="tenDanhMuc"></span>
                     Không ?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Hủy
                 </button>
-                <button onclick="deleteService($('#maDanhMuc').html())" type="button"
+                <button style="color: red" onclick="deleteService($('#maDanhMuc').html())" type="button"
                         class="btn btn-default" data-dismiss="modal">
                     Xóa
                 </button>
@@ -111,7 +94,7 @@
     </div>
 </div>
 <script>
-    function preparedelete(maDanhMuc, tenDanhMuc) {
+    function preparedelete(maDanhMuc, tenSanPham) {
 
         $('#maDanhMuc').html(maDanhMuc)
         $('#tenDanhMuc').html(tenDanhMuc)
@@ -124,14 +107,14 @@
                 type: 'get',
                 url: "/danhmuc/delete/" + maDanhMuc,
                 success: function () {
-                    window.location.href = "http://localhost:8080/danhmuc/list";
+                    window.location.href = "/danhmuc/list";
                 }
             }
         )
     }
 </script>
 
-<div th:replace="~{/luan/product-detail::chat}"></div>
+<!--<div th:replace="~{/luan/product-detail::chat}"></div>-->
 
 </div>
 <!--effec end here-->
@@ -147,3 +130,4 @@
 <footer style="height: 0" th:insert="~{/header_footer/footer::footer}"></footer>
 </body>
 </html>
+
