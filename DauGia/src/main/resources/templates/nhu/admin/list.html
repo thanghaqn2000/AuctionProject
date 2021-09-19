@@ -74,11 +74,7 @@
                 <td th:text="${sanpham.taiKhoan.nguoiDung.tenNguoiDung}"></td>
                 <td th:text="${sanpham.danhMuc.tenDanhMuc}"></td>
                 <td th:text="${sanpham.ngayDangKi}"></td>
-                <td>
-                    <span th:if="${sanpham.tinhTrang == true}"> Đã Duyệt</span>
-                    <span th:if="${sanpham.tinhTrang == false}"> Chưa Duyệt</span>
-
-                </td>
+                <td th:text="${sanpham.tinhTrang}"></td>
                 <td>
                     <a th:href="@{/admin/edit(id = ${sanpham.maSanPham})}">
                         Sửa
@@ -118,7 +114,7 @@
             <span class="pagination">
 
 <!--                   <div class="page-current"><span th:text="${nguoidungs.number + 1}"></span>/<span-->
-<!--                           th:text="${nguoidungs.totalPages}"></span></div>-->
+                <!--                           th:text="${nguoidungs.totalPages}"></span></div>-->
 
                     <a th:href="@{/admin/list(page = ${pageNo})}" th:text="${sanphams1.number}"></a>
             </span>
@@ -183,7 +179,7 @@
                 type: 'get',
                 url: "/admin/delete/" + maSanPham,
                 success: function () {
-                    window.location.href = "http://localhost:8080/admin/list";
+                    window.location.href = "/admin/list";
                 }
             }
         )

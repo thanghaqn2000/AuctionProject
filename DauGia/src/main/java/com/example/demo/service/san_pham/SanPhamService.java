@@ -18,26 +18,26 @@ public interface SanPhamService {
     void create(SanPham sanPham);
 
 
-    List<SanPham> findByTinhTrang();
+    List<SanPham> findByTinhTrang(String tinhTrang);
 
-    List<SanPham> Findchuaduyetcuaban(String username);
+    List<SanPham> Findchuaduyetcuaban(String tinhtrang,String username);
 
-    List<SanPham> findByDaDuyet();
+    List<SanPham> findByDaDuyet(String tinhtrang);
 
-    List<SanPham> findByDanhMuc(boolean tinhTrang, int maDanhMuc);
+    List<SanPham> findByDanhMuc(String tinhTrang, int maDanhMuc);
 
-    List<SanPham> findByDanhMucTenSanPham(boolean tinhTrang, int maDanhMuc, String tenSanPham);
+    List<SanPham> findByDanhMucTenSanPham(String tinhTrang, int maDanhMuc, String tenSanPham);
 
     //sản phẩm của người dùng
     List<SanPham> findCuaBan(String idUser);
 
     List<SanPham> findByName(String tenSp);
 
-    List<SanPham> findByNameDaDuyet(boolean tinhTrang, String tenSp);
+    List<SanPham> findByNameDaDuyet(String tinhTrang, String tenSp);
 
     List<SanPham> findByNameCuaCoi(String user, String tenSp);
 
-    List<SanPham> Findchuaduyetcuaban1(boolean tinhtrang, String user, String tenSp);
+    List<SanPham> Findchuaduyetcuaban1(String tinhtrang, String user, String tenSp);
 
 
     Page<SanPham> findAllPhanTrang(Pageable pageable);

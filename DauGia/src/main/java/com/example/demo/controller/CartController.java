@@ -50,7 +50,7 @@ public class CartController {
         List<ChiTietDauGia> detailList = chiTietDauGiaService.findBySanPham(id);
         double giaCaoNhat = detailList.get(0).getGiaDau();
         if (sanPham != null) {
-            sanPham.setTinhTrang(false);
+            sanPham.setTinhTrang("Chưa duyệt");
             sanPham.setSoLuong(sanPham.getSoLuong()-1);
             sanPhamService.create(sanPham);
             if (cartMap.containsKey(id)) {

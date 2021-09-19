@@ -58,12 +58,12 @@ public class DauGiaController {
         }
 //        model.addAttribute("listSP", sanPhamService.findByDaDuyet());
         model.addAttribute("danhmucs", danhMucService.findAll());
-        model.addAttribute("thoiTrang", sanPhamService.findByDanhMuc(true, 1));
-        model.addAttribute("sach", sanPhamService.findByDanhMuc(true, 2));
-        model.addAttribute("giay", sanPhamService.findByDanhMuc(true, 3));
-        model.addAttribute("phuongTien", sanPhamService.findByDanhMuc(true, 4));
-        model.addAttribute("laptop", sanPhamService.findByDanhMuc(true, 5));
-        model.addAttribute("dongHo", sanPhamService.findByDanhMuc(true, 6));
+        model.addAttribute("thoiTrang", sanPhamService.findByDanhMuc("Đã duyệt", 1));
+        model.addAttribute("sach", sanPhamService.findByDanhMuc("Đã duyệt", 2));
+        model.addAttribute("giay", sanPhamService.findByDanhMuc("Đã duyệt", 3));
+        model.addAttribute("phuongTien", sanPhamService.findByDanhMuc("Đã duyệt", 4));
+        model.addAttribute("laptop", sanPhamService.findByDanhMuc("Đã duyệt", 5));
+        model.addAttribute("dongHo", sanPhamService.findByDanhMuc("Đã duyệt", 6));
         return "/thang/index";
     }
 
@@ -73,7 +73,7 @@ public class DauGiaController {
                 .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"))) {
             model.addAttribute("admin", "là admin");
         }
-        model.addAttribute("listSP", sanPhamService.findByDaDuyet());
+        model.addAttribute("listSP", sanPhamService.findByDaDuyet("Đã duyệt"));
         return "redirect:/";
     }
 
@@ -172,15 +172,15 @@ public class DauGiaController {
         List<SanPham> sanPhams;
         if (maDanhMuc != 0) {
             if (!tenSp.equals("")){
-                sanPhams = sanPhamService.findByDanhMucTenSanPham(true, maDanhMuc, tenSp);
+                sanPhams = sanPhamService.findByDanhMucTenSanPham("Đã duyệt", maDanhMuc, tenSp);
             }else {
-                sanPhams = sanPhamService.findByDanhMuc(true, maDanhMuc);
+                sanPhams = sanPhamService.findByDanhMuc("Đã duyệt", maDanhMuc);
             }
         } else {
             if (!tenSp.equals("")){
-                sanPhams = sanPhamService.findByNameDaDuyet(true, tenSp);
+                sanPhams = sanPhamService.findByNameDaDuyet("Đã duyệt", tenSp);
             }else {
-                sanPhams = sanPhamService.findByDaDuyet();
+                sanPhams = sanPhamService.findByDaDuyet("Đã duyệt");
             }
         }
         if (SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()

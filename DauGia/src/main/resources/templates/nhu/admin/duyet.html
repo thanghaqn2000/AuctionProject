@@ -96,10 +96,10 @@
         </form>
         <center>
             <div>
-                <span    class="alert alert-success" th:if="${mgs}"> Không tìm thấy sản phẩm</span>
+                <span class="alert alert-success" th:if="${mgs}"> Không tìm thấy sản phẩm</span>
             </div>
             <div>
-                <span  class="alert alert-success"  th:if="${mgs1}"> Đã phê duyệt sản phẩm thành công!</span>
+                <span class="alert alert-success" th:if="${mgs1}"> Đã phê duyệt sản phẩm thành công!</span>
             </div>
         </center>
     </div>
@@ -120,11 +120,7 @@
                 <td th:text="${sanpham.taiKhoan.nguoiDung.tenNguoiDung}"></td>
                 <td th:text="${sanpham.danhMuc.tenDanhMuc}"></td>
                 <td th:text="${sanpham.ngayDangKi}"></td>
-                <td>
-                    <span th:if="${sanpham.tinhTrang == true}"> Đã Duyệt</span>
-                    <span th:if="${sanpham.tinhTrang == false}"> Chưa Duyệt</span>
-
-                </td>
+                <td th:text="${sanpham.tinhTrang}"></td>
                 <td>
                     <a th:href="@{/admin/view(id = ${sanpham.maSanPham})}">
                         Chi tiết

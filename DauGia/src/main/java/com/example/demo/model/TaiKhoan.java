@@ -44,9 +44,6 @@ public class TaiKhoan {
         this.matKhau = encode;
     }
 
-    public TaiKhoan(String userName) {
-        this.taiKhoan = userName;
-    }
 
     public String getTaiKhoan() {
         return taiKhoan;
