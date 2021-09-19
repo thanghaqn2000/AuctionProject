@@ -29,13 +29,11 @@ public class CartController {
     NguoiDungRepo nguoiDungRepo;
     @Autowired
     ChiTietDauGiaService chiTietDauGiaService;
-
     @ModelAttribute("nguoiDung")
     public NguoiDung getDauGia() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return nguoiDungRepo.findByTaiKhoan_TaiKhoan(auth.getName());
     }
-
     @GetMapping("showCart")
     public ModelAndView show(@SessionAttribute("carts") HashMap<Integer, Cart> cartMap) {
         ModelAndView modelAndView = new ModelAndView("thang/gioHang");

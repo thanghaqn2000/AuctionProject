@@ -47,7 +47,13 @@
         </form>
         <center>
             <div>
-                <span style="color:#005cbf" th:if="${mgs}"> Không tìm thấy sản phẩm</span>
+                <span class="alert alert-success" th:if="${mgs}"> Không tìm thấy sản phẩm</span>
+            </div>
+            <div>
+                <span class="alert alert-success" th:if="${mgs2}"> Sửa tình trạng sản phẩm thành công!</span>
+            </div>
+            <div>
+                <span class="alert alert-success" th:if="${mgsxoa1}" th:text="${mgsxoa1}">Xóa thành công! </span>
             </div>
         </center>
     </div>
@@ -105,35 +111,36 @@
         <!--            </span>-->
         <!--        </div>-->
 
-
         <div class="center" th:if="${tensanpham == null}">
             <span class="pagination">
-                <a th:if="${sanphams1.hasPrevious()}" th:href="@{/admin/list(page=${sanphams1.number - 1})}">Trước</a>
+                <a th:if="${sanphams1.hasPrevious()}" th:href="@{/admin/list(page=${sanphams1.number - 1},)}">Trước</a>
             </span>
-            <span class="pagination" th:each="pageNo: ${#numbers.sequence(0,sanphams1.totalPages -1)}">
-                    <a th:href="@{/admin/list(page = ${pageNo})}" th:text="${pageNo}"></a>
-            </span>
+            <span class="pagination">
 
+<!--                   <div class="page-current"><span th:text="${nguoidungs.number + 1}"></span>/<span-->
+<!--                           th:text="${nguoidungs.totalPages}"></span></div>-->
+
+                    <a th:href="@{/admin/list(page = ${pageNo})}" th:text="${sanphams1.number}"></a>
+            </span>
             <span class="pagination">
                 <a th:if="${sanphams1.hasNext()}" th:href="@{/admin/list(page=${sanphams1.number + 1})}">Sau</a>
             </span>
         </div>
 
-        <!--        <div class="center" th:if="${tensanpham == null}">-->
-        <!--            <div class="page-current">-->
-        <!--                        <span th:text="${sanphams1.number + 1}">-->
-        <!--                        </span>-->
-        <!--                <span-->
-        <!--                        th:text="${sanphams1.totalPages}">-->
-        <!--                        </span>-->
-        <!--            </div>-->
-        <!--            <div class="pagination">-->
-        <!--                <a th:href="@{'/admin/list'(page=${sanphams1.number - 1})}"-->
-        <!--                   th:if="${sanphams1.hasPrevious()}">Previous</a>-->
-        <!--                <a th:href="@{'/admin/list'(page=${sanphams1.number + 1})}"-->
-        <!--                   th:if="${sanphams1.hasNext()}">Next</a>-->
-        <!--            </div>-->
-        <!--        </div>-->
+
+        <div class="center" th:if="${tensanpham != null}">
+            <span class="pagination">
+                <a th:if="${sanphams1.hasPrevious()}"
+                   th:href="@{/admin/list(page=${sanphams1.number - 1}, tensanpham=${tensanpham})}">Trước</a>
+            </span>
+            <span class="pagination">
+                    <a th:href="@{/admin/list(page = ${pageNo},tensanpham=${tensanpham})}" th:text="${pageNo}"></a>
+            </span>
+            <span class="pagination">
+                <a th:if="${sanphams1.hasNext()}"
+                   th:href="@{/admin/list(page=${sanphams1.number + 1},tensanpham=${tensanpham})}">Sau</a>
+            </span>
+        </div>
     </div>
 </section>
 <div id="exampleModal" class="modal fade">

@@ -54,7 +54,7 @@ public class AdminController {
 
 
     @GetMapping(value = "/list")
-    public String AdminList(@RequestParam(value = "page", defaultValue = "0") int page, Model model, Principal principal) {
+    public String AdminList(@RequestParam(value = "page", defaultValue = "1") int page, Model model, Principal principal) {
         NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
         model.addAttribute("nguoiDung", nguoiDung);
         Sort sort = Sort.by("tenSanPham").descending();
@@ -68,14 +68,17 @@ public class AdminController {
         model.addAttribute("nguoiDung", nguoiDung);
         model.addAttribute("sanphams", sanPhamService.findById(id));
         model.addAttribute("danhmucs", danhMucService.findAll());
+        model.addAttribute("cd", "chưa duyệt!");
+
 //        model.addAttribute("appUser", userRoleService.fi )
         return "/nhu/admin/view";
     }
 
     @GetMapping(value = "/delete/{maSanPham}")
-    public String delete(@PathVariable int maSanPham, Model model, Principal principal) {
+    public String delete(@PathVariable int maSanPham, Model model,SanPham sanPham, Principal principal,RedirectAttributes redirectAttributes) {
         NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
         model.addAttribute("nguoiDung", nguoiDung);
+        redirectAttributes.addFlashAttribute("mgsxoa1", "Xóa sản phẩm" +sanPham.getTenSanPham() +" thành công!");
         this.sanPhamService.delete(maSanPham);
         return "redirect:/admin/list";
     }
@@ -85,7 +88,6 @@ public class AdminController {
         NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
         model.addAttribute("nguoiDung", nguoiDung);
         this.sanPhamService.delete(maSanPham);
-        System.out.println("ma sa dang xoa ============AAAAAAAAAAAAa" + maSanPham);
         return "redirect:/admin/duyet";
     }
 
@@ -103,10 +105,9 @@ public class AdminController {
         model.addAttribute("nguoiDung", nguoiDung);
         sanPham.setTinhTrang(true);
         this.sanPhamService.create(sanPham);
-        redirectAttributes.addFlashAttribute("mgs", "Phê duyệt sản phẩm thành công!");
+        redirectAttributes.addFlashAttribute("mgs1", "Phê duyệt sản phẩm thành công!");
         return "redirect:/admin/duyet";
     }
-
 
     @GetMapping(value = "/edit")
     public String AdminViewEdit(@RequestParam("id") Integer id, Model model, Principal principal) {
@@ -118,10 +119,11 @@ public class AdminController {
     }
 
     @PostMapping(value = "/edit")
-    public String AdminEdit(SanPham sanPham, Model model, Principal principal) {
+    public String AdminEdit(SanPham sanPham, Model model,RedirectAttributes redirectAttributes, Principal principal) {
         NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
         model.addAttribute("nguoiDung", nguoiDung);
         this.sanPhamService.create(sanPham);
+        redirectAttributes.addFlashAttribute("mgs2", "sửa sản phẩm thành công!");
         return "redirect:/admin/list";
     }
 

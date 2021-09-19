@@ -72,11 +72,10 @@
             <div class="form-group row">
                 <label readonly class="col-sm-2 col-form-label">Danh Mục *</label>
                 <div class="col-sm-8">
+                    <input readonly type="text" th:field="*{danhMuc}"  th:text="${sanphams.danhMuc.tenDanhMuc}" th:value="${sanphams.danhMuc.maDanhMuc}" class="form-control is-invalid">
                     <select class="form-control custom-select is-invalid" th:field="*{danhMuc}">
                         <option th:text="${sanphams.danhMuc.tenDanhMuc}"
                                 th:value="${sanphams.danhMuc.maDanhMuc}"></option>
-                        <option th:each="danhmuc: ${danhmucs}" th:text="${danhmuc.tenDanhMuc}"
-                                th:value="${danhmuc.maDanhMuc}"></option>
                     </select>
                     </select>
                 </div>

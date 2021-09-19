@@ -96,7 +96,10 @@
         </form>
         <center>
             <div>
-                <span style="color:#005cbf" th:if="${mgs}"> Không tìm thấy sản phẩm</span>
+                <span    class="alert alert-success" th:if="${mgs}"> Không tìm thấy sản phẩm</span>
+            </div>
+            <div>
+                <span  class="alert alert-success"  th:if="${mgs1}"> Đã phê duyệt sản phẩm thành công!</span>
             </div>
         </center>
     </div>

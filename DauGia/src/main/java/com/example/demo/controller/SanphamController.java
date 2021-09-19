@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.NguoiDung;
 import com.example.demo.model.SanPham;
+import com.example.demo.model.TaiKhoan;
 import com.example.demo.repository.nguoi_dung.NguoiDungRepo;
 import com.example.demo.service.danh_muc.DanhMucService;
 import com.example.demo.service.nguoi_dung.NguoiDungService;
@@ -139,6 +140,13 @@ public class SanphamController {
         NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
         model.addAttribute("nguoiDung", nguoiDung);
         model.addAttribute("listSP", sanPhamService.findCuaBan(userName));
+        System.out.println("người đăng là ia -------------------- +" + sanPham.getTaiKhoan());
+        System.out.println("ngày đăng lý-------------------- +" + sanPham.getNgayDangKi());
+        System.out.println("tình trạng là ia -------------------- +" + sanPham.isTinhTrang());
+        System.out.println("người đăng là ia -------------------- +" + sanPham.getHinh());
+        System.out.println("người đăng là ia -------------------- +" + sanPham.getNgayBatDau());
+        System.out.println("người đăng là ia -------------------- +" + sanPham.getTenSanPham());
+
         model.addAttribute("mgsedit", "Sửa sản phẩm thành công");
         return "/nhu/sanpham/list";
     }
@@ -154,7 +162,7 @@ public class SanphamController {
         NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
         model.addAttribute("nguoiDung", nguoiDung);
         model.addAttribute("listSP", sanPhamService.findCuaBan(userName));
-        model.addAttribute("mgsdelete", "Xóa sản phẩm thành công");
+        model.addAttribute("mgsdelete", "Xóa sản phẩm thành công!");
         return "/nhu/sanpham/list";
     }
 
@@ -203,7 +211,6 @@ public class SanphamController {
             return "/nhu/sanpham/list";
         } else {
             System.out.println("Đang rỗng nè coi đo dai bao nhieu nao  ====================" + sanPhams.size());
-
             model.addAttribute("nguoiDung", nguoiDung);
             model.addAttribute("listSP", sanPhams);
             model.addAttribute("mgstk1", "sản phẩm được tìm thấy");
