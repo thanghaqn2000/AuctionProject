@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.NguoiDung;
 import com.example.demo.model.SanPham;
+import com.example.demo.model.TaiKhoan;
 import com.example.demo.repository.nguoi_dung.NguoiDungRepo;
 import com.example.demo.service.danh_muc.DanhMucService;
 import com.example.demo.service.nguoi_dung.NguoiDungService;
@@ -127,6 +128,7 @@ public class SanphamController {
             model.addAttribute("admin", "là admin");
         }
         sanPham.setNgayDangKi(dateFormat);
+        sanPham.setTaiKhoan(new TaiKhoan(userName));
         // vẫn cần id của cái user Name này hazzz :
 
         this.sanPhamService.create(sanPham);

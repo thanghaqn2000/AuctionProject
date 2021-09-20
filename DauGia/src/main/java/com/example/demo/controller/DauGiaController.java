@@ -1,26 +1,20 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.*;
-import com.example.demo.repository.dau_gia.ChiTietDauGiaRepo;
 import com.example.demo.repository.dau_gia.DauGiaRepo;
 import com.example.demo.repository.nguoi_dung.NguoiDungRepo;
 import com.example.demo.service.danh_muc.DanhMucService;
 import com.example.demo.service.dau_gia.ChiTietDauGiaService;
 import com.example.demo.service.san_pham.SanPhamService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 import java.sql.Time;
-
 import java.util.HashMap;
 import java.util.List;
 
@@ -68,7 +62,7 @@ public class DauGiaController {
     }
 
     @RequestMapping("/afterLogin")
-    public String afterLogin(Model model, Principal principal) {
+    public String afterLogin(Model model, Principal principal, SanPham sanPham) {
         if (SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
                 .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"))) {
             model.addAttribute("admin", "là admin");
@@ -167,19 +161,19 @@ public class DauGiaController {
 
     @GetMapping("/timKiem")
     public String search(@RequestParam("maDanhMuc") Integer maDanhMuc,
-                               @RequestParam("tenSp") String tenSp, Model model) {
+                         @RequestParam("tenSp") String tenSp, Model model) {
         List<DanhMuc> danhmucs = danhMucService.findAll();
         List<SanPham> sanPhams;
         if (maDanhMuc != 0) {
-            if (!tenSp.equals("")){
+            if (!tenSp.equals("")) {
                 sanPhams = sanPhamService.findByDanhMucTenSanPham("Đã duyệt", maDanhMuc, tenSp);
-            }else {
+            } else {
                 sanPhams = sanPhamService.findByDanhMuc("Đã duyệt", maDanhMuc);
             }
         } else {
-            if (!tenSp.equals("")){
+            if (!tenSp.equals("")) {
                 sanPhams = sanPhamService.findByNameDaDuyet("Đã duyệt", tenSp);
-            }else {
+            } else {
                 sanPhams = sanPhamService.findByDaDuyet("Đã duyệt");
             }
         }
@@ -187,18 +181,16 @@ public class DauGiaController {
                 .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"))) {
             model.addAttribute("admin", "là admin");
         }
-        if(danhmucs.size() == 0 || sanPhams.size()== 0)
-        {
+        if (danhmucs.size() == 0 || sanPhams.size() == 0) {
             model.addAttribute("danhmucs", danhmucs);
             model.addAttribute("listSP", sanPhams);
-            model.addAttribute("mgskt","ko tìm thay");
+            model.addAttribute("mgskt", "ko tìm thay");
             return "/thang/index";
-        }
-        else {
-            System.out.println("ziseeeeeeeeeeeeeeeeeeeeeeeeeeee ====" +danhmucs.size() +"và "+ sanPhams.size());
+        } else {
+            System.out.println("ziseeeeeeeeeeeeeeeeeeeeeeeeeeee ====" + danhmucs.size() + "và " + sanPhams.size());
             model.addAttribute("danhmucs", danhmucs);
             model.addAttribute("listSP", sanPhams);
-            model.addAttribute("mgs","Danh sách sp tìm thấy");
+            model.addAttribute("mgs", "Danh sách sp tìm thấy");
             return "/thang/index";
         }
 

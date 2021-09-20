@@ -1,7 +1,6 @@
 package com.example.demo.model;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -42,6 +41,10 @@ public class TaiKhoan {
     public TaiKhoan(String tendangnhap, String encode) {
         this.taiKhoan = tendangnhap;
         this.matKhau = encode;
+    }
+
+    public TaiKhoan(String userName) {
+        this.taiKhoan = userName;
     }
 
 
