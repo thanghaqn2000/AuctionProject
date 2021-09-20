@@ -26,28 +26,27 @@ public class SanPhamServiceImpl implements SanPhamService {
     }
 
     @Override
-    public List<SanPham> findByTinhTrang() {
-        return sanPhamRepo.findAllByTinhTrangContaining();
-    }
-
-
-    @Override
-    public List<SanPham> Findchuaduyetcuaban(String username) {
-        return sanPhamRepo.findAllchuaduyetcuaban(username);
+    public List<SanPham> findByTinhTrang(String tinhTrang) {
+        return sanPhamRepo.findAllByTinhTrangContaining(tinhTrang);
     }
 
     @Override
-    public List<SanPham> findByDaDuyet() {
-        return sanPhamRepo.findAllDaDuyet();
+    public List<SanPham> Findchuaduyetcuaban(String tinhTrang,String username) {
+        return sanPhamRepo.findAllchuaduyetcuaban(tinhTrang,username);
     }
 
     @Override
-    public List<SanPham> findByDanhMuc(boolean tinhTrang, int maDanhMuc) {
+    public List<SanPham> findByDaDuyet(String tinhTrang) {
+        return sanPhamRepo.findAllDaDuyet(tinhTrang);
+    }
+
+    @Override
+    public List<SanPham> findByDanhMuc(String tinhTrang, int maDanhMuc) {
         return sanPhamRepo.findByTinhTrangAndDanhMuc_MaDanhMucOrderByGiaKhoiDiem(tinhTrang, maDanhMuc);
     }
 
     @Override
-    public List<SanPham> findByDanhMucTenSanPham(boolean tinhTrang, int maDanhMuc, String tenSanPham) {
+    public List<SanPham> findByDanhMucTenSanPham(String  tinhTrang, int maDanhMuc, String tenSanPham) {
         return sanPhamRepo.findByTinhTrangAndDanhMuc_MaDanhMucAndTenSanPhamContainsOrderByGiaKhoiDiem(tinhTrang, maDanhMuc, tenSanPham);
     }
 
@@ -62,7 +61,7 @@ public class SanPhamServiceImpl implements SanPhamService {
     }
 
     @Override
-    public List<SanPham> findByNameDaDuyet(boolean tinhTrang, String tenSp) {
+    public List<SanPham> findByNameDaDuyet(String  tinhTrang, String tenSp) {
         return sanPhamRepo.findByTinhTrangAndTenSanPhamContains(tinhTrang, tenSp);
     }
 
@@ -72,12 +71,13 @@ public class SanPhamServiceImpl implements SanPhamService {
     }
 
     @Override
-    public List<SanPham> Findchuaduyetcuaban1(boolean tinhtrang, String user, String tenSp) {
-        return sanPhamRepo.findBytensanphamchuaduyetcuaban(tinhtrang,user,tenSp);
+    public List<SanPham> Findchuaduyetcuaban1(String tinhTrang, String user, String tenSp) {
+        return sanPhamRepo.findBytensanphamchuaduyetcuaban(tinhTrang,user,tenSp);
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(int id)
+    {
         sanPhamRepo.deleteById(id);
     }
 

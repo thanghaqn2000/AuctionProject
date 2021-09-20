@@ -17,29 +17,34 @@ public class SanPham implements Validator {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int maSanPham;
-    @NotEmpty(message = "Tên không được để trống")
+    @NotEmpty(message = "Tên không được để trống.")
     private String tenSanPham;
     private String hinh;
     private double giaKhoiDiem;
-    private boolean tinhTrang;
+    private String tinhTrang;
     @Column(length = 2000)
+    @NotEmpty(message = "Vui lòng nhập mô tả")
     private String moTa;
+    @NotEmpty(message = "Vui lòng nhập ngày bắt đầu.")
     private String ngayBatDau;
+    @NotEmpty(message = "vui lòng nhập ngày kết thúc.")
     private String ngayKetThuc;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String ngayDangKi;
-    @NotEmpty(message = "Không đượ để trống giờ")
+    @NotEmpty(message = "Không được để trống giờ.")
     private String gioBatDau;
-    @NotEmpty(message = "Không đượ để trống giờ")
+    @NotEmpty(message = "Không được để trống giờ.")
     private String gioKetThuc;
-    @Min(value = 1, message = "Số lượng phải lớn hơn 1")
+    @Min(value = 1, message = "Số lượng phải lớn hơn 1.")
     private int soLuong;
+
+    @Min(value = 1000, message = "Bước giá phải lớn hơn 1000đ.")
     private double mucGia;
     @ManyToOne(targetEntity = DanhMuc.class)
     @JoinColumn(name = "maDanhMuc", referencedColumnName = "maDanhMuc")
     private DanhMuc danhMuc;
 
-    @OneToOne(mappedBy = "sanPham")
+    @OneToOne(mappedBy = "sanPham",cascade = CascadeType.ALL)
     private DauGia dauGia;
 
     @OneToMany(mappedBy = "sanPham", cascade = CascadeType.ALL)
@@ -52,7 +57,7 @@ public class SanPham implements Validator {
     public SanPham() {
     }
 
-    public SanPham(int maSanPham, @NotEmpty(message = "Tên không được để trống") String tenSanPham, String hinh, double giaKhoiDiem, boolean tinhTrang, String moTa, String ngayBatDau, String ngayKetThuc, String ngayDangKi, @NotEmpty(message = "Không đượ để trống giờ") String gioBatDau, @NotEmpty(message = "Không đượ để trống giờ") String gioKetThuc, @Min(value = 1, message = "Số lượng phải lớn hơn 1") int soLuong, double mucGia, DanhMuc danhMuc, DauGia dauGia, Set<ChiTietDonHang> chiTietDonHangs, TaiKhoan taiKhoans) {
+    public SanPham(int maSanPham, @NotEmpty(message = "Tên không được để trống") String tenSanPham, String hinh, double giaKhoiDiem, String tinhTrang, String moTa, String ngayBatDau, String ngayKetThuc, String ngayDangKi, @NotEmpty(message = "Không đượ để trống giờ") String gioBatDau, @NotEmpty(message = "Không đượ để trống giờ") String gioKetThuc, @Min(value = 1, message = "Số lượng phải lớn hơn 1") int soLuong, double mucGia, DanhMuc danhMuc, DauGia dauGia, Set<ChiTietDonHang> chiTietDonHangs, TaiKhoan taiKhoans) {
         this.maSanPham = maSanPham;
         this.tenSanPham = tenSanPham;
         this.hinh = hinh;
@@ -104,12 +109,20 @@ public class SanPham implements Validator {
         this.giaKhoiDiem = giaKhoiDiem;
     }
 
-    public boolean isTinhTrang() {
+    public String getTinhTrang() {
         return tinhTrang;
     }
 
-    public void setTinhTrang(boolean tinhTrang) {
+    public void setTinhTrang(String tinhTrang) {
         this.tinhTrang = tinhTrang;
+    }
+
+    public TaiKhoan getTaiKhoans() {
+        return taiKhoans;
+    }
+
+    public void setTaiKhoans(TaiKhoan taiKhoans) {
+        this.taiKhoans = taiKhoans;
     }
 
     public String getMoTa() {
@@ -223,13 +236,13 @@ public class SanPham implements Validator {
         Date date1 = new Date();
         Date date2 = new Date();
         Date date3 = new Date();
-        try {
-            date1 = formatter.parse(ngayDangKy);
-            date2 = formatter.parse(ngayBatDau);
-            date3 = formatter.parse(ngayKetThuc);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            date1 = formatter.parse(ngayDangKy);
+//            date2 = formatter.parse(ngayBatDau);
+//            date3 = formatter.parse(ngayKetThuc);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
         System.out.println(date1 + "\n" + date1 + "\n" + date3);
         if (date1.after(date2)) {
             errors.rejectValue("ngayBatDau", "ngayBatDau.date");

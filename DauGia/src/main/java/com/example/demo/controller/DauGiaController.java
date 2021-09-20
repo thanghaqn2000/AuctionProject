@@ -1,26 +1,20 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.*;
-import com.example.demo.repository.dau_gia.ChiTietDauGiaRepo;
 import com.example.demo.repository.dau_gia.DauGiaRepo;
 import com.example.demo.repository.nguoi_dung.NguoiDungRepo;
 import com.example.demo.service.danh_muc.DanhMucService;
 import com.example.demo.service.dau_gia.ChiTietDauGiaService;
 import com.example.demo.service.san_pham.SanPhamService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 import java.sql.Time;
-
 import java.util.HashMap;
 import java.util.List;
 
@@ -58,22 +52,22 @@ public class DauGiaController {
         }
 //        model.addAttribute("listSP", sanPhamService.findByDaDuyet());
         model.addAttribute("danhmucs", danhMucService.findAll());
-        model.addAttribute("thoiTrang", sanPhamService.findByDanhMuc(true, 1));
-        model.addAttribute("sach", sanPhamService.findByDanhMuc(true, 2));
-        model.addAttribute("giay", sanPhamService.findByDanhMuc(true, 3));
-        model.addAttribute("phuongTien", sanPhamService.findByDanhMuc(true, 4));
-        model.addAttribute("laptop", sanPhamService.findByDanhMuc(true, 5));
-        model.addAttribute("dongHo", sanPhamService.findByDanhMuc(true, 6));
+        model.addAttribute("thoiTrang", sanPhamService.findByDanhMuc("Đã duyệt", 1));
+        model.addAttribute("sach", sanPhamService.findByDanhMuc("Đã duyệt", 2));
+        model.addAttribute("giay", sanPhamService.findByDanhMuc("Đã duyệt", 3));
+        model.addAttribute("phuongTien", sanPhamService.findByDanhMuc("Đã duyệt", 4));
+        model.addAttribute("laptop", sanPhamService.findByDanhMuc("Đã duyệt", 5));
+        model.addAttribute("dongHo", sanPhamService.findByDanhMuc("Đã duyệt", 6));
         return "/thang/index";
     }
 
     @RequestMapping("/afterLogin")
-    public String afterLogin(Model model, Principal principal) {
+    public String afterLogin(Model model, Principal principal, SanPham sanPham) {
         if (SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
                 .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"))) {
             model.addAttribute("admin", "là admin");
         }
-        model.addAttribute("listSP", sanPhamService.findByDaDuyet());
+        model.addAttribute("listSP", sanPhamService.findByDaDuyet("Đã duyệt"));
         return "redirect:/";
     }
 
@@ -167,38 +161,36 @@ public class DauGiaController {
 
     @GetMapping("/timKiem")
     public String search(@RequestParam("maDanhMuc") Integer maDanhMuc,
-                               @RequestParam("tenSp") String tenSp, Model model) {
+                         @RequestParam("tenSp") String tenSp, Model model) {
         List<DanhMuc> danhmucs = danhMucService.findAll();
         List<SanPham> sanPhams;
         if (maDanhMuc != 0) {
-            if (!tenSp.equals("")){
-                sanPhams = sanPhamService.findByDanhMucTenSanPham(true, maDanhMuc, tenSp);
-            }else {
-                sanPhams = sanPhamService.findByDanhMuc(true, maDanhMuc);
+            if (!tenSp.equals("")) {
+                sanPhams = sanPhamService.findByDanhMucTenSanPham("Đã duyệt", maDanhMuc, tenSp);
+            } else {
+                sanPhams = sanPhamService.findByDanhMuc("Đã duyệt", maDanhMuc);
             }
         } else {
-            if (!tenSp.equals("")){
-                sanPhams = sanPhamService.findByNameDaDuyet(true, tenSp);
-            }else {
-                sanPhams = sanPhamService.findByDaDuyet();
+            if (!tenSp.equals("")) {
+                sanPhams = sanPhamService.findByNameDaDuyet("Đã duyệt", tenSp);
+            } else {
+                sanPhams = sanPhamService.findByDaDuyet("Đã duyệt");
             }
         }
         if (SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
                 .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"))) {
             model.addAttribute("admin", "là admin");
         }
-        if(danhmucs.size() == 0 || sanPhams.size()== 0)
-        {
+        if (danhmucs.size() == 0 || sanPhams.size() == 0) {
             model.addAttribute("danhmucs", danhmucs);
             model.addAttribute("listSP", sanPhams);
-            model.addAttribute("mgskt","ko tìm thay");
+            model.addAttribute("mgskt", "ko tìm thay");
             return "/thang/index";
-        }
-        else {
-            System.out.println("ziseeeeeeeeeeeeeeeeeeeeeeeeeeee ====" +danhmucs.size() +"và "+ sanPhams.size());
+        } else {
+            System.out.println("ziseeeeeeeeeeeeeeeeeeeeeeeeeeee ====" + danhmucs.size() + "và " + sanPhams.size());
             model.addAttribute("danhmucs", danhmucs);
             model.addAttribute("listSP", sanPhams);
-            model.addAttribute("mgs","Danh sách sp tìm thấy");
+            model.addAttribute("mgs", "Danh sách sp tìm thấy");
             return "/thang/index";
         }
 

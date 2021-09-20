@@ -96,7 +96,9 @@
                         <li><a class="dropdown-item" href="/sanpham/listduyet">Sản phẩm đang
                             duyệt</a>
                         <li>
-                            <span>
+                        <li><a class="dropdown-item" href="/sanpham/listkoduyet">Sản phẩm không được duyệt</a>
+                        </li>
+                        <span>
                         <a class="dropdown-item" th:if="${admin != null}" href="/admin/"> Truy Cập Trang Quản Trị
                         </a>
                                 </span>
@@ -131,11 +133,8 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Người đăng *</label>
                 <div class="col-sm-8">
-                    <!--                <input type="text" th:field="*{appUser}" th:each="appuser: ${sanphams.appUser}"-->
-                    <!--                       th:text="${sanphams.appUser.nguoiDung.tenNguoiDung}" th:value="${sanphams.appUser.userId}" class="form-control is-invalid">-->
-                    <select readonly th:field="*{taiKhoan}">
-                        <option th:each="appuser: ${sanphams.taiKhoan}"
-                                th:text="${sanphams.taiKhoan.nguoiDung.tenNguoiDung}"
+                    <select class="form-control  is-invalid" th:field="*{taiKhoan}" readonly>
+                        <option th:text="${sanphams.taiKhoan.nguoiDung.tenNguoiDung}"
                                 th:value="${sanphams.taiKhoan.taiKhoan}"></option>
                     </select>
                 </div>
@@ -144,8 +143,8 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Số Lượng *</label>
                 <div class="col-sm-8">
-                    <!--                    <p style="color: red" th:if="${#fields.hasErrors('soLuong')}" th:errors="*{soLuong}">Error</p>-->
-                    <input type="number" th:min="1" th:field="*{soLuong}" class="form-control is-invalid">
+                    <p style="color: red" th:if="${#fields.hasErrors('soLuong')}" th:errors="*{soLuong}">Error</p>
+                    <input type="number" th:field="*{soLuong}" class="form-control is-invalid">
                 </div>
             </div>
             <div class="form-group row">
@@ -165,7 +164,7 @@
                 <div class="col-sm-8">
                     <img th:src="@{${'/img/' + sanphams.hinh}}" alt="">
                     <br/>
-                    <input type="text" th:field="*{hinh}" class="form-control is-invalid">
+                    <input type="text" th:field="*{hinh}" class="form-control is-invalid ">
                 </div>
             </div>
 
@@ -178,7 +177,7 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Bước giá *</label>
                 <div class="col-sm-8">
-                    <input th:field="*{mucGia}" type="number" th:min="1000" th:step="1000"
+                    <input th:field="*{mucGia}" type="number"
                            class="form-control is-invalid"
                            placeholder="Là giá thấp nhất trong mỗi lần tăng giá">
                 </div>
@@ -214,26 +213,21 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Thông tin chi tiết</label>
                 <div class="col-sm-10">
-                    <textarea type="textarea" th:field="*{moTa}" class="form-control is-valid" rows="6"> </textarea>
+                    <textarea type="textarea" th:field="*{moTa}" class="form-control is-invalid" rows="6"> </textarea>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Ngày đăng ký*</label>
                 <div class="col-sm-8">
-                    <input readonly type="date" th:field="*{ngayDangKi}" th:value="*{ngayDangKi}">
+                    <input type="date" th:field="*{ngayDangKi}" class="form-control is-invalid" readonly>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Tình Trạng</label>
                 <div class="col-sm-8">
-                    <input readonly type="text" th:field="*{tinhTrang}" class="form-control is-invalid">
+                    <input type="text" th:field="*{tinhTrang}" class="form-control is-invalid" readonly>
                 </div>
-                <!--                <div class="col-sm-8">-->
-                <!--                    <select th:field="*{tinhTrang}" class="form-control is-invalid">-->
-                <!--                        <option th:value="0">Chưa Duyệt</option>-->
-                <!--                        <option th:value="1">Đã Duyệt</option>-->
-                <!--                    </select>-->
-                <!--                </div>-->
+
             </div>
 
             <div class="form-group row">
@@ -288,7 +282,4 @@
 <!--footer end here-->
 </body>
 </html>
-
-
-
 

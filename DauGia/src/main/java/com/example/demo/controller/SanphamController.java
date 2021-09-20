@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.NguoiDung;
 import com.example.demo.model.SanPham;
+import com.example.demo.model.TaiKhoan;
 import com.example.demo.repository.nguoi_dung.NguoiDungRepo;
 import com.example.demo.service.danh_muc.DanhMucService;
 import com.example.demo.service.nguoi_dung.NguoiDungService;
@@ -36,7 +37,9 @@ public class SanphamController {
 
     @Autowired
     NguoiDungRepo nguoiDungRepo;
-
+// 'Không duyệt'
+//    "Chưa duyệt"
+//    'Đã duyệt'
 
     @GetMapping(value = "/sanpham/list")
     public String NguoiDung(SanPham sanPham, Model model, Principal principal) {
@@ -63,8 +66,22 @@ public class SanphamController {
         }
         NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
         model.addAttribute("nguoiDung", nguoiDung);
-        model.addAttribute("listSP", sanPhamService.Findchuaduyetcuaban(userName));
+        model.addAttribute("listSP", sanPhamService.Findchuaduyetcuaban("Chưa duyệt", userName));
         return "/nhu/sanpham/listchuaduyet";
+    }
+
+    @GetMapping(value = "/sanpham/listkoduyet")
+    public String Nguoidungkoduyet(SanPham sanPham, Model model, Principal principal) {
+
+        String userName = principal.getName();
+        if (SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
+                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"))) {
+            model.addAttribute("admin", "là admin");
+        }
+        NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
+        model.addAttribute("nguoiDung", nguoiDung);
+        model.addAttribute("listSP", sanPhamService.Findchuaduyetcuaban("Không duyệt", userName));
+        return "/nhu/sanpham/listkhongduyet";
     }
 
     @GetMapping(value = "/sanpham/create")
@@ -82,13 +99,21 @@ public class SanphamController {
         model.addAttribute("usernams", principal.getName());
         model.addAttribute("taiKhoans", taiKhoanService.findAll());
         model.addAttribute("danhmucs", danhMucService.findAll());
+        model.addAttribute("chuaduyet", "Chưa duyệt");
         return "/nhu/sanpham/create_nguoidung";
+
     }
 
     @PostMapping(value = "/sanpham/create")
     public String Create(@Valid @ModelAttribute("sanphams") SanPham sanPham, BindingResult bindingResult, Model model, Principal principal) {
         new SanPham().validate(sanPham, bindingResult);
         if (bindingResult.hasFieldErrors()) {
+            NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
+            model.addAttribute("nguoiDung", nguoiDung);
+            model.addAttribute("usernams", principal.getName());
+            model.addAttribute("taiKhoans", taiKhoanService.findAll());
+            model.addAttribute("danhmucs", danhMucService.findAll());
+            model.addAttribute("chuaduyet", "Chưa duyệt");
             return "/nhu/sanpham/create_nguoidung";
         }
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -103,6 +128,7 @@ public class SanphamController {
             model.addAttribute("admin", "là admin");
         }
         sanPham.setNgayDangKi(dateFormat);
+        sanPham.setTaiKhoan(new TaiKhoan(userName));
         // vẫn cần id của cái user Name này hazzz :
 
         this.sanPhamService.create(sanPham);
@@ -115,22 +141,19 @@ public class SanphamController {
 
     @GetMapping(value = "/sanpham/edit")
     public String ViewEdit(@RequestParam("id") Integer id, Model model, Principal principal) {
-        String userName = principal.getName();
         if (SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
                 .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"))) {
             model.addAttribute("admin", "là admin");
         }
         NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
         model.addAttribute("nguoiDung", nguoiDung);
-
         model.addAttribute("sanphams", sanPhamService.findById(id));
         model.addAttribute("danhmucs", danhMucService.findAll());
         return "/nhu/sanpham/edit";
     }
 
     @PostMapping(value = "/sanpham/edit")
-    public String Edit(SanPham sanPham, Model model, Principal principal) {
-        this.sanPhamService.create(sanPham);
+    public String Edit(@ModelAttribute("sanphams") SanPham sanPham, Model model, Principal principal) {
         String userName = principal.getName();
         if (SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
                 .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"))) {
@@ -139,7 +162,15 @@ public class SanphamController {
         NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
         model.addAttribute("nguoiDung", nguoiDung);
         model.addAttribute("listSP", sanPhamService.findCuaBan(userName));
+        model.addAttribute("danhmucs", danhMucService.findAll());
+        System.out.println("ten+ " + sanPham.getTaiKhoan().getTaiKhoan());
+        this.sanPhamService.create(sanPham);
         model.addAttribute("mgsedit", "Sửa sản phẩm thành công");
+        System.out.println("ten -----------" + sanPham.getNgayDangKi());
+        System.out.println("ten -----------" + sanPham.getTinhTrang());
+        System.out.println("ten -----------" + sanPham.getTenSanPham());
+        System.out.println("ten -----------" + sanPham.getTaiKhoan());
+
         return "/nhu/sanpham/list";
     }
 
@@ -154,7 +185,7 @@ public class SanphamController {
         NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
         model.addAttribute("nguoiDung", nguoiDung);
         model.addAttribute("listSP", sanPhamService.findCuaBan(userName));
-        model.addAttribute("mgsdelete", "Xóa sản phẩm thành công");
+        model.addAttribute("mgsdelete", "Xóa sản phẩm thành công!");
         return "/nhu/sanpham/list";
     }
 
@@ -168,7 +199,7 @@ public class SanphamController {
             model.addAttribute("admin", "là admin");
         }
         NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
-        List<SanPham> sanPhams = sanPhamService.Findchuaduyetcuaban1(false, userName, tenSp);
+        List<SanPham> sanPhams = sanPhamService.Findchuaduyetcuaban1("Chưa duyệt", userName, tenSp);
         if (sanPhams.size() == 0) {
             System.out.println("Đang rỗng nè coi đo dai bao nhieu nao  ====================" + sanPhams.size());
             model.addAttribute("nguoiDung", nguoiDung);
@@ -203,7 +234,6 @@ public class SanphamController {
             return "/nhu/sanpham/list";
         } else {
             System.out.println("Đang rỗng nè coi đo dai bao nhieu nao  ====================" + sanPhams.size());
-
             model.addAttribute("nguoiDung", nguoiDung);
             model.addAttribute("listSP", sanPhams);
             model.addAttribute("mgstk1", "sản phẩm được tìm thấy");
