@@ -12,6 +12,8 @@ public interface NguoiDungRepo extends JpaRepository<NguoiDung, Integer> {
 
     NguoiDung findByTaiKhoan_TaiKhoan(String taiKhoan);
 
+    NguoiDung findByEmail(String email);
+
     Page<NguoiDung> findByTenNguoiDungContains(String tenNguoiDung, Pageable pageable);
 
     Page<NguoiDung> findByDiaChiContains(String diaChi, Pageable pageable);

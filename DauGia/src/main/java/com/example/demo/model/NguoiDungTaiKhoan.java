@@ -12,10 +12,11 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
-//@Table(name = "nguoidung_taikhoan", uniqueConstraints={@UniqueConstraint(columnNames = "email1"),@UniqueConstraint(columnNames = "taiKhoan1")})
+
 public class NguoiDungTaiKhoan implements Validator {
 
     @Id
@@ -24,30 +25,30 @@ public class NguoiDungTaiKhoan implements Validator {
     @NotEmpty(message = "Tên đăng nhập không được để trống")
     private String tenNguoiDung1;
 
-//    @Column(unique = true,name = "email1",message="{Unique.email1}")
-    @NotEmpty(message = "vui lòng nhập email")
+    //    @Column(unique = true,name = "email1",message="{Unique.email1}")
+    @NotEmpty(message = "Vui lòng nhập email")
     @Email(message = "Sai định dạng Email")
     private String email1;
-    @NotEmpty(message = "vui lòng nhập số đt")
+    @NotEmpty(message = "Vui lòng nhập số điện thoại")
     @Size(min = 9, max = 13, message = "Số điện thoai phải có độ dài 10-12 số")
     private String soDienThoai1;
 
     private String diaChi1;
 
-    @NotEmpty(message = "vui lòng nhập ngày sinh")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotEmpty(message = "Vui lòng nhập ngày sinh")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String ngaySinh1;
 
     private boolean gioiTinh1;
-    @NotEmpty(message = "vui lòng nhập cmnd")
+    @NotEmpty(message = "Vui lòng nhập CMND")
     @Pattern(regexp = "(^$|[0-9]*$)", message = "CMND phải theo định dạng [0][0-9]")
     private String cmnd1;
 
-    @NotEmpty(message = "vui lòng nhập tên đăng nhập")
+    @NotEmpty(message = "Vui lòng nhập tên đăng nhập")
     private String taiKhoan1;
 
-    @NotEmpty(message = "vui lòng nhập mật khẩu")
-    @Size(min = 5, message = "vui lòng nhập mật khẩu lớn hơn 4 ký tự")
+    @NotEmpty(message = "Vui lòng nhập mật khẩu")
+    @Size(min = 5, message = "Vui lòng nhập mật khẩu lớn hơn 4 ký tự")
     private String matKhau1;
 
     public NguoiDungTaiKhoan() {
@@ -162,7 +163,6 @@ public class NguoiDungTaiKhoan implements Validator {
         java.sql.Date date = new java.sql.Date(millis);
         Date ngaysinh1 = new Date();
 
-
         System.out.println("ngày hiện tại  ====" + date);
         try {
             ngaysinh1 = formatter.parse(ngaySinh1);
@@ -172,7 +172,6 @@ public class NguoiDungTaiKhoan implements Validator {
         if (ngaysinh1.after(date)) {
             errors.rejectValue("ngaySinh1", "ngaySinh1.date");
         }
-
         if (!nguoiDungTaiKhoan.soDienThoai1.startsWith("0")) {
             errors.rejectValue("soDienThoai1", "number.startsWith");
         }
