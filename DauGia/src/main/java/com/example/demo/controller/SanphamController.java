@@ -127,6 +127,7 @@ public class SanphamController {
                 .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"))) {
             model.addAttribute("admin", "là admin");
         }
+        sanPham.setTinhTrang("Chưa duyệt");
         sanPham.setNgayDangKi(dateFormat);
         sanPham.setTaiKhoan(new TaiKhoan(userName));
         // vẫn cần id của cái user Name này hazzz :
