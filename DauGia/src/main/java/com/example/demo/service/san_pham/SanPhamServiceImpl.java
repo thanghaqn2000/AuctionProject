@@ -37,7 +37,7 @@ public class SanPhamServiceImpl implements SanPhamService {
 
     @Override
     public List<SanPham> findByDaDuyet(String tinhTrang) {
-        return sanPhamRepo.findAllDaDuyet( tinhTrang);
+        return sanPhamRepo.findAllDaDuyet(tinhTrang);
     }
 
     @Override

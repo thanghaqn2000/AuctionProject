@@ -14,14 +14,16 @@ public interface SanPhamRepo extends JpaRepository<SanPham, Integer> {
     @Query("select e from  SanPham e where e.tinhTrang = ?1 and e.taiKhoans.taiKhoan= ?2")
     List<SanPham> findAllchuaduyetcuaban(String tinhtrang,String username);
 //    false chuwa duyeejt
-
-    @Query("select e from  SanPham e where e.tinhTrang = ?1 ")
+//    SELECT *FROM san_pham WHERE ngay_bat_dau >= (SELECT CURDATE()) and  ngay_ket_thuc > (SELECT CURDATE());
+    @Query("select e from  SanPham e where e.tinhTrang = ?1 and e.ngayBatDau <= current_date  and  e.ngayKetThuc > current_date ")
     List<SanPham> findAllDaDuyet(String tinhtrang);
 //     true - ddax duyeejr
 
     @Query("select e from  SanPham e where e.taiKhoans.taiKhoan= ?1")
     List<SanPham> findCuaBan(String idUser);
 
+
+    @Query("select e from  SanPham e where e.tinhTrang = ?1 and e.danhMuc.maDanhMuc = ?2 and e.ngayBatDau <= current_date  and  e.ngayKetThuc > current_date ")
     List<SanPham> findByTinhTrangAndDanhMuc_MaDanhMucOrderByGiaKhoiDiem(String tinhTrang, int maDanhMuc);
 
 
