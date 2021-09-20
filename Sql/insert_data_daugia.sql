@@ -224,33 +224,5 @@ values
 -- ngày hiện tại 
 SELECT *FROM san_pham WHERE ngay_bat_dau >= (SELECT CURDATE()) and  ngay_ket_thuc > (SELECT CURDATE());
 
-select * from  san_pham  where tinh_trang = 'Đã duyệt' and  ngay_bat_dau >= current_date  and  ngay_ket_thuc  > current_date ;
-
-
-SELECT  
-(CASE  ngay_bat_dau
-WHEN  ngay_bat_dau = current_date  THEN  ngay_bat_dau =1
-END) 
-FROM san_pham
-ORDER BY  ngay_bat_dau;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+select * from  san_pham  where tinh_trang = 'Đã duyệt' and  ngay_bat_dau <= current_date  and  ngay_ket_thuc  > current_date ;
 

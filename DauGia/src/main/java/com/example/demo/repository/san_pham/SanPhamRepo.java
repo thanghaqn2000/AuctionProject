@@ -12,8 +12,9 @@ public interface SanPhamRepo extends JpaRepository<SanPham, Integer> {
 //    fale chuwa duyejt
 
     @Query("select e from  SanPham e where e.tinhTrang = ?1 and e.taiKhoans.taiKhoan= ?2")
-    List<SanPham> findAllchuaduyetcuaban(String tinhtrang,String username);
-//    false chuwa duyeejt
+    List<SanPham> findAllchuaduyetcuaban(String tinhtrang, String username);
+
+    //    false chuwa duyeejt
 //    SELECT *FROM san_pham WHERE ngay_bat_dau >= (SELECT CURDATE()) and  ngay_ket_thuc > (SELECT CURDATE());
     @Query("select e from  SanPham e where e.tinhTrang = ?1 and e.ngayBatDau <= current_date  and  e.ngayKetThuc > current_date ")
     List<SanPham> findAllDaDuyet(String tinhtrang);
@@ -32,10 +33,10 @@ public interface SanPhamRepo extends JpaRepository<SanPham, Integer> {
     List<SanPham> findByTenSanPhamContains(String tenSp);
 
     @Query("select e from  SanPham e where e.taiKhoans.taiKhoan= ?1 and e.tenSanPham like %?2%")
-    List<SanPham> findBytensanphamcuaban(String user,String tenSp);
+    List<SanPham> findBytensanphamcuaban(String user, String tenSp);
 
-    @Query("select e from  SanPham e where e.tinhTrang = ?1  and e.taiKhoans.taiKhoan = ?2 and e.tenSanPham like %?3%" )
-    List<SanPham> findBytensanphamchuaduyetcuaban(String tinhTrang,String user,String tenSp);
+    @Query("select e from  SanPham e where e.tinhTrang = ?1  and e.taiKhoans.taiKhoan = ?2 and e.tenSanPham like %?3%")
+    List<SanPham> findBytensanphamchuaduyetcuaban(String tinhTrang, String user, String tenSp);
 
 
     List<SanPham> findByTinhTrangAndTenSanPhamContains(String tinhTrang, String tenSp);
