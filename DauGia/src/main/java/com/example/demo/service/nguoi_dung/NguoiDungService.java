@@ -8,7 +8,11 @@ import org.springframework.stereotype.Service;
 @Service
 public interface NguoiDungService {
     Iterable<NguoiDung> listAll();
+
     NguoiDung findByTaiKhoan(String taiKhoan);
+
+    NguoiDung findByEmail(String email);
+
     Page<NguoiDung> findAll(Pageable pageable);
 
     void save(NguoiDung nguoiDung);

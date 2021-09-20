@@ -67,11 +67,17 @@ public class MainController {
     @PostMapping(value = "/singup")
     public String singUp(@Valid @ModelAttribute("dangkys") NguoiDungTaiKhoan nguoiDungTaiKhoan, BindingResult bindingResult, Model model) {
         new NguoiDungTaiKhoan().validate(nguoiDungTaiKhoan, bindingResult);
-
-
-
-
         if (bindingResult.hasErrors()) {
+            return "/phuoc/signUp";
+        }
+        TaiKhoan taiKhoan = taiKhoanService.findById(nguoiDungTaiKhoan.getTaiKhoan1());
+        NguoiDung email = nguoiDungService.findByEmail(nguoiDungTaiKhoan.getEmail1());
+        if (!taiKhoan.equals("")){
+            model.addAttribute("errTK", "Ten tai khoan da ton tai");
+            return "/phuoc/signUp";
+        }
+        if (!email.equals("")){
+            model.addAttribute("errEmail", "Email da ton tai");
             return "/phuoc/signUp";
         }
         NguoiDung nguoiDung = new NguoiDung();
@@ -87,6 +93,7 @@ public class MainController {
         System.out.println("nguoi dun  ==========" + nguoiDung);
         return "redirect:/login";
     }
+
     @GetMapping("/403")
     private String accessDenied(Model model, Principal principal) {
         NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());

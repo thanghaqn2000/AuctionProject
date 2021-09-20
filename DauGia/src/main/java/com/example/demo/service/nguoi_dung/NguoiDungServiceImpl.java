@@ -23,6 +23,11 @@ public class NguoiDungServiceImpl implements NguoiDungService {
     }
 
     @Override
+    public NguoiDung findByEmail(String email) {
+        return nguoiDungRepo.findByEmail(email);
+    }
+
+    @Override
     public Page<NguoiDung> findAll(Pageable pageable) {
         return nguoiDungRepo.findAll(pageable);
     }
