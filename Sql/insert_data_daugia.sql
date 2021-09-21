@@ -1,6 +1,6 @@
 use db_daugia;
 
--- drop  database db_daugia;
+  -- drop  database db_daugia;
 
 insert into quyen
 values
