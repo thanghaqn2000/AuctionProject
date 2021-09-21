@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class MainController {
@@ -71,15 +72,21 @@ public class MainController {
             return "/phuoc/signUp";
         }
         TaiKhoan taiKhoan = taiKhoanService.findById(nguoiDungTaiKhoan.getTaiKhoan1());
-        NguoiDung email = nguoiDungService.findByEmail(nguoiDungTaiKhoan.getEmail1());
-        if (!taiKhoan.equals("")){
+        List<NguoiDung> email = nguoiDungService.findByEmail(nguoiDungTaiKhoan.getEmail1());
+        if (taiKhoan != null && email.size() != 0) {
             model.addAttribute("errTK", "Ten tai khoan da ton tai");
-            return "/phuoc/signUp";
-        }
-        if (!email.equals("")){
             model.addAttribute("errEmail", "Email da ton tai");
             return "/phuoc/signUp";
         }
+        if (taiKhoan != null) {
+            model.addAttribute("errTK", "Ten tai khoan da ton tai");
+            return "/phuoc/signUp";
+        }
+        if (email.size() != 0) {
+            model.addAttribute("errEmail", "Email da ton tai");
+            return "/phuoc/signUp";
+        }
+
         NguoiDung nguoiDung = new NguoiDung();
         nguoiDung.setTenNguoiDung(nguoiDungTaiKhoan.getTenNguoiDung1());
         nguoiDung.setTaiKhoan(new TaiKhoan(nguoiDungTaiKhoan.getTaiKhoan1(), bCryptPasswordEncoder.encode(nguoiDungTaiKhoan.getMatKhau1())));

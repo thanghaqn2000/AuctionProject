@@ -42,4 +42,6 @@ public interface SanPhamService {
 
     Page<SanPham> findAllPhanTrang(Pageable pageable);
 
+//    Page<SanPham> findByNameadmin(Pageable pageable, String tenSp);
+
 }

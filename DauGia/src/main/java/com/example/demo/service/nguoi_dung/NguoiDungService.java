@@ -5,13 +5,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface NguoiDungService {
     Iterable<NguoiDung> listAll();
 
     NguoiDung findByTaiKhoan(String taiKhoan);
 
-    NguoiDung findByEmail(String email);
+   List<NguoiDung> findByEmail(String email);
 
     Page<NguoiDung> findAll(Pageable pageable);
 

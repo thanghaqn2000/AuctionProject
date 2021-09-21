@@ -111,15 +111,17 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Tên sản phẩm *</label>
                 <div class="col-sm-8">
-                    <p style="color: red" th:if="${#fields.hasErrors('tenSanPham')}" th:errors="*{tenSanPham}">Error</p>
                     <input type="text" th:field="*{tenSanPham}" class="form-control is-invalid">
+                    <p style="color: red" th:if="${#fields.hasErrors('tenSanPham')}" th:errors="*{tenSanPham}"></p>
+
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Số Lượng *</label>
                 <div class="col-sm-8">
-                    <p style="color: red" th:if="${#fields.hasErrors('soLuong')}" th:errors="*{soLuong}">Error</p>
                     <input type="number" th:field="*{soLuong}" class="form-control is-invalid">
+                    <p style="color: red" th:if="${#fields.hasErrors('soLuong')}" th:errors="*{soLuong}"></p>
+
                 </div>
             </div>
             <div class="form-group row">
@@ -141,7 +143,10 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Giá ban đầu *</label>
                 <div class="col-sm-8">
+
                     <input type="number" th:field="*{giaKhoiDiem}" class="form-control is-invalid">
+                    <p style="color: red" th:if="${#fields.hasErrors('giaKhoiDiem')}" th:errors="*{giaKhoiDiem}"></p>
+
                 </div>
             </div>
             <div class="form-group row">
@@ -150,43 +155,47 @@
                     <input th:field="*{mucGia}" type="number"
                            class="form-control is-invalid"
                            placeholder="Là giá thấp nhất trong mỗi lần tăng giá">
+                    <p style="color: red" th:if="${#fields.hasErrors('mucGia')}" th:errors="*{mucGia}"></p>
+
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Giờ bắt đầu *</label>
                 <div class="col-sm-5">
-                    <p style="color: red" th:if="${#fields.hasErrors('gioBatDau')}" th:errors="*{gioBatDau}">Error</p>
                     <input type="time" th:field="*{gioBatDau}" class="form-control is-invalid">
+                    <p style="color: red" th:if="${#fields.hasErrors('gioBatDau')}" th:errors="*{gioBatDau}"></p>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Ngày Bắt đầu *</label>
                 <div class="col-sm-5">
-                    <p style="color: red" th:if="${#fields.hasErrors('ngayBatDau')}" th:errors="*{ngayBatDau}">Error</p>
                     <input type="date" th:field="*{ngayBatDau}" class="form-control is-invalid">
+                    <p style="color: red" th:if="${#fields.hasErrors('ngayBatDau')}" th:errors="*{ngayBatDau}"></p>
+
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Giờ Kết thúc *</label>
                 <div class="col-sm-5">
-                    <p style="color: red" th:if="${#fields.hasErrors('gioKetThuc')}" th:errors="*{gioKetThuc}">Error</p>
                     <input type="time" th:field="*{gioKetThuc}" class="form-control is-invalid">
+                    <p style="color: red" th:if="${#fields.hasErrors('gioKetThuc')}" th:errors="*{gioKetThuc}"></p>
+
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Ngày kết thúc *</label>
                 <div class="col-sm-5">
-                    <p style="color: red" th:if="${#fields.hasErrors('ngayKetThuc')}" th:errors="*{ngayKetThuc}">
-                        Error</p>
+
                     <input type="date" th:field="*{ngayKetThuc}" class="form-control is-invalid">
+                    <p style="color: red" th:if="${#fields.hasErrors('ngayKetThuc')}" th:errors="*{ngayKetThuc}"></p>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Thông tin chi tiết</label>
                 <div class="col-sm-10">
-                    <p style="color: red" th:if="${#fields.hasErrors('moTa')}" th:errors="*{moTa}">
-                        Error</p>
                     <textarea type="textarea" th:field="*{moTa}" class="form-control is-invalid" rows="6"> </textarea>
+                    <p style="color: red" th:if="${#fields.hasErrors('moTa')}" th:errors="*{moTa}"></p>
+
                 </div>
             </div>
             <div class="form-group row">
@@ -211,7 +220,6 @@
                     <select class="form-control custom-select is-invalid" th:field="*{taiKhoan}" disabled>
                         <option th:text="${usernams}"
                                 th:value="${usernams}">
-
                         </option>
                     </select>
                 </div>

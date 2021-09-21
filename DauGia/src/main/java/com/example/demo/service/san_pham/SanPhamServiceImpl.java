@@ -92,4 +92,9 @@ public class SanPhamServiceImpl implements SanPhamService {
         return sanPhamRepo.findAll(pageable);
     }
 
+//    @Override
+//    public Page<SanPham> findByNameadmin(Pageable pageable, String tenSp) {
+//        return sanPhamRepo.findByTenSanPhamContaining(pageable,tenSp);
+//    }
+
 }

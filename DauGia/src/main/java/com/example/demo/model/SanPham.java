@@ -17,17 +17,19 @@ public class SanPham implements Validator {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int maSanPham;
-    @NotEmpty(message = "Tên không được để trống.")
+    @NotEmpty(message = "Vui lòng nhập tên sản phẩm.")
     private String tenSanPham;
     private String hinh;
+    @Min(value = 1000, message = "Giá khởi điểm vui lòng nhập lớn hơn 1000đ.")
     private double giaKhoiDiem;
     private String tinhTrang;
-    @Column(length = 2000)
-    @NotEmpty(message = "Vui lòng nhập mô tả")
+    @NotEmpty(message = "Vui lòng nhập mô tả.")
     private String moTa;
-    @NotEmpty(message = "Vui lòng nhập ngày bắt đầu.")
+    //    @NotEmpty(message = "Vui lòng nhập ngày bắt đầu.")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String ngayBatDau;
-    @NotEmpty(message = "vui lòng nhập ngày kết thúc.")
+    //    @NotEmpty(message = "vui lòng nhập ngày kết thúc.")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String ngayKetThuc;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String ngayDangKi;
@@ -44,7 +46,7 @@ public class SanPham implements Validator {
     @JoinColumn(name = "maDanhMuc", referencedColumnName = "maDanhMuc")
     private DanhMuc danhMuc;
 
-    @OneToOne(mappedBy = "sanPham",cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "sanPham", cascade = CascadeType.ALL)
     private DauGia dauGia;
 
     @OneToMany(mappedBy = "sanPham", cascade = CascadeType.ALL)
@@ -236,13 +238,15 @@ public class SanPham implements Validator {
         Date date1 = new Date();
         Date date2 = new Date();
         Date date3 = new Date();
-//        try {
-//            date1 = formatter.parse(ngayDangKy);
-//            date2 = formatter.parse(ngayBatDau);
-//            date3 = formatter.parse(ngayKetThuc);
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
+
+        try {
+            date1 = formatter.parse(ngayDangKy);
+            date2 = formatter.parse(ngayBatDau);
+            date3 = formatter.parse(ngayKetThuc);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         System.out.println(date1 + "\n" + date1 + "\n" + date3);
         if (date1.after(date2)) {
             errors.rejectValue("ngayBatDau", "ngayBatDau.date");
