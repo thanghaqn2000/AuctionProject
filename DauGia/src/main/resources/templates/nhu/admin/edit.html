@@ -55,7 +55,7 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Người đăng *</label>
                 <div class="col-sm-8">
-                    <select class="form-control  is-invalid" th:field="*{taiKhoan}" readonly>
+                    <select class="form-control  is-invalid" th:field="*{taiKhoan}" disabled>
                         <option th:text="${sanphams.taiKhoan.nguoiDung.tenNguoiDung}"
                                 th:value="${sanphams.taiKhoan.taiKhoan}"></option>
                     </select>
@@ -70,7 +70,7 @@
             <div class="form-group row">
                 <label readonly class="col-sm-2 col-form-label">Danh Mục *</label>
                 <div class="col-sm-8">
-                    <select class="form-control  is-invalid" th:field="*{danhMuc}" readonly>
+                    <select class="form-control  is-invalid" th:field="*{danhMuc}" disabled>
                         <option th:text="${sanphams.danhMuc.tenDanhMuc}"
                                 th:value="${sanphams.danhMuc.maDanhMuc}"></option>
                     </select>
@@ -138,7 +138,7 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Tình Trạng</label>
                 <div class="col-sm-8">
-                    <select class="form-control" th:field="*{tinhTrang}">
+                    <select class="form-control in-invalid" th:field="*{tinhTrang}">
                         <option th:value="*{tinhTrang}"><span th:utext="*{tinhTrang}"></span>
                         </option>
                         <option th:value="${chuaduyet}"><span th:utext="${chuaduyet}"></span>

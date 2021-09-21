@@ -106,16 +106,7 @@ public class SanphamController {
 
     @PostMapping(value = "/sanpham/create")
     public String Create(@Valid @ModelAttribute("sanphams") SanPham sanPham, BindingResult bindingResult, Model model, Principal principal) {
-        new SanPham().validate(sanPham, bindingResult);
-        if (bindingResult.hasFieldErrors()) {
-            NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
-            model.addAttribute("nguoiDung", nguoiDung);
-            model.addAttribute("usernams", principal.getName());
-            model.addAttribute("taiKhoans", taiKhoanService.findAll());
-            model.addAttribute("danhmucs", danhMucService.findAll());
-            model.addAttribute("chuaduyet", "Chưa duyệt");
-            return "/nhu/sanpham/create_nguoidung";
-        }
+
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         long millis = System.currentTimeMillis();
         java.sql.Date date = new java.sql.Date(millis);
@@ -130,6 +121,17 @@ public class SanphamController {
         sanPham.setTinhTrang("Chưa duyệt");
         sanPham.setNgayDangKi(dateFormat);
         sanPham.setTaiKhoan(new TaiKhoan(userName));
+
+        new SanPham().validate(sanPham, bindingResult);
+        if (bindingResult.hasFieldErrors()) {
+            NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
+            model.addAttribute("nguoiDung", nguoiDung);
+            model.addAttribute("usernams", principal.getName());
+            model.addAttribute("taiKhoans", taiKhoanService.findAll());
+            model.addAttribute("danhmucs", danhMucService.findAll());
+            model.addAttribute("chuaduyet", "Chưa duyệt");
+            return "/nhu/sanpham/create_nguoidung";
+        }
         // vẫn cần id của cái user Name này hazzz :
 
         this.sanPhamService.create(sanPham);

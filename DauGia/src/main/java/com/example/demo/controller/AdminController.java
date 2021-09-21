@@ -99,13 +99,25 @@ public class AdminController {
     }
 
     @PostMapping(value = "/duyetok")
-    public String AdminCreate(SanPham sanPham, Model model, RedirectAttributes redirectAttributes, Principal principal) {
-        NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
-        model.addAttribute("nguoiDung", nguoiDung);
-        sanPham.setTinhTrang("Đã duyệt");
-        this.sanPhamService.create(sanPham);
-        redirectAttributes.addFlashAttribute("mgs1", "Phê duyệt sản phẩm thành công!");
-        return "redirect:/admin/duyet";
+    public String AdminCreate(@RequestParam("submit") String submit,@RequestParam("danhmuc") String danhmuc, SanPham sanPham, Model model, RedirectAttributes redirectAttributes, Principal principal) {
+
+        System.out.println("gias trij su --------------" + submit);
+        if (submit.equals("duyet")) {
+            NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
+            model.addAttribute("nguoiDung", nguoiDung);
+            sanPham.setTinhTrang("Đã duyệt");
+            this.sanPhamService.create(sanPham);
+            redirectAttributes.addFlashAttribute("mgs1", "Phê duyệt sản phẩm thành công!");
+            return "redirect:/admin/duyet";
+        } else {
+            NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
+            model.addAttribute("nguoiDung", nguoiDung);
+            sanPham.setTinhTrang("Không duyệt");
+//            sanPham.setDanhMuc();
+            this.sanPhamService.create(sanPham);
+            return "redirect:/admin/duyet";
+        }
+
     }
 
     @GetMapping(value = "/edit")
@@ -171,20 +183,24 @@ public class AdminController {
     }
 
     @GetMapping(value = "/search")
-    public String search(@RequestParam("tensanpham") String tenSanPham, Model model) {
-        List<SanPham> sanPhams = sanPhamService.findByName(tenSanPham);
+    public String search( @RequestParam(value = "page", defaultValue = "1") int page,@RequestParam("tensanpham") String tenSanPham, Model model, Principal principal) {
+        List<SanPham> sanPhams = sanPhamService.findByName( tenSanPham);
         if (sanPhams.size() == 0) {
+
             System.out.println("khíc thức okokek ====" + sanPhams.size());
             model.addAttribute("sanphams1", sanPhams);
             model.addAttribute("mgs", "khoomg tim thay sp");
             return "/nhu/admin/list";
         } else {
+
+            NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
+            model.addAttribute("nguoiDung", nguoiDung);
+            Sort sort = Sort.by("tenSanPham").descending();
             System.out.println("khíc thức okokek ====" + sanPhams.size());
+//            model.addAttribute("sanphams1", sanPhamService.findByNameadmin(tenSanPham);
             model.addAttribute("sanphams1", sanPhams);
             return "/nhu/admin/list";
         }
-
-
     }
 
     @GetMapping(value = "/search_duyet")
@@ -198,7 +214,6 @@ public class AdminController {
             model.addAttribute("sanphams1", sanPhams);
             return "/nhu/admin/duyet";
         }
-
     }
 
 }

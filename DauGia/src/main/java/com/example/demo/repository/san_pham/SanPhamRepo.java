@@ -1,6 +1,9 @@
 package com.example.demo.repository.san_pham;
 
+import com.example.demo.model.NguoiDung;
 import com.example.demo.model.SanPham;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -32,12 +35,14 @@ public interface SanPhamRepo extends JpaRepository<SanPham, Integer> {
 
     List<SanPham> findByTenSanPhamContains(String tenSp);
 
+
     @Query("select e from  SanPham e where e.taiKhoans.taiKhoan= ?1 and e.tenSanPham like %?2%")
     List<SanPham> findBytensanphamcuaban(String user, String tenSp);
 
     @Query("select e from  SanPham e where e.tinhTrang = ?1  and e.taiKhoans.taiKhoan = ?2 and e.tenSanPham like %?3%")
     List<SanPham> findBytensanphamchuaduyetcuaban(String tinhTrang, String user, String tenSp);
 
+//    Page<SanPham> findByTenSanPhamContaining( Pageable pageable,String tensanpham);
 
     List<SanPham> findByTinhTrangAndTenSanPhamContains(String tinhTrang, String tenSp);
 }
