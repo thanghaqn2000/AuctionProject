@@ -25,21 +25,20 @@ public class NguoiDungController {
     NguoiDungRepo nguoiDungRepo;
 
     @GetMapping("/admin-member-list")
-    public ModelAndView listAll(@RequestParam(defaultValue = "0") int page, Principal principal, Model model1) {
+    public String listAll(@RequestParam(defaultValue = "0") int page, Principal principal, Model model1) {
         NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
         model1.addAttribute("nguoiDung", nguoiDung);
-        ModelAndView model = new ModelAndView("luan/admin-member-list");
         Page<NguoiDung> nguoiDungs;
         Pageable pageable = PageRequest.of(page, 5);
         nguoiDungs = nguoiDungService.findAll(pageable);
-        model.addObject("nguoidungs", nguoiDungs);
-        return model;
+        model1.addAttribute("nguoidungs", nguoiDungs);
+        return "luan/admin-member-list";
     }
 
     @PostMapping("/filter")
-    public ModelAndView getList(@RequestParam(defaultValue = "0") int page, @RequestParam String tenNguoiDung,
-                                @RequestParam String diaChi) {
-        ModelAndView modelAndView = new ModelAndView("/luan/admin-member-list");
+    public String getList(@RequestParam(defaultValue = "0") int page, @RequestParam String tenNguoiDung,
+                                @RequestParam String diaChi, Principal principal, Model model) {
+
         Page<NguoiDung> nguoiDungs;
         Pageable pageableSort = PageRequest.of(page, 5);
         if (tenNguoiDung.equals("")) {
@@ -55,23 +54,28 @@ public class NguoiDungController {
                 nguoiDungs = nguoiDungService.findByTenNguoiDung(tenNguoiDung, pageableSort);
             }
         }
-        modelAndView.addObject("tenNguoiDung", tenNguoiDung);
-        modelAndView.addObject("nguoidungs", nguoiDungs);
-        modelAndView.addObject("diaChi", diaChi);
-        return modelAndView;
+        NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
+        model.addAttribute("nguoiDung", nguoiDung);
+        model.addAttribute("tenNguoiDung", tenNguoiDung);
+        model.addAttribute("nguoidungs", nguoiDungs);
+        model.addAttribute("diaChi", diaChi);
+        return "/luan/admin-member-list";
     }
 
     @GetMapping("/add_member")
-    public ModelAndView create() {
-        ModelAndView model = new ModelAndView("/khoa/add_member");
-        model.addObject("nguoiDung", new NguoiDung());
-        return model;
+    public String create(Model model, Principal principal) {
+        NguoiDung nguoiDung1 = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
+        model.addAttribute("nguoiDung", nguoiDung1);
+        model.addAttribute("nguoiDung1", new NguoiDung());
+        return "/khoa/add_member";
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute NguoiDung nguoiDung, RedirectAttributes redirAttrs) {
+    public String save(@ModelAttribute("nguoiDung1") NguoiDung nguoiDung, RedirectAttributes redirAttrs, Model model, Principal principal) {
         System.out.println(nguoiDung.getMaNguoiDung());
         nguoiDungService.save(nguoiDung);
+        NguoiDung nguoiDung1 = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
+        model.addAttribute("nguoiDung", nguoiDung1);
         redirAttrs.addFlashAttribute("success", "Thêm thành công!");
         return "redirect:/luan/admin-member-list";
     }
@@ -85,16 +89,21 @@ public class NguoiDungController {
     }
 
     @GetMapping("/edit/{id}")
-    public String edit(@PathVariable int id, Model model) {
+    public String edit(@PathVariable int id, Model model, Principal principal) {
         NguoiDung nguoiDung = nguoiDungService.findById(id);
-        model.addAttribute("nguoiDung", nguoiDungService.findById(id));
+        NguoiDung nguoiDung1 = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
+        model.addAttribute("nguoiDung", nguoiDung1);
+
+        model.addAttribute("nguoiDung1", nguoiDungService.findById(id));
         model.addAttribute("tenNguoiDung", nguoiDung.getTenNguoiDung());
         return "/khoa/edit_member";
     }
 
     @PostMapping("/edit_member")
-    public String edit(@ModelAttribute NguoiDung nguoiDung, Model model, RedirectAttributes redirAttrs) {
+    public String edit(@ModelAttribute("nguoiDung1") NguoiDung nguoiDung, Model model, RedirectAttributes redirAttrs, Principal principal) {
         nguoiDungService.save(nguoiDung);
+        NguoiDung nguoiDung1 = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
+        model.addAttribute("nguoiDung", nguoiDung1);
         redirAttrs.addFlashAttribute("success", "Cập nhật thành công!");
         model.addAttribute("tenNguoiDung", nguoiDung.getTenNguoiDung());
         return "redirect:/luan/admin-member-list";
