@@ -24,6 +24,9 @@ public class SanPham implements Validator {
     private double giaKhoiDiem;
     private String tinhTrang;
     @NotEmpty(message = "Vui lòng nhập mô tả.")
+
+    @Column(length = 2000)
+    @NotEmpty(message = "Vui lòng nhập mô tả")
     private String moTa;
     //    @NotEmpty(message = "Vui lòng nhập ngày bắt đầu.")
 //    @DateTimeFormat(pattern = "yyyy-MM-dd")
