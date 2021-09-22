@@ -69,7 +69,6 @@ public class AdminController {
         model.addAttribute("sanphams", sanPhamService.findById(id));
         model.addAttribute("danhmucs", danhMucService.findAll());
 
-//        model.addAttribute("appUser", userRoleService.fi )
         return "/nhu/admin/view";
     }
 
@@ -99,7 +98,7 @@ public class AdminController {
     }
 
     @PostMapping(value = "/duyetok")
-    public String AdminCreate(@RequestParam("submit") String submit,@RequestParam("danhmuc") String danhmuc, SanPham sanPham, Model model, RedirectAttributes redirectAttributes, Principal principal) {
+    public String AdminCreate(@RequestParam("submit") String submit, SanPham sanPham, Model model, RedirectAttributes redirectAttributes, Principal principal) {
 
         System.out.println("gias trij su --------------" + submit);
         if (submit.equals("duyet")) {
@@ -113,7 +112,6 @@ public class AdminController {
             NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
             model.addAttribute("nguoiDung", nguoiDung);
             sanPham.setTinhTrang("Không duyệt");
-//            sanPham.setDanhMuc();
             this.sanPhamService.create(sanPham);
             return "redirect:/admin/duyet";
         }
@@ -215,5 +213,6 @@ public class AdminController {
             return "/nhu/admin/duyet";
         }
     }
+
 
 }

@@ -23,16 +23,12 @@ public class SanPham implements Validator {
     @Min(value = 1000, message = "Giá khởi điểm vui lòng nhập lớn hơn 1000đ.")
     private double giaKhoiDiem;
     private String tinhTrang;
-    @NotEmpty(message = "Vui lòng nhập mô tả.")
 
     @Column(length = 2000)
     @NotEmpty(message = "Vui lòng nhập mô tả")
     private String moTa;
-    //    @NotEmpty(message = "Vui lòng nhập ngày bắt đầu.")
-//    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String ngayBatDau;
-    //    @NotEmpty(message = "vui lòng nhập ngày kết thúc.")
-//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+
     private String ngayKetThuc;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String ngayDangKi;
@@ -249,7 +245,6 @@ public class SanPham implements Validator {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
         System.out.println(date1 + "\n" + date1 + "\n" + date3);
         if (date1.after(date2)) {
             errors.rejectValue("ngayBatDau", "ngayBatDau.date");
@@ -258,7 +253,5 @@ public class SanPham implements Validator {
             errors.rejectValue("ngayKetThuc", "ngayKetThuc.date");
         }
     }
-
-
 }
 
