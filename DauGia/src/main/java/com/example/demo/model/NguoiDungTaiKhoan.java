@@ -39,7 +39,18 @@ public class NguoiDungTaiKhoan implements Validator {
 //    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String ngaySinh1;
 
+    private String dieukhoan;
+
+    public String getDieukhoan() {
+        return dieukhoan;
+    }
+
+    public void setDieukhoan(String dieukhoan) {
+        this.dieukhoan = dieukhoan;
+    }
+
     private boolean gioiTinh1;
+
     @NotEmpty(message = "Vui lòng nhập CMND")
     @Pattern(regexp = "(^$|[0-9]*$)", message = "CMND phải theo định dạng [0][0-9]")
     private String cmnd1;

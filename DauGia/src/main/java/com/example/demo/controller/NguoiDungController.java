@@ -93,7 +93,6 @@ public class NguoiDungController {
         NguoiDung nguoiDung = nguoiDungService.findById(id);
         NguoiDung nguoiDung1 = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
         model.addAttribute("nguoiDung", nguoiDung1);
-
         model.addAttribute("nguoiDung1", nguoiDungService.findById(id));
         model.addAttribute("tenNguoiDung", nguoiDung.getTenNguoiDung());
         return "/khoa/edit_member";

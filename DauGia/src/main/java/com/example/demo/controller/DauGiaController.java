@@ -187,7 +187,6 @@ public class DauGiaController {
             model.addAttribute("mgskt", "ko tìm thay");
             return "/thang/index";
         } else {
-            System.out.println("ziseeeeeeeeeeeeeeeeeeeeeeeeeeee ====" + danhmucs.size() + "và " + sanPhams.size());
             model.addAttribute("danhmucs", danhmucs);
             model.addAttribute("listSP", sanPhams);
             model.addAttribute("mgs", "Danh sách sp tìm thấy");

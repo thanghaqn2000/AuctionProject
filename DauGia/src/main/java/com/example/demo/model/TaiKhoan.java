@@ -47,6 +47,12 @@ public class TaiKhoan {
         this.taiKhoan = userName;
     }
 
+    public TaiKhoan(String taiKhoan1, String encode, Set<Quyen> quyens) {
+        this.taiKhoan = taiKhoan1;
+        this.matKhau = encode;
+        this.quyens = quyens;
+    }
+
 
     public String getTaiKhoan() {
         return taiKhoan;
