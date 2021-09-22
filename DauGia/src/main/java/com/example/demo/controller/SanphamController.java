@@ -156,12 +156,19 @@ public class SanphamController {
     }
 
     @PostMapping(value = "/sanpham/edit")
-    public String Edit(@ModelAttribute("sanphams") SanPham sanPham, Model model, Principal principal) {
+    public String Edit(@Valid @ModelAttribute("sanphams") SanPham sanPham, Model model, BindingResult bindingResult, Principal principal) {
         String userName = principal.getName();
         if (SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
                 .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"))) {
             model.addAttribute("admin", "là admin");
         }
+
+//        new SanPham().validate(sanPham, bindingResult);
+//        if (bindingResult.hasFieldErrors()) {
+//            model.addAttribute("danhmucs", danhMucService.findAll());
+//            return "/nhu/sanpham/edit";
+//        }
+
         NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
         model.addAttribute("nguoiDung", nguoiDung);
         model.addAttribute("listSP", sanPhamService.findCuaBan(userName));
