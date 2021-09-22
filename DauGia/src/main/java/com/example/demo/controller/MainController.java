@@ -95,12 +95,11 @@ public class MainController {
             model.addAttribute("errEmail", "Email da ton tai");
             return "/phuoc/signUp";
         }
-
-//        System.out.println("điều khoản hehe "  + dieukhoan);
-//        if (dieukhoan.equals("khong")) {
-//            model.addAttribute("mgsdk", "vui lòng chấp nhận điều khoản");
-//            return "/phuoc/signUp";
-//        }
+        System.out.println("dieu khoan ------" + nguoiDungTaiKhoan.getDieukhoan());
+        if (nguoiDungTaiKhoan.getDieukhoan() == null) {
+            model.addAttribute("mgsdk", "vui lòng chấp nhận điều khoản");
+            return "/phuoc/signUp";
+        }
         Set<Quyen> quyen = taiKhoanQuyenService.findname("ROLE_USER") ;
         System.out.println("quyn là  " + quyen);
         TaiKhoan taiKhoan1 = new TaiKhoan(nguoiDungTaiKhoan.getTaiKhoan1(), bCryptPasswordEncoder.encode(nguoiDungTaiKhoan.getMatKhau1()), quyen);
