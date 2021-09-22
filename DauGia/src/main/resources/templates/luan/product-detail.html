@@ -48,7 +48,7 @@
             </div>
             <div class="bid-price">
                 <small>Giá thầu hiện tại</small>
-                <strong th:if="${nguoiCaoNhat}" th:text="${#numbers.formatDecimal(nguoiCaoNhat.giaDau, 0, 'POINT', 0, 'COMMA')}+' VND'"></Strong>
+                <strong th:if="${nguoiCaoNhat}" th:text="${#numbers.formatDecimal(nguoiCaoNhat.giaDau, 0, 'POINT', 0, 'COMMA')}+' Đ'"></Strong>
             </div>
             <div class="bid-winner">
                 <small>Người chiến thắng</small>

@@ -183,8 +183,6 @@ public class AdminController {
             model.addAttribute("sanphams1", sanPhams);
             return "/nhu/admin/list";
         }
-
-
     }
 
     @GetMapping(value = "/search_duyet")
