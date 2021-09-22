@@ -14,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
+
 @Controller
 @RequestMapping("/phuoc")
 public class PhuocController {
@@ -51,15 +53,20 @@ public class PhuocController {
 //    }
 
     @GetMapping("/edit/{id}")
-    public String listMemberEdit(@PathVariable("id") int nguoidung, Model model) {
+    public String listMemberEdit(@PathVariable("id") int nguoidung, Model model, Principal principal) {
         NguoiDung nguoiDung = nguoiDungService.findById(nguoidung);
-        model.addAttribute("nguoiDung", nguoiDung);
+        NguoiDung nguoiDung1 = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
+        model.addAttribute("nguoiDung", nguoiDung1);
+        model.addAttribute("nguoiDung1", nguoiDung);
         model.addAttribute("tenNguoiDung", nguoiDung.getTenNguoiDung());
         return "khoa/profile";
     }
 
     @PostMapping("/edit")
-    public String editMember(@ModelAttribute("nguoiDung") NguoiDung nguoiDung, Model model) {
+    public String editMember(@ModelAttribute("nguoiDung1") NguoiDung nguoiDung, Model model, Principal principal) {
+        NguoiDung nguoiDung1 = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
+        nguoiDung.setTaiKhoan(new TaiKhoan(principal.getName()));
+        model.addAttribute("nguoiDung", nguoiDung1);
         nguoiDungService.save(nguoiDung);
         model.addAttribute("message", "Cập nhật thành công");
         model.addAttribute("tenNguoiDung", nguoiDung.getTenNguoiDung());
