@@ -2,9 +2,11 @@ package com.example.demo.controller;
 
 import com.example.demo.model.NguoiDung;
 import com.example.demo.model.NguoiDungTaiKhoan;
+import com.example.demo.model.Quyen;
 import com.example.demo.model.TaiKhoan;
 import com.example.demo.repository.nguoi_dung.NguoiDungRepo;
 import com.example.demo.service.nguoi_dung.NguoiDungService;
+import com.example.demo.service.tai_khoan.TaiKhoanQuyenService;
 import com.example.demo.service.tai_khoan.TaiKhoanService;
 import com.example.demo.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class MainController {
@@ -33,7 +36,8 @@ public class MainController {
 
     @Autowired
     NguoiDungRepo nguoiDungRepo;
-
+    @Autowired
+    TaiKhoanQuyenService taiKhoanQuyenService;
 
     @RequestMapping(value = "/userInfo", method = RequestMethod.GET)
     public String userInfo(Model model, Principal principal) {
@@ -57,6 +61,11 @@ public class MainController {
 //        ModelAndView modelAndView = new ModelAndView("/phuoc/signUp", "dangkys", new NguoiDungTaiKhoan());
 //        return modelAndView;
 //    }
+
+    @GetMapping("/dieukhoan")
+    public String dieukhoan() {
+        return "/nhu/admin/dieukhoan";
+    }
 
     @GetMapping(value = "/singup")
     public String viewsingup1(Model model) {
@@ -87,9 +96,17 @@ public class MainController {
             return "/phuoc/signUp";
         }
 
+//        System.out.println("điều khoản hehe "  + dieukhoan);
+//        if (dieukhoan.equals("khong")) {
+//            model.addAttribute("mgsdk", "vui lòng chấp nhận điều khoản");
+//            return "/phuoc/signUp";
+//        }
+        Set<Quyen> quyen = taiKhoanQuyenService.findname("ROLE_USER") ;
+        System.out.println("quyn là  " + quyen);
+        TaiKhoan taiKhoan1 = new TaiKhoan(nguoiDungTaiKhoan.getTaiKhoan1(), bCryptPasswordEncoder.encode(nguoiDungTaiKhoan.getMatKhau1()), quyen);
         NguoiDung nguoiDung = new NguoiDung();
         nguoiDung.setTenNguoiDung(nguoiDungTaiKhoan.getTenNguoiDung1());
-        nguoiDung.setTaiKhoan(new TaiKhoan(nguoiDungTaiKhoan.getTaiKhoan1(), bCryptPasswordEncoder.encode(nguoiDungTaiKhoan.getMatKhau1())));
+        nguoiDung.setTaiKhoan(taiKhoan1);
         nguoiDung.setEmail(nguoiDungTaiKhoan.getEmail1());
         nguoiDung.setNgaySinh(nguoiDungTaiKhoan.getNgaySinh1());
         nguoiDung.setSoDienThoai(nguoiDungTaiKhoan.getSoDienThoai1());

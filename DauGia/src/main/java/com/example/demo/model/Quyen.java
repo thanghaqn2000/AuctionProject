@@ -14,14 +14,17 @@ public class Quyen {
 
     @ManyToMany(mappedBy = "quyens", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<TaiKhoan> taiKhoans;
+
     public Quyen() {
     }
+
 
     public Set<TaiKhoan> getTaiKhoans() {
         return taiKhoans;
     }
 
-    public void setTaiKhoans(Set<TaiKhoan> taiKhoans) {
+    public void setTaiKhoans(Set<TaiKhoan> taiKhoans)
+    {
         this.taiKhoans = taiKhoans;
     }
 
@@ -45,4 +48,5 @@ public class Quyen {
     public void setTenQuyen(String tenQuyen) {
         this.tenQuyen = tenQuyen;
     }
+
 }

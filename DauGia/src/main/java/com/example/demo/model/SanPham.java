@@ -249,7 +249,6 @@ public class SanPham implements Validator {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
         System.out.println(date1 + "\n" + date1 + "\n" + date3);
         if (date1.after(date2)) {
             errors.rejectValue("ngayBatDau", "ngayBatDau.date");
@@ -258,7 +257,5 @@ public class SanPham implements Validator {
             errors.rejectValue("ngayKetThuc", "ngayKetThuc.date");
         }
     }
-
-
 }
 
