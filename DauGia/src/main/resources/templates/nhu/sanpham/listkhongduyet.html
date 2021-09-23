@@ -97,7 +97,8 @@
                 <h3 class="btn btn-secondary">Sản phẩm không được Admin duyệt</h3>
             </div>
             <div class="services-top">
-                <h6 style="color: #1e7e34">Có vẻ sản phẩm của bạn đã vi phạm một số quy định nên admin đã không duyệt! </h6>
+                <h6 style="color: #1e7e34">Có vẻ sản phẩm của bạn đã vi phạm một số quy định nên admin đã không
+                    duyệt! </h6>
             </div>
             <center>
                 <div>
@@ -118,7 +119,7 @@
                     <div class="col-sm-6 col-md-2 ser item-dau-gia" th:each="sanPham:${listSP}">
                         <div class="thumbnail itemProduct">
                             <div class="img-dau-gia">
-                                <a th:href="@{/product-detail/{id}(id=${sanPham.maSanPham})}"><img
+                                <a><img
                                         th:src="@{${'/img/' + sanPham.hinh}}"
                                         alt=""></a>
                             </div>
@@ -128,12 +129,13 @@
                                     <p th:text="${sanPham.danhMuc.tenDanhMuc}"></p></a>
                                 <div class="row rowProduct" style=" padding: 0em 0em 0.5em 0em;border-bottom: 0px">
                                     <span class="col-md-6 time"></span>
-                                    <p class="col-md-6 price" th:text="${#numbers.formatDecimal(sanPham.giaKhoiDiem, 0, 'POINT', 0, 'COMMA')}+'₫'"></p>
+                                    <p class="col-md-6 price"
+                                       th:text="${#numbers.formatDecimal(sanPham.giaKhoiDiem, 0, 'POINT', 0, 'COMMA')}+'₫'"></p>
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
-                                        <a th:href="@{/sanpham/edit(id = ${sanPham.maSanPham})}"
-                                           class="btn btn-dau-gia btn-secondary">Sửa</a>
+                                        <a th:href="@{/sanpham/xem(id = ${sanPham.maSanPham})}"
+                                           class="btn btn-dau-gia btn-secondary">Chi tiết</a>
                                     </div>
                                     <div class="col-6">
                                         <!--                                        <a th:href="@{/sanpham/delete(id = ${sanPham.maSanPham})}"-->
@@ -212,8 +214,6 @@
         $('#nivo-lightbox-demo a').nivoLightbox({effect: 'fade'});
     });
 </script>
-
-
 
 
 <footer style="height: 0" th:insert="~{/header_footer/footer::footer}"></footer>

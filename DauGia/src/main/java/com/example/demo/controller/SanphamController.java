@@ -37,9 +37,7 @@ public class SanphamController {
 
     @Autowired
     NguoiDungRepo nguoiDungRepo;
-// 'Không duyệt'
-//    "Chưa duyệt"
-//    'Đã duyệt'
+
 
     @GetMapping(value = "/sanpham/list")
     public String NguoiDung(SanPham sanPham, Model model, Principal principal) {
@@ -153,6 +151,20 @@ public class SanphamController {
         model.addAttribute("sanphams", sanPhamService.findById(id));
         model.addAttribute("danhmucs", danhMucService.findAll());
         return "/nhu/sanpham/edit";
+    }
+
+
+    @GetMapping(value = "/sanpham/xem")
+    public String Viewxem(@RequestParam("id") Integer id, Model model, Principal principal) {
+        if (SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
+                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"))) {
+            model.addAttribute("admin", "là admin");
+        }
+        NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
+        model.addAttribute("nguoiDung", nguoiDung);
+        model.addAttribute("sanphams", sanPhamService.findById(id));
+        model.addAttribute("danhmucs", danhMucService.findAll());
+        return "/nhu/sanpham/view";
     }
 
     @PostMapping(value = "/sanpham/edit")
