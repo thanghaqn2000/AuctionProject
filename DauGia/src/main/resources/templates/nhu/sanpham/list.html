@@ -114,7 +114,7 @@
                     <div class="col-sm-6 col-md-2 ser item-dau-gia" th:each="sanPham:${listSP}">
                         <div class="thumbnail itemProduct">
                             <div class="img-dau-gia">
-                                <a th:href="@{/product-detail/{id}(id=${sanPham.maSanPham})}"><img
+                                <a><img
                                         th:src="@{${'/img/' + sanPham.hinh}}"
                                         alt=""></a>
                             </div>
@@ -128,8 +128,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
-                                        <a th:href="@{/sanpham/edit(id = ${sanPham.maSanPham})}"
-                                           class="btn btn-dau-gia btn-secondary">Sửa</a>
+                                        <a th:href="@{/sanpham/xem(id = ${sanPham.maSanPham})}"
+                                           class="btn btn-dau-gia btn-secondary">Chi tiết</a>
                                     </div>
                                     <div class="col-6">
                                         <!--                                        <a th:href="@{/sanpham/delete(id = ${sanPham.maSanPham})}"-->

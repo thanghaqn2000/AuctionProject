@@ -47,8 +47,8 @@
             <div class="image-profile">
                 <img src="/css/styles_khoa/img/user.png" class="image-user" alt="user"></imgsrc>
             </div>
-            <p class="name-profile" th:text="${nguoiDung.tenNguoiDung}"></p>
-            <p class="name-user" th:text="${nguoiDung.taiKhoan.taiKhoan}"></p>
+            <p class="name-profile" th:text="${nguoiDung1.tenNguoiDung}"></p>
+            <p class="name-user" th:text="${nguoiDung1.taiKhoan.taiKhoan}"></p>
         </div>
         <nav class="nav-profile">
             <a class="a-profile1" th:href="@{/phuoc/editPass/__${nguoiDung.taiKhoan.taiKhoan}__}">
@@ -58,7 +58,6 @@
                           Thay đổi mật khẩu
                         </span>
                     </span>
-
             </a>
         </nav>
     </ul>
@@ -72,7 +71,7 @@
                 </div>
                 <div class="card-body">
                     <form id="profileForm" class="css" th:action="@{/phuoc/edit}" method="post"
-                          th:object="${nguoiDung}">
+                          th:object="${nguoiDung1}">
                         <input type="hidden" th:field="*{maNguoiDung}">
                         <input type="hidden" th:field="*{taiKhoan}">
                         <div class="form-row">
