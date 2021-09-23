@@ -203,7 +203,7 @@ public class AdminController {
 
     @GetMapping(value = "/search_duyet")
     public String search_duyet(@RequestParam("tensanpham") String tenSanPham, Model model) {
-        List<SanPham> sanPhams = sanPhamService.findByNameDaDuyet("Chưa duyệt", tenSanPham);
+        List<SanPham> sanPhams = sanPhamService.findByNameDaDuyet1("Chưa duyệt", tenSanPham);
         if (sanPhams.size() == 0) {
             model.addAttribute("sanphams1", sanPhams);
             model.addAttribute("mgs", "khoomg tim thay sp");
