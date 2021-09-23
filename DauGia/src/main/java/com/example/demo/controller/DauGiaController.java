@@ -158,7 +158,6 @@ public class DauGiaController {
         chiTietDauGiaService.create(chiTietDauGia);
         return "redirect:/product-detail/" + idSP;
     }
-
     @GetMapping("/timKiem")
     public String search(@RequestParam("maDanhMuc") Integer maDanhMuc,
                          @RequestParam("tenSp") String tenSp, Model model) {
@@ -192,14 +191,11 @@ public class DauGiaController {
             model.addAttribute("mgs", "Danh sách sp tìm thấy");
             return "/thang/index";
         }
-
     }
-
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage(Model model) {
         return "/phuoc/signIn";
     }
-
     @RequestMapping("/tuvan")
     public String tuVan() {
         return "/thang/tuvan";

@@ -12,7 +12,6 @@ public class ChiTietDauGia {
     @MapsId("maDauGia")
     @JoinColumn(name = "ma_dau_gia")
     private DauGia dauGia;
-
     @ManyToOne
     @MapsId("maNguoiDung")
     @JoinColumn(name = "ma_nguoi_dung")
