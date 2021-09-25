@@ -181,10 +181,9 @@ public class AdminController {
     }
 
     @GetMapping(value = "/search")
-    public String search( @RequestParam(value = "page", defaultValue = "1") int page,@RequestParam("tensanpham") String tenSanPham, Model model, Principal principal) {
-        List<SanPham> sanPhams = sanPhamService.findByName( tenSanPham);
+    public String search(@RequestParam(value = "page", defaultValue = "1") int page, @RequestParam("tensanpham") String tenSanPham, Model model, Principal principal) {
+        List<SanPham> sanPhams = sanPhamService.findByName(tenSanPham);
         if (sanPhams.size() == 0) {
-
             System.out.println("khíc thức okokek ====" + sanPhams.size());
             model.addAttribute("sanphams1", sanPhams);
             model.addAttribute("mgs", "khoomg tim thay sp");
