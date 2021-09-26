@@ -27,7 +27,7 @@ public interface SanPhamRepo extends JpaRepository<SanPham, Integer> {
     @Query("select e from  SanPham e where e.tinhTrang = ?1 and e.danhMuc.maDanhMuc = ?2 and e.ngayBatDau <= current_date  and  e.ngayKetThuc > current_date ")
     List<SanPham> findByTinhTrangAndDanhMuc_MaDanhMucOrderByGiaKhoiDiem(String tinhTrang, int maDanhMuc);
 
-    @Query("select e from  SanPham e where e.tinhTrang = ?1 and e.danhMuc.maDanhMuc = ?2 and e.tenSanPham= ?3 and e.ngayBatDau <= current_date  and  e.ngayKetThuc > current_date ")
+    @Query("select e from  SanPham e where e.tinhTrang = ?1 and e.danhMuc.maDanhMuc = ?2 and e.tenSanPham like %?3% and e.ngayBatDau <= current_date  and  e.ngayKetThuc > current_date ")
     List<SanPham> findByTinhTrangAndDanhMuc_MaDanhMucAndTenSanPhamContainsOrderByGiaKhoiDiem(String tinhTrang, int maDanhMuc, String tenSanPham);
 
     List<SanPham> findByTenSanPhamContains(String tenSp);
@@ -42,6 +42,6 @@ public interface SanPhamRepo extends JpaRepository<SanPham, Integer> {
     //    Page<SanPham> findByTenSanPhamContaining( Pageable pageable,String tensanpham);
     List<SanPham> findByTinhTrangAndTenSanPhamContains(String tinhTrang, String tenSp);
 
-    @Query("select e from  SanPham e where e.tinhTrang = ?1 and e.tenSanPham = ?2 and e.ngayBatDau <= current_date  and  e.ngayKetThuc > current_date ")
+    @Query("select e from  SanPham e where e.tinhTrang = ?1 and e.tenSanPham like %?2% and e.ngayBatDau <= current_date  and  e.ngayKetThuc > current_date ")
     List<SanPham> findByTinhTrangAndTenSanPhamContains1(String tinhTrang, String tenSp);
 }

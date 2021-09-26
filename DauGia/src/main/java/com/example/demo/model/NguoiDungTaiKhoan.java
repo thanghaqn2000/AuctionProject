@@ -168,7 +168,6 @@ public class NguoiDungTaiKhoan implements Validator {
         NguoiDungTaiKhoan nguoiDungTaiKhoan = (NguoiDungTaiKhoan) nguoidungtaikhoan;
         String ngaySinh1 = nguoiDungTaiKhoan.getNgaySinh1();
         String email1 = nguoiDungTaiKhoan.getEmail1();
-//        String soDienThoai1 = ((NguoiDungTaiKhoan) nguoiDungTaiKhoan).getSoDienThoai1();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         long millis = System.currentTimeMillis();
         java.sql.Date date = new java.sql.Date(millis);

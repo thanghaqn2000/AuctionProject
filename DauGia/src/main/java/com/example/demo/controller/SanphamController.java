@@ -37,8 +37,7 @@ public class SanphamController {
     public NguoiDungService nguoiDungService;
     @Autowired
     public TaiKhoanQuyenService taiKhoanQuyenService;
-    @Value("${upload.path}")
-    private String fileUpload;
+
 
     @Autowired
     NguoiDungRepo nguoiDungRepo;
@@ -89,8 +88,7 @@ public class SanphamController {
     @GetMapping(value = "/sanpham/create")
     public String viewCreate(Model model, Principal principal) {
         LocalDate localDate = LocalDate.now();
-//        SanPham sanPham = new SanPham();
-        ProductForm sanPham = new ProductForm();
+        SanPham sanPham = new SanPham();
         sanPham.setNgayDangKi(localDate.toString());
         model.addAttribute("sanphams", sanPham);
         if (SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
@@ -104,36 +102,26 @@ public class SanphamController {
         model.addAttribute("danhmucs", danhMucService.findAll());
         model.addAttribute("chuaduyet", "Chưa duyệt");
         return "/nhu/sanpham/create_nguoidung";
+
     }
 
-
     @PostMapping(value = "/sanpham/create")
-    public String Create(@Valid @ModelAttribute("sanphams") ProductForm sanPham1, BindingResult bindingResult, Model model, Principal principal) {
+    public String Create(@Valid @ModelAttribute("sanphams") SanPham sanPham, BindingResult bindingResult, Model model, Principal principal) {
+
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         long millis = System.currentTimeMillis();
         java.sql.Date date = new java.sql.Date(millis);
         System.out.println(java.time.LocalDateTime.now());
         String dateFormat = formatter.format(date);
+        System.out.println("san pham thêm" + sanPham);
         String userName = principal.getName();
         if (SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
                 .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"))) {
             model.addAttribute("admin", "là admin");
         }
-        SanPham sanPham = new SanPham.sanphamBuilder(sanPham1.getTenSanPham()).giasanphamtion(sanPham1.getGiaKhoiDiem()).tinhtrangsanphamtion(sanPham1.getTinhTrang()).motasanphamtion(sanPham1.getMoTa()).ngaybdsanphamtion(sanPham1.getNgayBatDau()).ngayktsanphamtion(sanPham1.getNgayKetThuc()).soluongsanphamtion(sanPham1.getSoLuong()).mucgiasanphamtion(sanPham1.getMucGia()).taikhaonsanphamtion(sanPham1.getTaiKhoans()).goibdsanphamtion(sanPham1.getGioBatDau()).goiktsanphamtion(sanPham1.getGioKetThuc()).build();
-
-
-        MultipartFile multipartFile = sanPham1.gethinh();
-        String fileName = multipartFile.getOriginalFilename();
-        try {
-            FileCopyUtils.copy(sanPham1.gethinh().getBytes(), new File(this.fileUpload + fileName));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        sanPham.setHinh(fileName);
-        sanPham.setDanhMuc(sanPham1.getDanhMuc());
         sanPham.setTinhTrang("Chưa duyệt");
         sanPham.setNgayDangKi(dateFormat);
-        sanPham.setTaiKhoans(new TaiKhoan(userName));
+        sanPham.setTaiKhoan(new TaiKhoan(userName));
 
         new SanPham().validate(sanPham, bindingResult);
         if (bindingResult.hasFieldErrors()) {
@@ -145,6 +133,7 @@ public class SanphamController {
             model.addAttribute("chuaduyet", "Chưa duyệt");
             return "/nhu/sanpham/create_nguoidung";
         }
+        // vẫn cần id của cái user Name này hazzz :
 
         this.sanPhamService.create(sanPham);
         NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());

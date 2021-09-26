@@ -89,6 +89,8 @@
                         <li><a class="dropdown-item" href="/sanpham/create">Thêm Mới Sản phẩm</a>
                         <li><a class="dropdown-item" href="/sanpham/listduyet">Sản Phẩm Chờ Duyệt</a>
                         </li>
+                        <li><a class="dropdown-item" href="/sanpham/listkoduyet">Sản phẩm không được duyệt</a>
+                        </li>
                         <li>
                             <span>
                         <a class="dropdown-item" th:if="${admin != null}" href="/admin/">Trang Quản Trị
@@ -102,7 +104,7 @@
     </div>
 </nav>
 <div class="container">
-    <form method="post" action="/sanpham/create" th:object="${sanphams}" enctype="multipart/form-data">
+    <form method="post" action="/sanpham/create" th:object="${sanphams}">
         <fieldset>
             <div class="services-top">
                 <h3 class="btn btn-secondary">Thêm Sản Phẩm</h3>
