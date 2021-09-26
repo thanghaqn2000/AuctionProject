@@ -67,42 +67,42 @@
     });
 </script>
 
-<!--<nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-bottom: 60px">-->
-<!--    <div class="container">-->
-<!--        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarScroll"-->
-<!--                aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">-->
-<!--            <span class="navbar-toggler-icon"></span>-->
-<!--        </button>-->
-<!--        <div class="collapse navbar-collapse" id="navbarScroll">-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light row" style="margin-bottom: 60px">
+    <div class="container">
+        <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarScroll"
+                aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse col-sm-8" id="navbarScroll" >
 
-<!--        </div>-->
-<!--        <div class="collapse navbar-collapse">-->
-<!--            <ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll"-->
-<!--                style="max-height: 200px;margin-left: 180px">-->
-<!--                <li class="nav-item dropdown">-->
-<!--                    <a class="nav-link dropdown-toggle" href="#" role="button"-->
-<!--                       data-toggle="dropdown" aria-expanded="false">-->
-<!--                        Tài Khoản-->
-<!--                    </a>-->
-<!--                    <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown1">-->
-<!--                        <li><a class="dropdown-item" href="/sanpham/list">Sản Phẩm</a></li>-->
-<!--                        <li><a class="dropdown-item" href="/sanpham/create">Thêm Mới Sản phẩm</a>-->
-<!--                        <li><a class="dropdown-item" href="/sanpham/listduyet">Sản Phẩm Chờ Duyệt</a>-->
-<!--                        </li>-->
-<!--                        <li>-->
-<!--                            <span>-->
-<!--                        <a class="dropdown-item" th:if="${admin != null}" href="/admin/">Trang Quản Trị-->
-<!--                        </a>-->
-<!--                                </span>-->
-<!--                        </li>-->
-<!--                    </ul>-->
-<!--                </li>-->
-<!--            </ul>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</nav>-->
+        </div>
+        <div class="collapse navbar-collapse col-sm-4" >
+            <ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll"
+                style="max-height: 200px;margin-left: 180px">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button"
+                       data-toggle="dropdown" aria-expanded="false">
+                        Tài Khoản
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown1">
+                        <li><a class="dropdown-item" href="/sanpham/list">Sản Phẩm</a></li>
+                        <li><a class="dropdown-item" href="/sanpham/create">Thêm Mới Sản phẩm</a>
+                        <li><a class="dropdown-item" href="/sanpham/listduyet">Sản Phẩm Chờ Duyệt</a>
+                        </li>
+                        <li>
+                            <span>
+                        <a class="dropdown-item" th:if="${admin != null}" href="/admin/">Trang Quản Trị
+                        </a>
+                                </span>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 <div class="container">
-    <form method="post" action="/sanpham/create" th:object="${sanphams}">
+    <form method="post" action="/sanpham/create" th:object="${sanphams}" enctype="multipart/form-data">
         <fieldset>
             <div class="services-top">
                 <h3 class="btn btn-secondary">Thêm Sản Phẩm</h3>
@@ -136,7 +136,7 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Hình ảnh sản phẩm *</label>
                 <div class="col-sm-8">
-                    <input type="file" th:field="*{hinh}" class="form-control-file is-invalid">
+                    <input  type="file" th:field="*{hinh}" class="form-control-file is-invalid">
                 </div>
             </div>
 
@@ -216,7 +216,7 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Tài Khoản bán *</label>
                 <div class="col-sm-8">
-                    <select class="form-control custom-select is-invalid" th:field="*{taiKhoan}" disabled>
+                    <select class="form-control custom-select is-invalid" th:field="*{taiKhoans}" disabled>
                         <option th:text="${usernams}"
                                 th:value="${usernams}">
                         </option>

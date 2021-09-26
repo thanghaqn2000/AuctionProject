@@ -16,6 +16,12 @@ public class DanhMuc {
     private Set<SanPham> sanPham;
     public DanhMuc() {
     }
+
+    public DanhMuc(int maDanhMuc, @NotEmpty(message = "vui lòng nhập tên danh mục") String tenDanhMuc) {
+        this.maDanhMuc = maDanhMuc;
+        this.tenDanhMuc = tenDanhMuc;
+    }
+
     public int getMaDanhMuc() {
         return maDanhMuc;
     }
