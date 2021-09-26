@@ -97,8 +97,8 @@ public class DauGiaController {
         double giaDau = giaCaoNhat + sanPham.getGiaKhoiDiem();
         model.addAttribute("cartMap", cartMap);
         model.addAttribute("sanPham", sanPhamService.findById(id));
-        model.addAttribute("giaCaoNhat", giaCaoNhat);
-        model.addAttribute("giaDau", giaDau);
+        model.addAttribute("giaCaoNhat", (long)giaCaoNhat);
+        model.addAttribute("giaDau", (long)giaDau);
         model.addAttribute("dauGia", detailList);
         return "luan/product-detail";
     }
@@ -132,7 +132,7 @@ public class DauGiaController {
         model.addAttribute("giaCaoNhat", giaCaoNhat);
         model.addAttribute("giaDau", giaDau);
         model.addAttribute("dauGia", detailList);
-        return "luan/product-detail";
+        return "redirect:/product-detail/"+id;
     }
 
     @GetMapping("/dauGia")

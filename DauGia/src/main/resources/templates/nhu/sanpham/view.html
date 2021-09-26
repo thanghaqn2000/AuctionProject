@@ -113,9 +113,11 @@
 
 <div class="container">
     <form method="get" action="/sanpham/list" th:object="${sanphams}">
+        <input type="text" th:field="*{danhMuc}" class="form-control is-invalid" hidden="hidden">
+
         <fieldset>
             <div class="services-top">
-                <h3 class="btn btn-secondary"> Chi tiết sản phẩm </h3>
+                <h3 class="btn btn-secondary"> Chi tiết sản phẩm ahaha</h3>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Mã Sản Phẩm *</label>
@@ -130,18 +132,15 @@
                     <input type="text" th:field="*{tenSanPham}" class="form-control is-invalid" readonly>
                 </div>
             </div>
-<!--            <div class="form-group row">-->
-<!--                <label class="col-sm-2 col-form-label">Người đăng *</label>-->
-<!--                <div class="col-sm-8">-->
-<!--                    <input type="text" th:field="*{taiKhoan}" th:value="${sanphams.taiKhoan.taiKhoan.tenNguoiDung}"-->
-<!--                           class="form-control is-invalid" readonly>-->
-                                        <select class="form-control  is-invalid" th:field="*{taiKhoan}" readonly hidden="hidden">
-                                            <option th:text="${sanphams.taiKhoan.nguoiDung.tenNguoiDung}"
-                                                    th:value="${sanphams.taiKhoan.taiKhoan}" ></option>
-                                        </select>
-<!--                </div>-->
-
-<!--            </div>-->
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Người đăng *</label>
+                <div class="col-sm-8">
+                    <select class="form-control  is-invalid" th:field="*{taiKhoan}" readonly>
+                        <option th:text="${sanphams.taiKhoan.nguoiDung.tenNguoiDung}"
+                                th:value="${sanphams.taiKhoan.taiKhoan}" ></option>
+                    </select>
+                </div>
+            </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Số Lượng *</label>
                 <div class="col-sm-8">
@@ -150,16 +149,10 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Danh Mục *</label>
+                <label class="col-sm-2 col-form-label">Danh mục *</label>
                 <div class="col-sm-8">
-                    <input type="text" th:value="${sanphams.danhMuc.tenDanhMuc}"
-                           class="form-control is-invalid" readonly>
-
-                    <!--                    <select class="form-control custom-select is-invalid" th:field="*{danhMuc}">-->
-                    <!--                        <option th:text="${sanphams.danhMuc.tenDanhMuc}"-->
-                    <!--                                th:value="${sanphams.danhMuc.maDanhMuc}" readonly> </option>-->
-
-                    <!--                    </select>-->
+                    <p style="color: red" th:if="${#fields.hasErrors('soLuong')}" th:errors="*{soLuong}">Error</p>
+                    <input type="text" th:value="${sanphams.danhMuc.tenDanhMuc}" class="form-control is-invalid" readonly>
                 </div>
             </div>
             <div class="form-group row">
@@ -216,8 +209,7 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Thông tin chi tiết</label>
                 <div class="col-sm-10">
-                    <textarea type="textarea" th:field="*{moTa}" class="form-control is-invalid" rows="6"
-                              readonly> </textarea>
+                    <textarea type="textarea" th:field="*{moTa}" class="form-control is-invalid" rows="6" readonly> </textarea>
                 </div>
             </div>
             <div class="form-group row">
@@ -238,7 +230,7 @@
                 <div class="col-sm-2">
                 </div>
                 <div class="col-sm-1">
-                    <input type="submit" style="background:#1ab7ea;color: white" class="form-control"
+                    <input  type="submit" style="background:#1ab7ea;color: white" class="form-control"
                            value="đóng">
                 </div>
             </div>

@@ -55,8 +55,7 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Người đăng *</label>
                 <div class="col-sm-8">
-<!--                    <input type="hidden" readonly th:field="*{taiKhoan}" th:value="${sanphams.taiKhoan.nguoiDung.tenNguoiDung}" >-->
-                    <select class="form-control  is-invalid" th:field="*{taiKhoan}" readonly>
+                    <select class="form-control  is-invalid" th:field="*{taiKhoan}" readonly="">
                         <option th:text="${sanphams.taiKhoan.nguoiDung.tenNguoiDung}"
                                 th:value="${sanphams.taiKhoan.taiKhoan}"></option>
                     </select>

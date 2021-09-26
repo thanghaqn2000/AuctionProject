@@ -136,8 +136,8 @@
                             th:text="${#numbers.formatDecimal(item.value.getGiaCaoNhat(), 0, 'POINT', 0, 'COMMA')}"></td>
                         <td class="actions" data-th="">
                             <div class="row">
-                                <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o">Xóa</i>
-                                </button>
+                                <a th:href="@{/deleteCart/{id}(id=${item.key})}" class="btn btn-danger btn-sm"><i class="fa fa-trash-o">Xóa</i>
+                                </a>
                             </div>
                         </td>
                     </tr>
@@ -160,7 +160,9 @@
                         </td>
                     </tr>
                     </tfoot>
+                    <h5 th:unless="${cartSize}" >Giỏ hàng hiện đang trống,hãy đấu giá</h5>
                 </table>
+
             </div>
         </div>
         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">

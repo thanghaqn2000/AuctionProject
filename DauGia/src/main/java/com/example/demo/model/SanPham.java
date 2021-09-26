@@ -77,24 +77,6 @@ public class SanPham implements Validator {
         this.chiTietDonHangs = chiTietDonHangs;
         this.taiKhoans = taiKhoans;
     }
-    public SanPham(sanphamBuilder sanphamBuilder) {
-        this.tenSanPham = sanphamBuilder.tenSanPham;
-        this.hinh = sanphamBuilder.hinh;
-        this.giaKhoiDiem = sanphamBuilder.giaKhoiDiem;
-        this.tinhTrang = sanphamBuilder.tinhTrang;
-        this.moTa = sanphamBuilder.moTa;
-        this.ngayBatDau = sanphamBuilder.ngayBatDau;
-        this.ngayKetThuc = sanphamBuilder.ngayKetThuc;
-        this.ngayDangKi = sanphamBuilder.ngayDangKi;
-        this.gioBatDau = sanphamBuilder.gioBatDau;
-        this.gioKetThuc = sanphamBuilder.gioKetThuc;
-        this.soLuong = sanphamBuilder.soLuong;
-        this.mucGia = sanphamBuilder.mucGia;
-//        this.danhMuc = sanphamBuilder.danhMuc;
-//        this.dauGia = sanphamBuilder.dauGia;
-//        this.chiTietDonHangs = sanphamBuilder.chiTietDonHangs;
-        this.taiKhoans = sanphamBuilder.taiKhoans;
-    }
 
     public int getMaSanPham() {
         return maSanPham;
@@ -209,7 +191,6 @@ public class SanPham implements Validator {
     }
 
     public DanhMuc getDanhMuc() {
-
         return danhMuc;
     }
 
@@ -272,105 +253,5 @@ public class SanPham implements Validator {
             errors.rejectValue("ngayKetThuc", "ngayKetThuc.date");
         }
     }
-
-
-    public  static  class sanphamBuilder{
-
-
-        private String tenSanPham;
-        private String hinh;
-        private double giaKhoiDiem;
-        private String tinhTrang;
-        private String moTa;
-        private String ngayBatDau;
-        private String ngayKetThuc;
-        private String ngayDangKi;
-        private String gioBatDau;
-        private String gioKetThuc;
-        private int soLuong;
-        private double mucGia;
-
-      private DanhMuc danhMuc;
-//
-//        @OneToOne(mappedBy = "sanPham", cascade = CascadeType.ALL)
-//        private DauGia dauGia;
-//
-//        @OneToMany(mappedBy = "sanPham", cascade = CascadeType.ALL)
-//        Set<ChiTietDonHang> chiTietDonHangs;
-
-        private TaiKhoan taiKhoans;
-
-        public SanPham build() {
-            return new SanPham(this);
-        }
-        public sanphamBuilder(String tenSanPham) {
-            this.tenSanPham = tenSanPham;
-        }
-
-        public sanphamBuilder tensanphamtion(String tenSanPham) {
-            this.tenSanPham= tenSanPham;
-            return this;
-        }
-        public sanphamBuilder giasanphamtion( double giaKhoiDiem) {
-            this.giaKhoiDiem= giaKhoiDiem;
-            return this;
-        }
-        public sanphamBuilder tinhtrangsanphamtion(String tinhTrang) {
-            this.tinhTrang= tinhTrang;
-            return this;
-        }
-        public sanphamBuilder motasanphamtion(String moTa) {
-            this.moTa= moTa;
-            return this;
-        }
-        public sanphamBuilder ngaybdsanphamtion(String ngayBatDau) {
-            this.ngayBatDau= ngayBatDau;
-            return this;
-        }
-        public sanphamBuilder ngayktsanphamtion(String ngayKetThuc) {
-            this.ngayKetThuc= ngayKetThuc;
-            return this;
-        }
-        public sanphamBuilder soluongsanphamtion(int soLuong) {
-            this.soLuong= soLuong;
-            return this;
-        }
-        public sanphamBuilder mucgiasanphamtion( double mucGia) {
-            this.mucGia= mucGia;
-            return this;
-        }
-        public sanphamBuilder goibdsanphamtion(  String gioBatDau) {
-            this.gioBatDau= gioBatDau;
-            return this;
-        }
-        public sanphamBuilder goiktsanphamtion(  String gioKetThuc) {
-            this.gioKetThuc= gioKetThuc;
-            return this;
-        }
-        public sanphamBuilder danhmucsanphamtion( DanhMuc danhMuc) {
-            this.danhMuc= danhMuc;
-            return this;
-        }
-
-//        public sanphamBuilder mucgiasanphamtion( DanhMuc danhMuc) {
-//            this.danhMuc= danhMuc;
-//            return this;
-//        }
-//        public sanphamBuilder mucgiasanphamtion( DauGia dauGia;) {
-//            this.tenSanPham= tenSanPham;
-//            return this;
-//        }
-//        public sanphamBuilder mucgiasanphamtion( double mucGia) {
-//            this.tenSanPham= tenSanPham;
-//            return this;
-//        }
-        public sanphamBuilder taikhaonsanphamtion( TaiKhoan taiKhoans) {
-            this.taiKhoans= taiKhoans;
-            return this;
-        }
-
-    }
-
-
 }
 

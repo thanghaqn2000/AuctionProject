@@ -44,15 +44,16 @@
             <div class="descript-size"><label class="size-label">Size xxx</label></div>
             <br/>
             <div class="descript-time">
-                <p id="time-remain">00:30</p>
+                <p id="time-remain"></p>
             </div>
             <div class="bid-price">
                 <small>Giá thầu hiện tại</small>
-                <strong th:if="${nguoiCaoNhat}" th:text="${#numbers.formatDecimal(nguoiCaoNhat.giaDau, 0, 'POINT', 0, 'COMMA')}+' Đ'"></Strong>
+                <strong th:if="${nguoiCaoNhat}"
+                        th:text="${#numbers.formatDecimal(nguoiCaoNhat.giaDau, 0, 'POINT', 0, 'COMMA')}+' đ'"></Strong>
             </div>
             <div class="bid-winner">
                 <small>Người chiến thắng</small>
-                <strong th:if="${nguoiCaoNhat}": th:text="${nguoiCaoNhat.nguoiDung.taiKhoan.taiKhoan}"></Strong>
+                <strong th:if="${nguoiCaoNhat}" : th:text="${nguoiCaoNhat.nguoiDung.taiKhoan.taiKhoan}"></Strong>
             </div>
             <div class="bid-option">
                 <small>Lựa chọn: (3 có sẵn)</small>
@@ -62,11 +63,12 @@
             </div>
             <div class="bid-level">
                 <form action="/dauGia" method="get">
-                    <input type="hidden" name="idSP" th:value="${sanPham.maSanPham}">
+                    <input type="hidden" name="idSP" class="moneyDauGia" th:value="${sanPham.maSanPham}">
                     <button id="minus-btn" onclick="minusBtn()" type="button">-</button>
-                    <input type="text" th:value="${giaDau}" id="input-level" name="money">
+                    <input type="number" th:value="${giaDau}" class="moneyDauGia" id="input-level" name="money">
                     <button id="plus-btn" onclick="plusBtn()" type="button">+</button>
-                    <button sec:authorize="isAuthenticated()" type="submit" class="bid-btn" style="color: white">
+                    <button sec:authorize="isAuthenticated()" type="submit" class="bid-btn"
+                            id="btn-dauGia" style="color: white">
                         <span class="btn-icon"><ion-icon name="hammer"></ion-icon></span>
                         Đấu giá
                     </button>
@@ -93,7 +95,7 @@
                     <ion-icon th:if="${itemDauGia.giaDau==giaCaoNhat}" name="trophy"></ion-icon>
                     <span th:text="${itemDauGia.nguoiDung.taiKhoan.taiKhoan}"> </span>
                 </td>
-                <td th:text="${#numbers.formatDecimal(itemDauGia.giaDau, 0, 'POINT', 0, 'COMMA')}+' VND'"></td>
+                <td th:text="${#numbers.formatDecimal(itemDauGia.giaDau, 0, 'POINT', 0, 'COMMA')}+' đ'"></td>
                 <td>1</td>
                 <td th:text="${itemDauGia.thoiGianDauGia}"></td>
             </tr>
@@ -117,26 +119,31 @@
                     <div th:if="${winner}">
                         <div class="container-fluid">
                             <div class="row">
-                                <div class="col-sm-12" >
+                                <div class="col-sm-12">
                                     <div class="row">
-                                        <div class="col-8 col-sm-5" >
-                                            <img style="width: 100%;height: 100%" class="rounded" th:src="@{${'/img/' + sanPham.hinh}}"
+                                        <div class="col-8 col-sm-5">
+                                            <img style="width: 100%;height: 100%" class="rounded"
+                                                 th:src="@{${'/img/' + sanPham.hinh}}"
                                                  alt="">
                                         </div>
                                         <div class="col-4 col-sm-7">
                                             <div class="row">
                                                 <div class="col-lg-12">
-                                                    <h5 style="font-family: 'Segoe UI';color: #ff2c1b;font-weight: bold">Bạn đã chiến thắng!</h5>
+                                                    <h5 style="font-family: 'Segoe UI';color: #ff2c1b;font-weight: bold">
+                                                        Bạn đã chiến thắng!</h5>
                                                 </div>
                                                 <div class="col-lg-12">
-                                                    Sản phẩm: <span style="font-weight: bold" th:text="${sanPham.tenSanPham}"></span>
+                                                    Sản phẩm: <span style="font-weight: bold"
+                                                                    th:text="${sanPham.tenSanPham}"></span>
                                                 </div>
                                                 <div class="col-lg-12">Giá đã đấu:
                                                     <span style="font-weight: bold;color: red"
-                                                          th:if="${nguoiCaoNhat}" th:text="${#numbers.formatDecimal(nguoiCaoNhat.giaDau, 0, 'POINT', 0, 'COMMA')}+' VND'"></span>
+                                                          th:if="${nguoiCaoNhat}"
+                                                          th:text="${#numbers.formatDecimal(nguoiCaoNhat.giaDau, 0, 'POINT', 0, 'COMMA')}+' đ'"></span>
                                                 </div>
                                                 <div class="col-lg-12">
-                                                    <a th:href="@{/addCart/__${sanPham.maSanPham}__}" class="btn btn-success">Hoàn tất ngay</a>
+                                                    <a th:href="@{/addCart/__${sanPham.maSanPham}__}"
+                                                       class="btn btn-success">Hoàn tất ngay</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -148,23 +155,27 @@
                     <div th:unless="${winner}">
                         <div class="container-fluid">
                             <div class="row">
-                                <div class="col-sm-12" >
+                                <div class="col-sm-12">
                                     <div class="row">
-                                        <div class="col-8 col-sm-5" >
-                                            <img style="width: 100%;height: 100%" class="rounded" th:src="@{${'/img/' + sanPham.hinh}}"
+                                        <div class="col-8 col-sm-5">
+                                            <img style="width: 100%;height: 100%" class="rounded"
+                                                 th:src="@{${'/img/' + sanPham.hinh}}"
                                                  alt="">
                                         </div>
                                         <div class="col-4 col-sm-7">
                                             <div class="row">
                                                 <div class="col-lg-12">
-                                                    <h5 style="font-family: 'Segoe UI';color: #000000;font-weight: bold">Đấu giá thất bại!</h5>
+                                                    <h5 style="font-family: 'Segoe UI';color: #000000;font-weight: bold">
+                                                        Đấu giá thất bại!</h5>
                                                 </div>
                                                 <div class="col-lg-12">
-                                                    Sản phẩm: <span style="font-weight: bold" th:text="${sanPham.tenSanPham}"></span>
+                                                    Sản phẩm: <span style="font-weight: bold"
+                                                                    th:text="${sanPham.tenSanPham}"></span>
                                                 </div>
                                                 <div class="col-lg-12">Giá đã đấu cao nhất:
                                                     <span style="font-weight: bold;color: red"
-                                                          th:if="${nguoiCaoNhat}" th:text="${#numbers.formatDecimal(nguoiCaoNhat.giaDau, 0, 'POINT', 0, 'COMMA')}+' VND'"></span>
+                                                          th:if="${nguoiCaoNhat}"
+                                                          th:text="${#numbers.formatDecimal(nguoiCaoNhat.giaDau, 0, 'POINT', 0, 'COMMA')}+' đ'"></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -200,9 +211,9 @@
             <h4>Mô tả sản phẩm</h4>
             <div>
                 <ul class="list-descript">
-                    <li style="list-style-type:none" ><span id="submit" th:text="${sanPham.moTa}">
+                    <li style="list-style-type:none"><span id="submit" th:text="${sanPham.moTa}">
                     </span></li>
-                    <li style="list-style-type:none;display: none" ><span id="mota" th:text="${sanPham.moTa}">
+                    <li style="list-style-type:none;display: none"><span id="mota" th:text="${sanPham.moTa}">
                     </span></li>
 
                 </ul>
@@ -237,7 +248,7 @@
         </div>
     </div>
 
-    <!-- CHAT BAR BLOCK -->
+    <!--     CHAT BAR BLOCK -->
     <div th:fragment="chat" class="chat-bar-collapsible">
         <button id="chat-button" type="button" class="collapsible">Need a help? Chat with us!
             <i style="color: #fff;" class="fa fa-fw fa-comments-o"></i>
@@ -282,41 +293,118 @@
     </div>
 </section>
 <script>
-    function startTimer(duration) {
-        var timer = duration, minutes, seconds;
-        let temp = setInterval(function () {
-            minutes = parseInt(timer / 60, 10);
-            seconds = parseInt(timer % 60, 10);
-            minutes = minutes < 10 ? "0" + minutes : minutes;
-            seconds = seconds < 10 ? "0" + seconds : seconds;
-            document.getElementById("time-remain").innerHTML = minutes + ":" + seconds;
-            var btn = document.getElementById("btnNoti");
-            if (--timer < 0) {
-                document.getElementById("time-remain").innerHTML = "Hết giờ";
-                btn.click();
-                clearInterval(temp)
-            }
-        }, 1000);
+    // function startTimer(duration) {
+    //     var timer = duration, minutes, seconds;
+    //     let temp = setInterval(function () {
+    //         minutes = parseInt(timer / 60, 10);
+    //         seconds = parseInt(timer % 60, 10);
+    //         minutes = minutes < 10 ? "0" + minutes : minutes;
+    //         seconds = seconds < 10 ? "0" + seconds : seconds;
+    //         document.getElementById("time-remain").innerHTML = minutes + ":" + seconds;
+    //         var btn = document.getElementById("btnNoti");
+    //         if (--timer < 0) {
+    //             document.getElementById("time-remain").innerHTML = "Hết giờ";
+    //             btn.click();
+    //             clearInterval(temp)
+    //         }
+    //     }, 1000);
+    // }
+    //
+    // window.onload = function () {
+    //     var time = 1 * 10
+    //     startTimer(time);
+    // };
+
+    // if (localStorage.getItem("count_timer")) {
+    //     var count_timer = localStorage.getItem("count_timer");
+    // } else {
+    //     var count_timer = 60 * 1;
+    // }
+    // var minutes = parseInt(count_timer / 60);
+    // var seconds = parseInt(count_timer % 60);
+    //
+    // // function dauGia() {
+    // //     localStorage.clear("count_timer");
+    // // }
+    //
+    // function countDownTimer() {
+    //     if (seconds < 10) {
+    //         seconds = "0" + seconds;
+    //     }
+    //     if (minutes < 10) {
+    //         minutes = "0" + minutes;
+    //     }
+    //     var btn = document.getElementById("btnNoti");
+    //     document.getElementById("time-remain").innerHTML = minutes + ":" + seconds;
+    //     if (count_timer <= 0) {
+    //          localStorage.clear("count_timer");
+    //         btn.click();
+    //         document.getElementById("time-remain").innerHTML = "Hết giờ";
+    //     } else {
+    //         count_timer = count_timer - 1;
+    //         minutes = parseInt(count_timer / 60);
+    //         seconds = parseInt(count_timer % 60);
+    //         localStorage.setItem("count_timer", count_timer);
+    //         setTimeout("countDownTimer()", 1000);
+    //     }
+    // }
+    // setTimeout("countDownTimer()", 1000);
+</script>
+<script>
+
+
+    function msToTime(duration) {
+        var seconds = parseInt((duration / 1000) % 60), minutes = parseInt((duration / (1000 * 60)) % 60),
+            hours = parseInt((duration / (1000 * 60 * 60)) % 24), days = parseInt(duration / (1000 * 60 * 60 * 24));
+
+        var hoursDays = parseInt(days * 24);
+        hours += hoursDays;
+        hours = (hours < 10) ? "0" + hours : hours;
+        minutes = (minutes < 10) ? "0" + minutes : minutes;
+        seconds = (seconds < 10) ? "0" + seconds : seconds;
+        return hours + ":" + minutes + ":" + seconds;
     }
-    window.onload = function () {
-        var time = 1 * 5
-        startTimer(time);
-    };
+
+    function startCountdown() {
+        var date = new Date();
+        var day = date.getDate();
+        var month = date.getMonth();
+        var year = date.getFullYear();
+        var hour = date.getHours();
+        var minute = date.getMinutes();
+        var btn = document.getElementById("btnNoti");
+        let temp = setInterval(function () {
+            var a = new Date().getTime();
+            var now = new Date(year, month, day, hour, minute+1, 0, 0);
+            var timer = now - a;
+            if (timer <=0) {
+                document.getElementById("time-remain").innerHTML = "Hết giờ";
+                document.getElementById("btn-dauGia").style.display = "none";
+                btn.click();
+                clearInterval(temp);
+            } else {
+                document.getElementById("time-remain").innerHTML = msToTime(timer);
+            }
+        }, 0);
+    }
+
+    startCountdown();
+
 </script>
 <script>
     let mystring = document.getElementById("mota");
     let mota = mystring.innerHTML;
-    let sep = [".","/-"];
+    let sep = [".", "/-"];
     let submit = document.getElementById("submit");
-    let resut ="";
-    for (let i =0;i<mota.length;i++){
-        if(mota[i] === sep[0]){
-            resut += mota[i]+"</br>";
+    let resut = "";
+    for (let i = 0; i < mota.length; i++) {
+        if (mota[i] === sep[0]) {
+            resut += mota[i] + "</br>";
         }
             // else if(mota[i]+mota[i+1] === sep[1]){
             //     resut += mota[i]+"</br>";
         // }
-        else{
+        else {
             resut += mota[i];
         }
     }

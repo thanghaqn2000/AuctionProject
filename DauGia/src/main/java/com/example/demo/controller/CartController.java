@@ -29,11 +29,13 @@ public class CartController {
     NguoiDungRepo nguoiDungRepo;
     @Autowired
     ChiTietDauGiaService chiTietDauGiaService;
+
     @ModelAttribute("nguoiDung")
     public NguoiDung getDauGia() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return nguoiDungRepo.findByTaiKhoan_TaiKhoan(auth.getName());
     }
+
     @GetMapping("showCart")
     public ModelAndView show(@SessionAttribute("carts") HashMap<Integer, Cart> cartMap) {
         ModelAndView modelAndView = new ModelAndView("thang/gioHang");
@@ -41,6 +43,7 @@ public class CartController {
         modelAndView.addObject("cartSize", cartMap.size());
         return modelAndView;
     }
+
     @GetMapping("addCart/{id}")
     public String addToCart(@PathVariable int id, @SessionAttribute("carts") HashMap<Integer, Cart> cartMap, Model model) {
         if (cartMap == null) {
@@ -51,7 +54,7 @@ public class CartController {
         double giaCaoNhat = detailList.get(0).getGiaDau();
         if (sanPham != null) {
             sanPham.setTinhTrang("Chưa duyệt");
-            sanPham.setSoLuong(sanPham.getSoLuong()-1);
+            sanPham.setSoLuong(sanPham.getSoLuong() - 1);
             sanPhamService.create(sanPham);
             if (cartMap.containsKey(id)) {
                 Cart item = cartMap.get(id);
@@ -69,6 +72,12 @@ public class CartController {
         }
         model.addAttribute("carts", cartMap);
         model.addAttribute("cartSize", cartMap.size());
+        return "redirect:/showCart";
+    }
+
+    @GetMapping("deleteCart/{id}")
+    public String deleteCart(@PathVariable int id, @SessionAttribute("carts") HashMap<Integer, Cart> cartMap, Model model) {
+        cartMap.remove(id);
         return "redirect:/showCart";
     }
 }
