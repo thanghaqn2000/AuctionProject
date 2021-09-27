@@ -140,13 +140,16 @@ public class AdminController {
     }
 
     @GetMapping("/admin-quanlygiaodich")
-    public ModelAndView listAll(@RequestParam(defaultValue = "0") int page) {
-        ModelAndView model = new ModelAndView("nga/QuanLyGiaoDich");
+    public String listAll(@RequestParam(defaultValue = "0") int page, Principal principal, Model model) {
+
+        NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
+        model.addAttribute("nguoiDung", nguoiDung);
+//        ModelAndView model = new ModelAndView("nga/QuanLyGiaoDich");
         Page<ChiTietDonHang> nguoiDungs;
         Pageable pageable = PageRequest.of(page, 5);
         nguoiDungs = donHangService.findAll(pageable);
-        model.addObject("nguoidungs", nguoiDungs);
-        return model;
+        model.addAttribute("nguoidungs", nguoiDungs);
+        return "nga/QuanLyGiaoDich";
     }
 
     @PostMapping("/pagaList")
@@ -181,10 +184,9 @@ public class AdminController {
     }
 
     @GetMapping(value = "/search")
-    public String search( @RequestParam(value = "page", defaultValue = "1") int page,@RequestParam("tensanpham") String tenSanPham, Model model, Principal principal) {
-        List<SanPham> sanPhams = sanPhamService.findByName( tenSanPham);
+    public String search(@RequestParam(value = "page", defaultValue = "1") int page, @RequestParam("tensanpham") String tenSanPham, Model model, Principal principal) {
+        List<SanPham> sanPhams = sanPhamService.findByName(tenSanPham);
         if (sanPhams.size() == 0) {
-
             System.out.println("khíc thức okokek ====" + sanPhams.size());
             model.addAttribute("sanphams1", sanPhams);
             model.addAttribute("mgs", "khoomg tim thay sp");
@@ -203,7 +205,7 @@ public class AdminController {
 
     @GetMapping(value = "/search_duyet")
     public String search_duyet(@RequestParam("tensanpham") String tenSanPham, Model model) {
-        List<SanPham> sanPhams = sanPhamService.findByNameDaDuyet("Chưa duyệt", tenSanPham);
+        List<SanPham> sanPhams = sanPhamService.findByNameDaDuyet1("Chưa duyệt", tenSanPham);
         if (sanPhams.size() == 0) {
             model.addAttribute("sanphams1", sanPhams);
             model.addAttribute("mgs", "khoomg tim thay sp");

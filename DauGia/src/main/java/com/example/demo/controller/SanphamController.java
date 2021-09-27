@@ -1,8 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.NguoiDung;
-import com.example.demo.model.SanPham;
-import com.example.demo.model.TaiKhoan;
+import com.example.demo.model.*;
 import com.example.demo.repository.nguoi_dung.NguoiDungRepo;
 import com.example.demo.service.danh_muc.DanhMucService;
 import com.example.demo.service.nguoi_dung.NguoiDungService;
@@ -10,13 +8,18 @@ import com.example.demo.service.san_pham.SanPhamService;
 import com.example.demo.service.tai_khoan.TaiKhoanQuyenService;
 import com.example.demo.service.tai_khoan.TaiKhoanService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.File;
+import java.io.IOException;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -35,9 +38,9 @@ public class SanphamController {
     @Autowired
     public TaiKhoanQuyenService taiKhoanQuyenService;
 
+
     @Autowired
     NguoiDungRepo nguoiDungRepo;
-
 
     @GetMapping(value = "/sanpham/list")
     public String NguoiDung(SanPham sanPham, Model model, Principal principal) {
@@ -139,6 +142,7 @@ public class SanphamController {
         model.addAttribute("mgs", "thêm mới sản phẩm thành công");
         return "/nhu/sanpham/list";
     }
+
 
     @GetMapping(value = "/sanpham/edit")
     public String ViewEdit(@RequestParam("id") Integer id, Model model, Principal principal) {
