@@ -25,7 +25,11 @@
     <!-- Custom Theme files -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-
+    <style>
+        .btn-dau-gia{
+            margin-left: 11px;
+        }
+    </style>
 </head>
 <body>
 <!-- //end-smoth-scrolling -->
@@ -45,8 +49,6 @@
         });
     });
 </script>
-
-
 
 <div class="services">
     <div class="container">
@@ -90,20 +92,14 @@
                                     <p class="col-md-6 price"
                                        th:text="${#numbers.formatDecimal(sanPham.giaKhoiDiem, 0, 'POINT', 0, 'COMMA')}+'₫'"></p>
                                 </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <a th:href="@{/sanpham/xem(id = ${sanPham.maSanPham})}"
-                                           class="btn btn-dau-gia btn-secondary">Chi tiết</a>
-                                    </div>
-                                    <div class="col-6">
-                                        <!--                                        <a th:href="@{/sanpham/delete(id = ${sanPham.maSanPham})}"-->
-                                        <!--                                           class="btn btn-dau-gia btn-secondary">Xóa</a>-->
-                                        <button class="btn btn-dau-gia btn-secondary" data-toggle="modal"
-                                                data-target="#exampleModal"
-                                                th:onclick="preparedelete([[${sanPham.maSanPham}]],[[${sanPham.tenSanPham}]])">
-                                            Xóa
-                                        </button>
-                                    </div>
+                                <div class="row" style="display: flex">
+                                    <a th:href="@{/sanpham/xem(id = ${sanPham.maSanPham})}"
+                                       class="btn btn-dau-gia btn-secondary">Chi tiết</a>
+                                    <button class="btn btn-dau-gia btn-secondary" data-toggle="modal"
+                                            data-target="#exampleModal"
+                                            th:onclick="preparedelete([[${sanPham.maSanPham}]],[[${sanPham.tenSanPham}]])">
+                                        Xóa
+                                    </button>
                                 </div>
                             </div>
                         </div>

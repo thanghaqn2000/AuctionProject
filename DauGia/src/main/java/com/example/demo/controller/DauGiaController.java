@@ -100,6 +100,7 @@ public class DauGiaController {
         model.addAttribute("giaCaoNhat", (long)giaCaoNhat);
         model.addAttribute("giaDau", (long)giaDau);
         model.addAttribute("dauGia", detailList);
+        model.addAttribute("gioKetThuc", sanPham.getGioKetThuc());
         return "luan/product-detail";
     }
 

@@ -1,8 +1,10 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.ChiTietDonHang;
+import com.example.demo.model.DauGia;
 import com.example.demo.model.NguoiDung;
 import com.example.demo.model.SanPham;
+import com.example.demo.repository.dau_gia.DauGiaRepo;
 import com.example.demo.repository.nguoi_dung.NguoiDungRepo;
 import com.example.demo.service.danh_muc.DanhMucService;
 import com.example.demo.service.don_hang.DonHangService;
@@ -42,6 +44,8 @@ public class AdminController {
     private DonHangService donHangService;
     @Autowired
     NguoiDungRepo nguoiDungRepo;
+    @Autowired
+    DauGiaRepo dauGiaRepo;
 //    @Autowired
 //    public MyUserDetails myUserDetails = new  TaiKhoanQuyenService();
 
@@ -68,7 +72,6 @@ public class AdminController {
         model.addAttribute("nguoiDung", nguoiDung);
         model.addAttribute("sanphams", sanPhamService.findById(id));
         model.addAttribute("danhmucs", danhMucService.findAll());
-
         return "/nhu/admin/view";
     }
 
@@ -99,8 +102,6 @@ public class AdminController {
 
     @PostMapping(value = "/duyetok")
     public String AdminCreate(@RequestParam("submit") String submit, SanPham sanPham, Model model, RedirectAttributes redirectAttributes, Principal principal) {
-
-        System.out.println("gias trij su --------------" + submit);
         if (submit.equals("duyet")) {
             NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
             model.addAttribute("nguoiDung", nguoiDung);
@@ -108,7 +109,7 @@ public class AdminController {
             this.sanPhamService.create(sanPham);
             redirectAttributes.addFlashAttribute("mgs1", "Phê duyệt sản phẩm thành công!");
             return "redirect:/admin/duyet";
-        } else {
+        } else { 
             NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
             model.addAttribute("nguoiDung", nguoiDung);
             sanPham.setTinhTrang("Không duyệt");
@@ -135,6 +136,7 @@ public class AdminController {
         NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
         model.addAttribute("nguoiDung", nguoiDung);
         this.sanPhamService.create(sanPham);
+
         redirectAttributes.addFlashAttribute("mgs2", "sửa sản phẩm thành công!");
         return "redirect:/admin/list";
     }

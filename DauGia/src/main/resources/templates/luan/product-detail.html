@@ -291,104 +291,84 @@
             </div>
         </div>
     </div>
+    <p hidden="hidden" id="gioKetThuc" th:text="${gioKetThuc}"></p>
 </section>
 <script>
-    // function startTimer(duration) {
-    //     var timer = duration, minutes, seconds;
-    //     let temp = setInterval(function () {
-    //         minutes = parseInt(timer / 60, 10);
-    //         seconds = parseInt(timer % 60, 10);
-    //         minutes = minutes < 10 ? "0" + minutes : minutes;
-    //         seconds = seconds < 10 ? "0" + seconds : seconds;
-    //         document.getElementById("time-remain").innerHTML = minutes + ":" + seconds;
-    //         var btn = document.getElementById("btnNoti");
-    //         if (--timer < 0) {
-    //             document.getElementById("time-remain").innerHTML = "Hết giờ";
-    //             btn.click();
-    //             clearInterval(temp)
-    //         }
-    //     }, 1000);
-    // }
-    //
-    // window.onload = function () {
-    //     var time = 1 * 10
-    //     startTimer(time);
-    // };
+    var timeTemp = document.getElementById("gioKetThuc").innerText;
+    var timeEnd = timeTemp.split(":");
+    var date = new Date();
+    var day = date.getDate();
+    var month = date.getMonth();
+    var year = date.getFullYear();
+    var hour = timeEnd[0];
+    var minute = timeEnd[1];
+    var btn = document.getElementById("btnNoti");
+    var countDownDate = new Date(year, month, day, hour, minute, 0, 0).getTime();
 
-    // if (localStorage.getItem("count_timer")) {
-    //     var count_timer = localStorage.getItem("count_timer");
-    // } else {
-    //     var count_timer = 60 * 1;
-    // }
-    // var minutes = parseInt(count_timer / 60);
-    // var seconds = parseInt(count_timer % 60);
-    //
-    // // function dauGia() {
-    // //     localStorage.clear("count_timer");
-    // // }
-    //
-    // function countDownTimer() {
-    //     if (seconds < 10) {
-    //         seconds = "0" + seconds;
-    //     }
-    //     if (minutes < 10) {
-    //         minutes = "0" + minutes;
-    //     }
-    //     var btn = document.getElementById("btnNoti");
-    //     document.getElementById("time-remain").innerHTML = minutes + ":" + seconds;
-    //     if (count_timer <= 0) {
-    //          localStorage.clear("count_timer");
-    //         btn.click();
-    //         document.getElementById("time-remain").innerHTML = "Hết giờ";
-    //     } else {
-    //         count_timer = count_timer - 1;
-    //         minutes = parseInt(count_timer / 60);
-    //         seconds = parseInt(count_timer % 60);
-    //         localStorage.setItem("count_timer", count_timer);
-    //         setTimeout("countDownTimer()", 1000);
-    //     }
-    // }
-    // setTimeout("countDownTimer()", 1000);
-</script>
-<script>
+    // Run myfunc every second
+    var myfunc = setInterval(function () {
 
-
-    function msToTime(duration) {
-        var seconds = parseInt((duration / 1000) % 60), minutes = parseInt((duration / (1000 * 60)) % 60),
-            hours = parseInt((duration / (1000 * 60 * 60)) % 24), days = parseInt(duration / (1000 * 60 * 60 * 24));
-
-        var hoursDays = parseInt(days * 24);
-        hours += hoursDays;
+        var now = new Date().getTime();
+        var timeleft = countDownDate - now;
+        // Calculating the days, hours, minutes and seconds left
+        // var days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
         hours = (hours < 10) ? "0" + hours : hours;
         minutes = (minutes < 10) ? "0" + minutes : minutes;
         seconds = (seconds < 10) ? "0" + seconds : seconds;
-        return hours + ":" + minutes + ":" + seconds;
-    }
+        // Result is output to the specific element
+        document.getElementById("time-remain").innerHTML = hours + ":" + minutes + ":" + seconds
+        // Display the message when countdown is over
+        if (timeleft < 0) {
+            clearInterval(myfunc);
+            document.getElementById("time-remain").innerHTML = "Hết giờ";
+            document.getElementById("btn-dauGia").style.display = "none";
+            btn.click();
+        }
+    }, 1000);
+</script>
+<script>
 
-    function startCountdown() {
-        var date = new Date();
-        var day = date.getDate();
-        var month = date.getMonth();
-        var year = date.getFullYear();
-        var hour = date.getHours();
-        var minute = date.getMinutes();
-        var btn = document.getElementById("btnNoti");
-        let temp = setInterval(function () {
-            var a = new Date().getTime();
-            var now = new Date(year, month, day, hour, minute+1, 0, 0);
-            var timer = now - a;
-            if (timer <=0) {
-                document.getElementById("time-remain").innerHTML = "Hết giờ";
-                document.getElementById("btn-dauGia").style.display = "none";
-                btn.click();
-                clearInterval(temp);
-            } else {
-                document.getElementById("time-remain").innerHTML = msToTime(timer);
-            }
-        }, 0);
-    }
+    <!--    function msToTime(duration) {-->
+    <!--        var seconds = parseInt((duration / 1000) % 60), minutes = parseInt((duration / (1000 * 60)) % 60),-->
+    <!--            hours = parseInt((duration / (1000 * 60 * 60)) % 24), days = parseInt(duration / (1000 * 60 * 60 * 24));-->
 
-    startCountdown();
+        <!--        var hoursDays = parseInt(days * 24);-->
+        <!--        hours += hoursDays;-->
+        <!--        hours = (hours < 10) ? "0" + hours : hours;-->
+        <!--        minutes = (minutes < 10) ? "0" + minutes : minutes;-->
+        <!--        seconds = (seconds < 10) ? "0" + seconds : seconds;-->
+        <!--        return hours + ":" + minutes + ":" + seconds;-->
+        <!--    }-->
+
+    <!--    function startCountdown() {-->
+    <!--        var timeTemp = document.getElementById("gioKetThuc").innerText;-->
+    <!--        var timeEnd = timeTemp.split(":");-->
+    <!--        var date = new Date();-->
+    <!--        var day = date.getDate();-->
+    <!--        var month = date.getMonth();-->
+    <!--        var year = date.getFullYear();-->
+    <!--        var hour = timeEnd[0];-->
+    <!--        var minute = timeEnd[1];-->
+    <!--        var btn = document.getElementById("btnNoti");-->
+    <!--        let temp = setInterval(function () {-->
+    <!--            var a = new Date().getTime();-->
+    <!--            var now = new Date(year, month, day, hour, minute, 0, 0);-->
+    <!--            var timer = now - a;-->
+    <!--            if (timer <= 0) {-->
+    <!--                document.getElementById("time-remain").innerHTML = "Hết giờ";-->
+    <!--                document.getElementById("btn-dauGia").style.display = "none";-->
+    <!--                btn.click();-->
+    <!--                clearInterval(temp);-->
+    <!--            } else {-->
+    <!--                document.getElementById("time-remain").innerHTML = msToTime(timer);-->
+    <!--            }-->
+    <!--        }, 0);-->
+    <!--    }-->
+
+    <!--    startCountdown();-->
 
 </script>
 <script>

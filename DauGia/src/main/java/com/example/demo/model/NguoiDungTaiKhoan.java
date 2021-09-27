@@ -183,9 +183,9 @@ public class NguoiDungTaiKhoan implements Validator {
         if (ngaysinh1.after(date)) {
             errors.rejectValue("ngaySinh1", "ngaySinh1.date");
         }
-        if (!nguoiDungTaiKhoan.soDienThoai1.startsWith("0")) {
-            errors.rejectValue("soDienThoai1", "number.startsWith");
-        }
+//        if (!nguoiDungTaiKhoan.soDienThoai1.startsWith("0")) {
+//            errors.rejectValue("soDienThoai1", "number.startsWith");
+//        }
 
     }
 }
