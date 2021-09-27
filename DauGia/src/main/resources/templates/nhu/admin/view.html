@@ -53,10 +53,12 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Người đăng *</label>
             <div class="col-sm-8">
-                <select class="form-control  is-invalid" th:field="*{taiKhoan}" readonly>
-                    <option  th:text="${sanphams.taiKhoan.nguoiDung.tenNguoiDung}"
+                <select class="form-control  is-invalid" th:field="*{taiKhoan}" hidden="hidden">
+                    <option th:text="${sanphams.taiKhoan.nguoiDung.tenNguoiDung}"
                             th:value="${sanphams.taiKhoan.taiKhoan}" class="form-control is-invalid"></option>
                 </select>
+                <input type="text" th:value="${sanphams.taiKhoan.nguoiDung.tenNguoiDung}"
+                       class="form-control is-invalid" readonly>
             </div>
         </div>
         <div class="form-group row">
@@ -68,16 +70,12 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Danh Mục *</label>
             <div class="col-sm-8">
-<!--                <p>-->
-<!--                    <input class="form-control  is-invalid" th:field="*{danhMuc}" readonly=""-->
-<!--                           th:text="${sanphams.danhMuc.tenDanhMuc}"-->
-<!--                           th:value="${sanphams.danhMuc.maDanhMuc}">-->
-<!--                </p>-->
-
-                                <select class="form-control  is-invalid" th:field="*{danhMuc}" readonly="">
-                                    <option th:text="${sanphams.danhMuc.tenDanhMuc}"
-                                            th:value="${sanphams.danhMuc.maDanhMuc}" class="form-control is-invalid"></option>
-                                </select>
+                <select class="form-control  is-invalid" th:field="*{danhMuc}" hidden="hidden">
+                    <option th:text="${sanphams.danhMuc.tenDanhMuc}"
+                            th:value="${sanphams.danhMuc.maDanhMuc}"></option>
+                </select>
+                <input type="text" th:value="${sanphams.danhMuc.tenDanhMuc}"
+                       class="form-control is-invalid" readonly>
             </div>
         </div>
         <div class="form-group row">
