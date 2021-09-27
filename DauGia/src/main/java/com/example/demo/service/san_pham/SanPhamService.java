@@ -34,6 +34,8 @@ public interface SanPhamService {
     List<SanPham> findByName(String tenSp);
 
     List<SanPham> findByNameDaDuyet(String tinhTrang, String tenSp);
+    List<SanPham> findByNameDaDuyet1(String tinhTrang, String tenSp);
+
 
     List<SanPham> findByNameCuaCoi(String user, String tenSp);
 

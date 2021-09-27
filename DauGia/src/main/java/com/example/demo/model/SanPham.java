@@ -51,7 +51,7 @@ public class SanPham implements Validator {
     @OneToMany(mappedBy = "sanPham", cascade = CascadeType.ALL)
     Set<ChiTietDonHang> chiTietDonHangs;
 
-    @ManyToOne(targetEntity = TaiKhoan.class)
+    @ManyToOne(targetEntity = TaiKhoan.class )
     @JoinColumn(name = "taiKhoan", referencedColumnName = "taiKhoan")
     private TaiKhoan taiKhoans;
 

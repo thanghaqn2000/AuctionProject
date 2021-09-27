@@ -19,10 +19,10 @@ public class TaiKhoan {
     )
     private Set<Quyen> quyens;
 
-    @OneToOne(mappedBy = "taiKhoan")
+    @OneToOne(mappedBy = "taiKhoan" ,cascade = CascadeType.ALL)
     private NguoiDung nguoiDung;
 
-    @OneToMany(mappedBy = "taiKhoans")
+    @OneToMany(mappedBy = "taiKhoans",cascade = CascadeType.ALL)
     private Set<SanPham> sanPham;
 
     public TaiKhoan() {
