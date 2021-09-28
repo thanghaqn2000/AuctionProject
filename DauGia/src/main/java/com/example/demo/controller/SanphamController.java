@@ -17,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletContext;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
@@ -38,6 +39,9 @@ public class SanphamController {
     @Autowired
     public TaiKhoanQuyenService taiKhoanQuyenService;
 
+
+    @Autowired
+    ServletContext application;
 
     @Autowired
     NguoiDungRepo nguoiDungRepo;
@@ -121,7 +125,9 @@ public class SanphamController {
         }
         sanPham.setTinhTrang("Chưa duyệt");
         sanPham.setNgayDangKi(dateFormat);
-        sanPham.setTaiKhoan(new TaiKhoan(userName));
+    sanPham.setTaiKhoan(new TaiKhoan(userName));
+
+
 
         new SanPham().validate(sanPham, bindingResult);
         if (bindingResult.hasFieldErrors()) {
@@ -172,13 +178,20 @@ public class SanphamController {
     }
 
     @PostMapping(value = "/sanpham/edit")
-    public String Edit(@ModelAttribute("sanphams") SanPham sanPham, Model model, Principal principal) {
+    public String Edit(@Valid @ModelAttribute("sanphams") SanPham sanPham, BindingResult bindingResult, Model model, Principal principal) {
         String userName = principal.getName();
         if (SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
                 .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"))) {
             model.addAttribute("admin", "là admin");
         }
         NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
+        new SanPham().validate(sanPham, bindingResult);
+        if (bindingResult.hasFieldErrors()) {
+            model.addAttribute("nguoiDung", nguoiDung);
+//            model.addAttribute("sanphams", sanPhamService.findById(sanPham.getMaSanPham()));
+            model.addAttribute("danhmucs", danhMucService.findAll());
+            return "/nhu/sanpham/edit";
+        }
         model.addAttribute("nguoiDung", nguoiDung);
         model.addAttribute("listSP", sanPhamService.findCuaBan(userName));
         model.addAttribute("danhmucs", danhMucService.findAll());
