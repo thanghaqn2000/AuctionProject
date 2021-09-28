@@ -1,6 +1,7 @@
 package com.example.demo.service.danh_muc;
 
 import com.example.demo.model.DanhMuc;
+import com.example.demo.model.NguoiDung;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,4 +13,5 @@ public interface DanhMucService {
     void update(DanhMuc danhMuc);
     void delete(int id);
     DanhMuc findById(int id);
+    List<DanhMuc> findten(String tendanhmuc);
 }

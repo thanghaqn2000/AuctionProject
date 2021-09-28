@@ -3,6 +3,7 @@ package com.example.demo.model;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -20,12 +21,13 @@ public class SanPham implements Validator {
     @NotEmpty(message = "Vui lòng nhập tên sản phẩm.")
     private String tenSanPham;
     private String hinh;
+
     @Min(value = 1000, message = "Giá khởi điểm vui lòng nhập lớn hơn 1000đ.")
     private double giaKhoiDiem;
     private String tinhTrang;
 
     @Column(length = 2000)
-    @NotEmpty(message = "Vui lòng nhập mô tả")
+    @NotEmpty(message = "Vui lòng nhập mô tả.")
     private String moTa;
     private String ngayBatDau;
 

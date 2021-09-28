@@ -37,4 +37,9 @@ public class DanhMucServiceImpl implements DanhMucService {
         return danhMucRepo.findById(id).orElse(null);
     }
 
+    @Override
+    public List<DanhMuc> findten(String tendanhmuc) {
+        return danhMucRepo.findDanhMucByTenDanhMuc(tendanhmuc);
+    }
+
 }

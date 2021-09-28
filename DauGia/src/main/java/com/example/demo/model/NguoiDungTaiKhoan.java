@@ -22,20 +22,20 @@ public class NguoiDungTaiKhoan implements Validator {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @NotEmpty(message = "Tên đăng nhập không được để trống")
+    @NotEmpty(message = "Tên đăng nhập không được để trống.")
     private String tenNguoiDung1;
 
     //    @Column(unique = true,name = "email1",message="{Unique.email1}")
-    @NotEmpty(message = "Vui lòng nhập email")
-    @Email(message = "Sai định dạng Email")
+    @NotEmpty(message = "Vui lòng nhập email.")
+    @Email(message = "Sai định dạng Email.")
     private String email1;
-    @NotEmpty(message = "Vui lòng nhập số điện thoại")
-    @Size(min = 9, max = 13, message = "Số điện thoai phải có độ dài 10-12 số")
+    @NotEmpty(message = "Vui lòng nhập số điện thoại.")
+    @Size(min = 9, max = 13, message = "Số điện thoai phải có độ dài 10-12 số.")
     private String soDienThoai1;
 
     private String diaChi1;
 
-    @NotEmpty(message = "Vui lòng nhập ngày sinh")
+    @NotEmpty(message = "Vui lòng nhập ngày sinh.")
 //    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String ngaySinh1;
 
@@ -51,15 +51,15 @@ public class NguoiDungTaiKhoan implements Validator {
 
     private boolean gioiTinh1;
 
-    @NotEmpty(message = "Vui lòng nhập CMND")
-    @Pattern(regexp = "(^$|[0-9]*$)", message = "CMND phải theo định dạng [0][0-9]")
+    @NotEmpty(message = "Vui lòng nhập CMND.")
+    @Pattern(regexp = "(^$|[0-9]*$)", message = "CMND phải theo định dạng [0][0-9].")
     private String cmnd1;
 
-    @NotEmpty(message = "Vui lòng nhập tên đăng nhập")
+    @NotEmpty(message = "Vui lòng nhập tên đăng nhập.")
     private String taiKhoan1;
 
-    @NotEmpty(message = "Vui lòng nhập mật khẩu")
-    @Size(min = 5, message = "Vui lòng nhập mật khẩu lớn hơn 4 ký tự")
+    @NotEmpty(message = "Vui lòng nhập mật khẩu.")
+    @Size(min = 5, message = "Vui lòng nhập mật khẩu lớn hơn 4 ký tự.")
     private String matKhau1;
 
     public NguoiDungTaiKhoan() {

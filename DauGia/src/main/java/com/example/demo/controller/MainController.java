@@ -86,12 +86,10 @@ public class MainController {
             model.addAttribute("errTK", "Ten tai khoan da ton tai");
             model.addAttribute("errEmail", "Email da ton tai");
             return "/phuoc/signUp";
-        }
-        if (taiKhoan != null) {
+        } else if (taiKhoan != null) {
             model.addAttribute("errTK", "Ten tai khoan da ton tai");
             return "/phuoc/signUp";
-        }
-        if (email.size() != 0) {
+        } else if (email.size() != 0) {
             model.addAttribute("errEmail", "Email da ton tai");
             return "/phuoc/signUp";
         }
@@ -100,7 +98,7 @@ public class MainController {
             model.addAttribute("mgsdk", "vui lòng chấp nhận điều khoản");
             return "/phuoc/signUp";
         }
-        Set<Quyen> quyen = taiKhoanQuyenService.findname("ROLE_USER") ;
+        Set<Quyen> quyen = taiKhoanQuyenService.findname("ROLE_USER");
         System.out.println("quyn là  " + quyen);
         TaiKhoan taiKhoan1 = new TaiKhoan(nguoiDungTaiKhoan.getTaiKhoan1(), bCryptPasswordEncoder.encode(nguoiDungTaiKhoan.getMatKhau1()), quyen);
         NguoiDung nguoiDung = new NguoiDung();

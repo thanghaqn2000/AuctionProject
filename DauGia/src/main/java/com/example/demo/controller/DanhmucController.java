@@ -3,6 +3,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.DanhMuc;
 import com.example.demo.model.NguoiDung;
+import com.example.demo.model.TaiKhoan;
 import com.example.demo.repository.nguoi_dung.NguoiDungRepo;
 import com.example.demo.service.danh_muc.DanhMucService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class DanhmucController {
@@ -43,10 +45,18 @@ public class DanhmucController {
         if (bindingResult.hasFieldErrors()) {
             return "/nhu/danhmuc/create";
         }
+        List<DanhMuc> danhMuc1 = danhMucService.findten(danhMuc.getTenDanhMuc());
+
+        if ( danhMuc1.size() != 0) {
+            model.addAttribute("mgsdm", "Danh mục đã tồn tại.");
+            return "/nhu/danhmuc/create";
+        }
+
+
         danhMucService.create(danhMuc);
         NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
         model.addAttribute("nguoiDung", nguoiDung);
-        model.addAttribute("mgsedit", "Thêm mới danh mục thành công");
+        model.addAttribute("mgsedit", "Thêm mới danh mục thành công.");
         model.addAttribute("danhmucs", danhMucService.findAll());
         return "/nhu/danhmuc/list";
     }
@@ -64,7 +74,7 @@ public class DanhmucController {
         this.danhMucService.create(danhMuc);
         NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
         model.addAttribute("nguoiDung", nguoiDung);
-        model.addAttribute("mgsedit", "Sửa danh mục thành công");
+        model.addAttribute("mgsedit", "Sửa danh mục thành công.");
         model.addAttribute("danhmucs", danhMucService.findAll());
         return "/nhu/danhmuc/list";
     }
@@ -74,7 +84,7 @@ public class DanhmucController {
         NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
         model.addAttribute("nguoiDung", nguoiDung);
         this.danhMucService.delete(maDanhMuc);
-        model.addAttribute("mgsedit", "Xóa danh mục thành công");
+        model.addAttribute("mgsedit", "Xóa danh mục thành công.");
         return "/nhu/danhmuc/list";
     }
 

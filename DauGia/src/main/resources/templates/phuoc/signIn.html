@@ -30,11 +30,12 @@
             <div th:if="${#request.getParameter('error') == 'true'}"
                  style="color:red;margin:10px 0px;">
                 Đăng Nhập Thất Bại!!!<br/>
-                Lý do :
-                <span th:if="${#session!= null and #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}"
-                      th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}">
-                Static summary
-         </span>
+                vui lòng kiểm tra lại tên hoặc mật khẩu!
+<!--                Lý do :-->
+<!--                <span th:if="${#session!= null and #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}"-->
+                <!--                      th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}">-->
+                <!--                Static summary-->
+                <!--         </span>-->
             </div>
         </center>
         <div class="login-wrap">
