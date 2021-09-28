@@ -30,12 +30,12 @@
                th:errors="*{tenNguoiDung1}"></p>
 
             <input type="text" class="form-control" placeholder="Tên đăng nhập" th:field="*{taiKhoan1}" autofocus>
-            <p style="color: red;font-size: 13px" th:if="${errTK}">Tên tài khoản đã tồn tại</p>
+            <p style="color: red;font-size: 13px" th:if="${errTK}">Tên tài khoản đã tồn tại.</p>
             <p style="color: red;font-size: 13px" th:if="${#fields.hasErrors('taiKhoan1')}"
                th:errors="*{taiKhoan1}"></p>
 
             <input type="text" class="form-control" placeholder="Email" th:field="*{email1}" autofocus>
-            <p style="color: red;font-size: 13px" th:if="${errEmail}">Email đã tồn tại trong hệ thống</p>
+            <p style="color: red;font-size: 13px" th:if="${errEmail}">Email đã tồn tại trong hệ thống.</p>
             <p style="color: red;font-size: 13px" th:if="${#fields.hasErrors('email1')}" th:errors="*{email1}"></p>
 
             <input type="date" class="form-control" placeholder="Ngày sinh" th:field="*{ngaySinh1}" autofocus>
@@ -63,8 +63,8 @@
             <p style="color: red;font-size: 13px" th:if="${#fields.hasErrors('matKhau1')}" th:errors="*{matKhau1}"></p>
             <label class="checkbox">
                 <input type="checkbox" th:field ="*{dieukhoan}" th:value="dongy"> Tôi đồng ý với
-                <a href="/dieukhoan">Điều khoản dịch vụ và Chính sách quyền riêng tư</a>
-                <p style="color: red;font-size: 13px" th:if="${mgsdk}">vui lòng chấp nhận điều khoản</p>
+                <a href="/dieukhoan">Điều khoản dịch vụ và Chính sách quyền riêng tư.</a>
+                <p style="color: red;font-size: 13px" th:if="${mgsdk}">vui lòng chấp nhận điều khoản.</p>
             </label>
             <button class="btn btn-lg btn-login btn-block" type="submit">Đăng ký</button>
             <label class="checkbox" style="margin-top: 20px;margin-left: 20px">

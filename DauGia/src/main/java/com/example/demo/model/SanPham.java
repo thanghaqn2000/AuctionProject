@@ -25,7 +25,7 @@ public class SanPham implements Validator {
     private String tinhTrang;
 
     @Column(length = 2000)
-    @NotEmpty(message = "Vui lòng nhập mô tả")
+    @NotEmpty(message = "Vui lòng nhập mô tả.")
     private String moTa;
     private String ngayBatDau;
 

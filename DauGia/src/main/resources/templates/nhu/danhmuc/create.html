@@ -47,6 +47,7 @@
                     <div class="col-sm-8">
                         <input type="text" th:field="*{tenDanhMuc}" class="form-control is-invalid" id="inputEmail3">
                         <p style="color: red" th:if="${#fields.hasErrors('tenDanhMuc')}" th:errors="*{tenDanhMuc}"></p>
+                        <p style="color: red;font-size: 13px" th:if="${mgsdm}">Danh mục đã tồn tại.</p>
 
                     </div>
                 </div>
