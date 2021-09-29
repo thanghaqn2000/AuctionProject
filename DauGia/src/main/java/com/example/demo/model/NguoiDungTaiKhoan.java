@@ -52,7 +52,8 @@ public class NguoiDungTaiKhoan implements Validator {
     private boolean gioiTinh1;
 
     @NotEmpty(message = "Vui lòng nhập CMND.")
-    @Pattern(regexp = "(^$|[0-9]*$)", message = "CMND phải theo định dạng [0][0-9].")
+    @Size( min = 9, max = 13, message = "Vui lòng nhập 10->12 số.")
+//    @Pattern(regexp = "(^$|[0-9]*$)", message = "CMND phải theo định dạng [0][0-9].")
     private String cmnd1;
 
     @NotEmpty(message = "Vui lòng nhập tên đăng nhập.")

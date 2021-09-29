@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.ChiTietDonHang;
-import com.example.demo.model.DauGia;
 import com.example.demo.model.NguoiDung;
 import com.example.demo.model.SanPham;
 import com.example.demo.repository.dau_gia.DauGiaRepo;
@@ -95,8 +94,16 @@ public class AdminController {
     @GetMapping(value = "/duyet")
     public String AdminDuyet(Model model, Principal principal) {
         NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
-        model.addAttribute("nguoiDung", nguoiDung);
-        model.addAttribute("sanphams1", sanPhamService.findByTinhTrang("Chưa duyệt"));
+        System.out.println("nguoi dun " + sanPhamService.findByTinhTrang("Chưa duyệt"));
+        if (sanPhamService.findByTinhTrang("Chưa duyệt").size() == 0) {
+            model.addAttribute("mgs", "Đã duyệt hết tất cả sản phẩm!");
+            System.out.println(" tỗng ko taaaaaaaa ");
+        }
+        else {
+
+            model.addAttribute("nguoiDung", nguoiDung);
+            model.addAttribute("sanphams1", sanPhamService.findByTinhTrang("Chưa duyệt"));
+        }
         return "nhu/admin/duyet";
     }
 
@@ -109,7 +116,7 @@ public class AdminController {
             this.sanPhamService.create(sanPham);
             redirectAttributes.addFlashAttribute("mgs1", "Phê duyệt sản phẩm thành công!");
             return "redirect:/admin/duyet";
-        } else { 
+        } else {
             NguoiDung nguoiDung = nguoiDungRepo.findByTaiKhoan_TaiKhoan(principal.getName());
             model.addAttribute("nguoiDung", nguoiDung);
             sanPham.setTinhTrang("Không duyệt");
@@ -191,7 +198,7 @@ public class AdminController {
         if (sanPhams.size() == 0) {
             System.out.println("khíc thức okokek ====" + sanPhams.size());
             model.addAttribute("sanphams1", sanPhams);
-            model.addAttribute("mgs", "khoomg tim thay sp");
+            model.addAttribute("mgs", "Không tìm thấy sản phẩm.");
             return "/nhu/admin/list";
         } else {
 
@@ -210,7 +217,7 @@ public class AdminController {
         List<SanPham> sanPhams = sanPhamService.findByNameDaDuyet1("Chưa duyệt", tenSanPham);
         if (sanPhams.size() == 0) {
             model.addAttribute("sanphams1", sanPhams);
-            model.addAttribute("mgs", "khoomg tim thay sp");
+            model.addAttribute("mgs", "Không tìm thấy sản phẩm.");
             return "/nhu/admin/duyet";
         } else {
             model.addAttribute("sanphams1", sanPhams);
