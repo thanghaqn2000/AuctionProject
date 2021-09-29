@@ -167,14 +167,17 @@
                 <label class="col-sm-2 col-form-label">Ngày đăng ký*</label>
                 <div class="col-sm-8">
                     <input readonly type="date" th:field="*{ngayDangKi}" th:value="*{ngayDangKi}"
-                           class="form-control is-invalid" disabled>
+                           class="form-control is-invalid" hidden="hidden">
+                    <span th:utext="*{ngayDangKi}"></span>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Tình Trạng</label>
                 <div class="col-sm-8">
-                    <select class="form-control is-invalid" th:field="*{tinhTrang}" disabled>
-                        <option th:value="${chuaduyet}"><span th:utext="${chuaduyet}"></span>
+                    <span th:utext="${chuaduyet}"></span>
+                    <select class="form-control is-invalid" th:field="*{tinhTrang}" hidden="hidden">
+                        <option th:value="${chuaduyet}">
+                            <span th:utext="${chuaduyet}"></span>
                         </option>
                     </select>
                 </div>
@@ -182,7 +185,8 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Tài Khoản bán *</label>
                 <div class="col-sm-8">
-                    <select class="form-control custom-select is-invalid" th:field="*{taiKhoan}" disabled>
+                    <span th:utext="${usernams}"></span>
+                    <select class="form-control custom-select is-invalid" th:field="*{taiKhoan}" hidden="hidden">
                         <option th:text="${usernams}"
                                 th:value="${usernams}">
                         </option>

@@ -67,142 +67,153 @@
         });
     });
 </script>
+<div class="row">
+    <div class="col-sm-2">
 
+    </div>
+    <div class="col-sm-8">
+        <div class="container">
+            <form method="get" action="/sanpham/list" th:object="${sanphams}">
+                <fieldset>
+                    <div class="services-top">
+                        <h3 class="btn btn-secondary"> Chi tiết sản phẩm </h3>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label"  style="padding: 10px 20px 10px 5px;">Mã Sản Phẩm:</label>
+                        <div class="col-sm-7">
+                            <span th:utext="*{maSanPham}">  </span>
+                            <input type="text" th:field="*{maSanPham}" class="form-control is-invalid" hidden="hidden">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label"  style="padding: 10px 20px 10px 5px;">Tên sản phẩm:</label>
+                        <div class="col-sm-7">
+                            <span th:utext="*{tenSanPham}"></span>
+                            <input type="text" th:field="*{tenSanPham}" class="form-control is-invalid" hidden="hidden">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label"  style="padding: 10px 20px 10px 5px;">Người đăng:</label>
+                        <div class="col-sm-7">
+                            <span th:utext="${sanphams.taiKhoan.nguoiDung.tenNguoiDung}"></span>
+                            <select class="form-control  is-invalid" th:field="*{taiKhoan}" hidden="hidden">
+                                <option th:text="${sanphams.taiKhoan.nguoiDung.tenNguoiDung}"
+                                        th:value="${sanphams.taiKhoan.taiKhoan}" class="form-control is-invalid"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label"  style="padding: 10px 20px 10px 5px;">Số Lượng:</label>
+                        <div class="col-sm-7">
+                            <span th:utext="*{soLuong}"></span>
+                            <input type="number" th:field="*{soLuong}" class="form-control is-invalid" hidden="hidden">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label readonly class="col-sm-3 col-form-label"  style="padding: 10px 20px 10px 5px;">Danh Mục:</label>
+                        <div class="col-sm-7">
+                            <select class="form-control  is-invalid" th:field="*{danhMuc}" hidden="hidden">
+                                <option th:text="${sanphams.danhMuc.tenDanhMuc}"
+                                        th:value="${sanphams.danhMuc.maDanhMuc}"></option>
+                            </select>
+                            <span th:utext="${sanphams.danhMuc.tenDanhMuc}"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label"  style="padding: 10px 20px 10px 5px;">Hình ảnh sản phẩm:</label>
+                        <div class="col-sm-7">
+                            <img style="height: 250px;width: auto;" th:src="@{${'/img/' + sanphams.hinh}}" alt="">
+                            <br/>
+                            <span th:utext="*{hinh}"></span>
+                            <input type="text" th:field="*{hinh}" hidden="hidden">
+                        </div>
+                    </div>
 
-<div class="container">
-    <form method="get" action="/sanpham/list" th:object="${sanphams}">
-        <fieldset>
-            <div class="services-top">
-                <h3 class="btn btn-secondary"> Chi tiết sản phẩm </h3>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Mã Sản Phẩm:</label>
-                <div class="col-sm-8">
-                    <span th:utext="*{maSanPham}">  </span>
-                    <input type="text" th:field="*{maSanPham}" class="form-control is-invalid" hidden="hidden">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Tên sản phẩm:</label>
-                <div class="col-sm-8">
-                    <span th:utext="*{tenSanPham}"></span>
-                    <input type="text" th:field="*{tenSanPham}" class="form-control is-invalid" hidden="hidden">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Người đăng:</label>
-                <div class="col-sm-8">
-                    <span th:utext="${sanphams.taiKhoan.nguoiDung.tenNguoiDung}"></span>
-                    <select class="form-control  is-invalid" th:field="*{taiKhoan}" hidden="hidden">
-                        <option th:text="${sanphams.taiKhoan.nguoiDung.tenNguoiDung}"
-                                th:value="${sanphams.taiKhoan.taiKhoan}" class="form-control is-invalid"></option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Số Lượng:</label>
-                <div class="col-sm-8">
-                    <span th:utext="*{soLuong}"></span>
-                    <input type="number" th:field="*{soLuong}" class="form-control is-invalid" hidden="hidden">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label readonly class="col-sm-2 col-form-label">Danh Mục:</label>
-                <div class="col-sm-8">
-                    <select class="form-control  is-invalid" th:field="*{danhMuc}" hidden="hidden">
-                        <option th:text="${sanphams.danhMuc.tenDanhMuc}"
-                                th:value="${sanphams.danhMuc.maDanhMuc}"></option>
-                    </select>
-                    <span th:utext="${sanphams.danhMuc.tenDanhMuc}"></span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Hình ảnh sản phẩm:</label>
-                <div class="col-sm-8">
-                    <img th:src="@{${'/img/' + sanphams.hinh}}" alt="">
-                    <br/>
-                    <span th:utext="*{hinh}"></span>
-                    <input type="text" th:field="*{hinh}" hidden="hidden">
-                </div>
-            </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Giá ban đầu:</label>
+                        <div class="col-sm-7">
+                            <span th:utext="*{giaKhoiDiem}"></span>
+                            <input   type="number" th:field="*{giaKhoiDiem}" class="form-control is-invalid" hidden="hidden">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Bước giá:</label>
+                        <div class="col-sm-7">
+                            <span th:utext="*{mucGia}"></span>
+                            <input th:field="*{mucGia}" type="number" class="form-control is-invalid"
+                                   placeholder="Là giá thấp nhất trong mỗi lần tăng giá" hidden="hidden">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Giờ bắt đầu:</label>
+                        <div class="col-sm-6">
+                            <span th:utext="*{gioBatDau}"></span>
+                            <input type="time" th:field="*{gioBatDau}" class="form-control is-invalid" hidden="hidden">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Ngày Bắt đầu:</label>
+                        <div class="col-sm-6">
+                            <span th:utext="*{ngayBatDau}"></span>
+                            <input type="date" th:field="*{ngayBatDau}" class="form-control is-invalid" hidden="hidden">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Giờ Kết thúc:</label>
+                        <div class="col-sm-6">
+                            <span th:utext="*{gioKetThuc}"></span>
+                            <input type="time" th:field="*{gioKetThuc}" class="form-control is-invalid" hidden="hidden">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Ngày kết thúc:</label>
+                        <div class="col-sm-6">
+                            <span th:utext="*{ngayKetThuc}"></span>
+                            <input type="date" th:field="*{ngayKetThuc}" class="form-control is-invalid" hidden="hidden">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Thông tin chi tiết:</label>
+                        <div class="col-sm-9">
+                            <span th:utext="*{moTa}"></span>
+                            <textarea type="textarea" th:field="*{moTa}" class="form-control is-invalid" rows="6"
+                                      hidden="hidden"> </textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Ngày đăng ký:</label>
+                        <div class="col-sm-7">
+                            <span th:utext="*{ngayDangKi}"></span>
+                            <input type="date" th:field="*{ngayDangKi}" class="form-control is-invalid" hidden="hidden">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Tình Trạng:</label>
+                        <div class="col-sm-7">
+                            <span th:utext="*{tinhTrang}"></span>
+                            <input type="text" th:field="*{tinhTrang}" class="form-control is-invalid" hidden="hidden">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-3">
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="submit" style="background:#1ab7ea;color: white" class="form-control"
+                                   value="đóng">
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
 
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Giá ban đầu:</label>
-                <div class="col-sm-8">
-                    <span th:utext="*{giaKhoiDiem}"></span>
-                    <input type="number" th:field="*{giaKhoiDiem}" class="form-control is-invalid" hidden="hidden">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Bước giá:</label>
-                <div class="col-sm-8">
-                    <span th:utext="*{mucGia}"></span>
-                    <input th:field="*{mucGia}" type="number" class="form-control is-invalid"
-                           placeholder="Là giá thấp nhất trong mỗi lần tăng giá" hidden="hidden">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Giờ bắt đầu:</label>
-                <div class="col-sm-5">
-                    <span th:utext="*{gioBatDau}"></span>
-                    <input type="time" th:field="*{gioBatDau}" class="form-control is-invalid" hidden="hidden">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Ngày Bắt đầu:</label>
-                <div class="col-sm-5">
-                    <span th:utext="*{ngayBatDau}"></span>
-                    <input type="date" th:field="*{ngayBatDau}" class="form-control is-invalid" hidden="hidden">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Giờ Kết thúc:</label>
-                <div class="col-sm-5">
-                    <span th:utext="*{gioKetThuc}"></span>
-                    <input type="time" th:field="*{gioKetThuc}" class="form-control is-invalid" hidden="hidden">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Ngày kết thúc:</label>
-                <div class="col-sm-5">
-                    <span th:utext="*{ngayKetThuc}"></span>
-                    <input type="date" th:field="*{ngayKetThuc}" class="form-control is-invalid" hidden="hidden">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Thông tin chi tiết:</label>
-                <div class="col-sm-10">
-                    <span th:utext="*{moTa}"></span>
-                    <textarea type="textarea" th:field="*{moTa}" class="form-control is-invalid" rows="6"
-                              hidden="hidden"> </textarea>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Ngày đăng ký:</label>
-                <div class="col-sm-8">
-                    <span th:utext="*{ngayDangKi}"></span>
-                    <input type="date" th:field="*{ngayDangKi}" class="form-control is-invalid" hidden="hidden">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Tình Trạng:</label>
-                <div class="col-sm-8">
-                    <span th:utext="*{tinhTrang}"></span>
-                    <input type="text" th:field="*{tinhTrang}" class="form-control is-invalid" hidden="hidden">
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-sm-2">
-                </div>
-                <div class="col-sm-1">
-                    <input type="submit" style="background:#1ab7ea;color: white" class="form-control"
-                           value="đóng">
-                </div>
-            </div>
-        </fieldset>
-    </form>
+        </div>
+    </div>
+    <div class="col-sm-2">
 
+    </div>
 </div>
+
+
+
 
 <div th:replace="~{/luan/product-detail::chat}">
 
